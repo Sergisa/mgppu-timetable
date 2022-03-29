@@ -1,0 +1,17 @@
+{
+    "name": "sergisa/timetable",
+    "autoload": {
+        "psr-4": {
+            "Sergisa\\Timetable\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Sergisa",
+            "email": "phebra@yandex.ru"
+        }
+    ],
+    "require": {
+        "illuminate/collections": "^9.5"
+    }
+}
