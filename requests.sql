@@ -88,15 +88,6 @@ SELECT Дисциплины._Description                                  AS Dis
        ВидыЗанятий._Fld7440                                     AS TypeShort,
        CONVERT(VARCHAR, ТчРасписаниеЗвонков._Fld7102, 108)      AS TimeStart,
        CONVERT(VARCHAR, ТчРасписаниеЗвонков._Fld7103, 108)      AS TimeEnd,
-       CASE
-           WHEN ИтоговыйКонтроль._Description IS NULL THEN
-                   SUBSTRING(CONVERT(VARCHAR, ТчРасписаниеЗвонков._Fld7102, 108), 1, 5) + ' - ' +
-                   SUBSTRING(CONVERT(VARCHAR, ТчРасписаниеЗвонков._Fld7103, 8), 1, 5)
-           ELSE
-                   SUBSTRING(CONVERT(VARCHAR, РегистрДисциплины._Fld7258, 108), 1, 5) + ' (' +
-                   ИтоговыйКонтроль._Description + ')'
-           END
-                                                                AS lessonTimeRange,
        Здания._IDRRef                                           AS BuildingID,
        УчебныеГруппы._IDRRef                                    AS GroupID,
        Дисциплины._IDRRef                                       AS DisciplineID,
