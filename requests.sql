@@ -1,6 +1,11 @@
 -- Получение списка учебных годов
 SELECT CONVERT(CHAR(32), УчебныеГода._IDRRef, 2) AS id,
-       УчебныеГода._Description                  AS name
+       УчебныеГода._Description                  AS name,
+       УчебныеГода._Code                         AS estimates,
+       УчебныеГода._Fld2722,
+       УчебныеГода._Fld2723,
+       УчебныеГода._Fld2724,
+       УчебныеГода._Fld2725
 FROM _Reference2696 As УчебныеГода
 WHERE УчебныеГода._IDRRef IN
       (SELECT DISTINCT РегистрДисциплины._Fld7246RRef FROM _InfoRg7081 AS РегистрДисциплины)
@@ -12,11 +17,30 @@ SELECT CONVERT(CHAR(32), Семестры._IDRRef, 2) AS id,
 FROM _Reference5069 AS Семестры
 ORDER BY Семестры._Code
 
+
+--Список преподавателей
+SELECT _Fld7885, _Fld589
+FROM _InfoRg7084 AS ПреподавателиДисциплин
+         LEFT JOIN _Reference2202 AS Преподаватели ON ПреподавателиДисциплин._Fld7243RRef = Преподаватели._IDRRef
+         LEFT JOIN _Reference2527 AS ДолжностиППС ON Преподаватели._Fld2528RRef = ДолжностиППС._IDRRef
+         LEFT JOIN _InfoRg378 AS ФИОФизЛиц ON Преподаватели._OwnerIDRRef = ФИОФизЛиц._Fld379RRef
+
+--Список кабинетов
+SELECT Помещения._Description   AS Room,
+       ЭтажиЗданий._Description AS Floor,
+       Здания._Description      AS Building,
+       Помещения._IDRRef        AS RoomId,
+       ЭтажиЗданий._IDRRef      AS FloorID,
+       Здания._IDRRef           AS BuildingID
+FROM _Reference2863 AS Помещения
+         LEFT JOIN _Reference2865 AS ЭтажиЗданий ON Помещения._OwnerIDRRef = ЭтажиЗданий._IDRRef
+         LEFT JOIN _Reference2864 AS Здания ON ЭтажиЗданий._OwnerIDRRef = Здания._IDRRef
+
+
 -- Получение списка задействованных учебных подразделений (институты и факультеты) по семестру и учебному году
 SELECT CONVERT(CHAR(32), Институты._IDRRef, 2) AS id,
        Институты._Description                  AS name,
        Институты._Fld152                       as abbr
-
 FROM _Reference151 AS Институты
 WHERE Институты._IDRRef in
       (
@@ -64,15 +88,6 @@ SELECT Дисциплины._Description                                  AS Dis
        ВидыЗанятий._Fld7440                                     AS TypeShort,
        CONVERT(VARCHAR, ТчРасписаниеЗвонков._Fld7102, 108)      AS TimeStart,
        CONVERT(VARCHAR, ТчРасписаниеЗвонков._Fld7103, 108)      AS TimeEnd,
-       CASE
-           WHEN ИтоговыйКонтроль._Description IS NULL THEN
-                   SUBSTRING(CONVERT(VARCHAR, ТчРасписаниеЗвонков._Fld7102, 108), 1, 5) + ' - ' +
-                   SUBSTRING(CONVERT(VARCHAR, ТчРасписаниеЗвонков._Fld7103, 8), 1, 5)
-           ELSE
-                   SUBSTRING(CONVERT(VARCHAR, РегистрДисциплины._Fld7258, 108), 1, 5) + ' (' +
-                   ИтоговыйКонтроль._Description + ')'
-           END
-                                                                AS lessonTimeRange,
        Здания._IDRRef                                           AS BuildingID,
        УчебныеГруппы._IDRRef                                    AS GroupID,
        Дисциплины._IDRRef                                       AS DisciplineID,
