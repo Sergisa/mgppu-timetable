@@ -12,6 +12,7 @@
         }
     ],
     "require": {
-        "illuminate/collections": "^9.5"
+        "illuminate/collections": "^9.5",
+      "ext-json": "*"
     }
 }
