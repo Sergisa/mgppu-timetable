@@ -2,7 +2,7 @@
 <project version="4">
   <component name="PublishConfigData" serverName="sergisa" remoteFilesAllowedToDisappearOnAutoupload="false">
     <serverData>
-      <paths name="MGPPU_competency">
+      <paths name="annTest">
         <serverdata>
           <mappings>
             <mapping local="$PROJECT_DIR$" web="/" />
@@ -12,7 +12,7 @@
       <paths name="sergisa">
         <serverdata>
           <mappings>
-            <mapping deploy="/www/timetable.smrtp.ru" local="$PROJECT_DIR$" web="/" />
+            <mapping local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>
