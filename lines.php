@@ -65,6 +65,12 @@ include 'functions.php';
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     const lines = $('.line');
+    const lessonAmount = 5;
+    const topHeight = 8;
+
+    function signum(x) {
+        return (x === 0) ? 0 : Math.abs(x) / x;
+    }
 
     function makeGridLines() {
         for (let i = 1; i <= 4; i++) {
@@ -73,22 +79,17 @@ include 'functions.php';
     }
 
     function fillDay(line, from, to) {
-        const singleSize = 100 / 5;
+        const lessonHeight = (100 - topHeight) / lessonAmount;
+        const top = (topHeight + lessonHeight * from) * signum(from - 1);
+        const range = to - from;
+        //FIXME: Signum not working on height calculation
+        const rangeHeight = (range * lessonHeight) + 8 - (topHeight * signum(from - 1));
         line.html(`${from}-${to}`)
 
-        //FIXME: bottom fill shifting
-        if (from !== 1) {
-            line.css({
-                'top': `${singleSize * (from - 1) + 8}%`,
-                'bottom': `${singleSize * (to - (from - 1)) - 8}%`
-            })
-        } else {
-            line.css({
-                'top': '0%',
-                'bottom': `${singleSize * (to - (from)) + 12}%`
-            })
-        }
-
+        line.css({
+            'top': `${top}%`,
+            'height': `${rangeHeight}%`
+        })
     }
 
     lines.prepend('<span class="overlay"></span>')

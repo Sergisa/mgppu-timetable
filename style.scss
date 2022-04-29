@@ -18,7 +18,7 @@ body {
 }
 
 .line .lesson {
-  height: 20%;
+  height: ((100-8)/5)*1%;
   color: #FCBB6D;
   display: flex;
   align-items: center;
@@ -86,7 +86,7 @@ body {
 
 @for $i from 1 through 5 {
   .line span.timeLine.\3#{$i} {
-    top: percentage((20 * ($i) + 8) / 100);
+    top: percentage((($i*92/5) + 8) / 100);
   }
 }
 
