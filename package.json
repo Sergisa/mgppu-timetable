@@ -6,9 +6,16 @@
   "dependencies": {
     "bootstrap": "^5.1.3"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "node-sass": "^7.0.1",
+    "sass": "^1.51.0",
+    "stylelint": "^14.8.1",
+    "stylelint-config-twbs-bootstrap": "^3.0.1"
+  },
   "scripts": {
-    "test": "sass style.scss:style.css"
+    "test": "sass style.scss:style.css",
+    "test1": "node-sass --help",
+    "test2": "sass --help"
   },
   "repository": {
     "type": "git",

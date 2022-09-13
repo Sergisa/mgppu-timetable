@@ -21,7 +21,8 @@ ORDER BY Семестры._Code
 --Список преподавателей
 SELECT _Fld7885, _Fld589
 FROM _InfoRg7084 AS ПреподавателиДисциплин
-         LEFT JOIN _Reference2202 AS Преподаватели ON ПреподавателиДисциплин._Fld7243RRef = Преподаватели._IDRRef
+         LEFT JOIN _Reference2202 AS Преподаватели
+                   ON ПреподавателиДисциплин._Fld7243RRef = Преподаватели._IDRRef
          LEFT JOIN _Reference2527 AS ДолжностиППС ON Преподаватели._Fld2528RRef = ДолжностиППС._IDRRef
          LEFT JOIN _InfoRg378 AS ФИОФизЛиц ON Преподаватели._OwnerIDRRef = ФИОФизЛиц._Fld379RRef
 
@@ -34,7 +35,8 @@ SELECT Помещения._Description   AS Room,
        Здания._IDRRef           AS BuildingID
 FROM _Reference2863 AS Помещения
          LEFT JOIN _Reference2865 AS ЭтажиЗданий ON Помещения._OwnerIDRRef = ЭтажиЗданий._IDRRef
-         LEFT JOIN _Reference2864 AS Здания ON ЭтажиЗданий._OwnerIDRRef = Здания._IDRRef
+         LEFT JOIN _Reference2864 AS Здания
+                   ON ЭтажиЗданий._OwnerIDRRef = Здания._IDRRef
 
 
 -- Получение списка задействованных учебных подразделений (институты и факультеты) по семестру и учебному году
@@ -66,9 +68,9 @@ WHERE УчебныеГруппы._IDRRef IN
                    INNER JOIN _Reference176 AS УчебныеГруппы ON РегистрДисциплины._Fld7251RRef = УчебныеГруппы._IDRRef
                    INNER JOIN _Reference151 AS Институты ON УчебныеГруппы._Fld1234RRef = Институты._IDRRef
                    LEFT JOIN _Reference5069 AS Семестры ON РегистрДисциплины._Fld7247RRef = Семестры._IDRRef
-          WHERE РегистрДисциплины._Fld7246RRef = :academicYearId -- Учебный год Принимать внешним параметром
-            AND Семестры._IDRRef = :semesterId /* Осенний (0x80C4000C299AE95511E6FFDE22A08A7E), Весенний(0x80C4000C299AE95511E6FFDE22A08A7D)*/
-            AND Институты._IDRRef = :departmentId -- Институт Принимать внешним параметром
+          WHERE Институты._IDRRef = 0x80C7000C295831B711E85F52CCC70668 -- Институт Принимать внешним параметром
+          --AND РегистрДисциплины._Fld7246RRef = 0x80DF000C295831C111EBC7A8E96D12AE -- 80DF000C295831C111EBC7A8E96D12AE,2021/2022 80DB000C295831C111EAC5C36D634262,2020/2021
+          --AND Семестры._IDRRef = 0x80C4000C299AE95511E6FFDE22A08A7D /* Осенний (0x80C4000C299AE95511E6FFDE22A08A7E), Весенний(0x80C4000C299AE95511E6FFDE22A08A7D)*/
       )
 ORDER BY name
 
@@ -101,27 +103,23 @@ SELECT Дисциплины._Description                                  AS Dis
        РегистрДисциплины._Fld7258,
        РегистрДисциплины._Fld7259
 FROM _InfoRg7081 AS РегистрДисциплины
-         LEFT JOIN _Reference4684 AS ВидыЗанятий ON РегистрДисциплины._Fld7250RRef = ВидыЗанятий._IDRRef
+         LEFT JOIN _Reference4684 AS ВидыЗанятий
+                   ON РегистрДисциплины._Fld7250RRef = ВидыЗанятий._IDRRef
          LEFT JOIN _Reference4514 AS УчебныеПары ON РегистрДисциплины._Fld7249RRef = УчебныеПары._IDRRef
          LEFT JOIN _Reference7092 AS ВидыНедели ON РегистрДисциплины._Fld7253RRef = ВидыНедели._IDRRef
          LEFT JOIN _Reference1318 AS Дисциплины ON РегистрДисциплины._Fld7252RRef = Дисциплины._IDRRef
          LEFT JOIN _Reference5069 AS Семестры ON РегистрДисциплины._Fld7247RRef = Семестры._IDRRef
          LEFT JOIN _Reference2658 AS ИтоговыйКонтроль ON РегистрДисциплины._Fld7255RRef = ИтоговыйКонтроль._IDRRef
-
          LEFT JOIN _Reference4729 AS Подгруппы ON РегистрДисциплины._Fld7245RRef = Подгруппы._IDRRef
          LEFT JOIN _Reference5126 AS НомераПодгрупп ON Подгруппы._Fld5128RRef = НомераПодгрупп._IDRRef
-
          LEFT JOIN _Reference2863 AS Помещения ON РегистрДисциплины._Fld7254RRef = Помещения._IDRRef
          LEFT JOIN _Reference2865 AS ЭтажиЗданий ON Помещения._OwnerIDRRef = ЭтажиЗданий._IDRRef
          LEFT JOIN _Reference2864 AS Здания ON ЭтажиЗданий._OwnerIDRRef = Здания._IDRRef
-
          LEFT JOIN _Reference176 AS УчебныеГруппы ON РегистрДисциплины._Fld7251RRef = УчебныеГруппы._IDRRef
          LEFT JOIN _Reference151 AS Институты ON УчебныеГруппы._Fld1234RRef = Институты._IDRRef
-
          LEFT JOIN _Reference7082_VT7083 AS ТчРасписаниеЗвонков
                    ON РегистрДисциплины._Fld7244RRef = ТчРасписаниеЗвонков._Reference7082_IDRRef AND
                       РегистрДисциплины._Fld7249RRef = ТчРасписаниеЗвонков._Fld7101RRef
-
          LEFT JOIN _InfoRg7084 AS ПреподавателиДисциплин ON РегистрДисциплины._Fld7257 = ПреподавателиДисциплин._Fld7242
          LEFT JOIN _Reference2202 AS Преподаватели ON ПреподавателиДисциплин._Fld7243RRef = Преподаватели._IDRRef
          LEFT JOIN _InfoRg7239 AS ДниПроведенияЗанятий ON РегистрДисциплины._Fld7257 = ДниПроведенияЗанятий._Fld7240

@@ -1,3 +1,4 @@
+@use "sass:math";
 @import "node_modules/bootstrap/scss/bootstrap";
 
 .container .row {
@@ -18,7 +19,7 @@ body {
 }
 
 .line .lesson {
-  height: ((100-8)/5)*1%;
+  height: math.div(100-8, 5)*1%;
   color: #FCBB6D;
   display: flex;
   align-items: center;
@@ -35,7 +36,7 @@ body {
   content: "";
   position: absolute;
   //height: 10%;
-  background: #685D79;;
+  background: #685D79;
   //display: block;
   width: 100%;
   z-index: -1;
@@ -86,7 +87,7 @@ body {
 
 @for $i from 1 through 5 {
   .line span.timeLine.\3#{$i} {
-    top: percentage((($i*92/5) + 8) / 100);
+    top: percentage(math.div(math.div($i*92, 5) + 8, 100));
   }
 }
 
@@ -96,4 +97,18 @@ body {
   height: 0;
   border-bottom: 1px dashed;
   left: 0;
+}
+
+#listDays .list-group-item {
+  background: none;
+  color: #FCBB6D;
+  border-color: #D8737F;
+  font-weight: 300;
+  span.date{
+    font-weight: bold;
+    color: #D8737F;
+    background-color: #685d79;
+    padding: 0 0.8em;
+    border-radius: 5px;
+  }
 }
