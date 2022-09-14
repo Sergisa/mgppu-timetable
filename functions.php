@@ -2,21 +2,26 @@
 
 use Illuminate\Support\Collection;
 
+function convertDate($pattern, $date): string
+{
+    return date($pattern, strtotime($date));
+}
+
 function groupCollapsing($timetable): Collection
 {
     return $timetable->map(function ($item) use ($timetable) {
         $newObj = collect($item)->prepend([
             'building' => [
-                "id"=>$item['BuildingID'],
-                "name"=>$item['Building']
+                "id" => $item['BuildingID'],
+                "name" => $item['Building']
             ],
             'floor' => [
-                "id"=>$item['FloorID'],
-                "name"=>$item['Floor']
+                "id" => $item['FloorID'],
+                "name" => $item['Floor']
             ],
             'room' => [
-                "index"=>$item['Room'],
-                "id"=>$item['RoomID']
+                "index" => $item['Room'],
+                "id" => $item['RoomID']
             ]
         ], "Coords")->prepend([
             'id' => $item['TeacherID'],

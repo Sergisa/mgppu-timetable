@@ -13,6 +13,7 @@
     ],
     "require": {
         "illuminate/collections": "^9.5",
-      "ext-json": "*"
+      "ext-json": "*",
+      "ext-mbstring": "*"
     }
 }

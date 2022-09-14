@@ -1,6 +1,20 @@
 <?php
 include 'vendor/autoload.php';
 include 'functions.php';
+ini_set('memory_limit', '-1');
+$myfile = fopen("Timetable2022.json", "r") or die("Unable to open file!");
+$file = fread($myfile, filesize("Timetable2022.json"));
+fclose($myfile);
+$timetable = collect(json_decode($file, true));
+$timetable = groupCollapsing($timetable);
+$currentDate = date("d.m.Y");
+//$currentDate = date("d.m.Y", strtotime("+1 day", strtotime(date("d.m.Y"))));
+$timetable = $timetable
+    //->where('dayDate', $currentDate)
+    ->where("TeacherFIO", "Исаков Сергей Сергеевич")
+    ->where("Department.code", "ИТ")
+    ->groupBy('dayDate')
+    ->sortBy('TimeStart');
 ?>
 <!doctype html>
 <html lang="en">
@@ -24,52 +38,42 @@ include 'functions.php';
     </style>
 </head>
 <body class="container">
+<!--<pre><code>-->
+<?php //echo json_encode($timetable, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) ?><!--</code></pre>-->
 <div class="row">
-    <div class="col-8 d-flex matrix row justify-content-between align-items-center flex-nowrap overflow-auto">
-        <div class="line">
-            <div class="head">
-                <div class="day">Суббота</div>
-                <div class="day">21 мая</div>
-            </div>
-            <div class="lesson">Проектный практикум в предметной области психология</div>
-            <div class="lesson">Информационные системы и базы данных</div>
-            <div class="lesson">Проектрование информационных систем</div>
-        </div>
-        <div class="line">
-            <div class="head">
-                <div class="day">Суббота</div>
-                <div class="day">21 мая</div>
-            </div>
-        </div>
-        <div class="line">
-            <div class="head">
-                <div class="day">Суббота</div>
-                <div class="day">21 мая</div>
-            </div>
-        </div>
-        <div class="line">
-            <div class="head">
-                <div class="day">Суббота</div>
-                <div class="day">21 мая</div>
-            </div>
-        </div>
-        <div class="line">
-            <div class="head">
-                <div class="day">Суббота</div>
-                <div class="day">21 мая</div>
-            </div>
-        </div>
-    </div>
+    <div class="col-8 d-flex matrix row justify-content-between align-items-start flex-nowrap overflow-auto" id="monthGrid"></div>
     <div id="listDays" class="col-4">
         <ul class="list-group list-group-flush bg-opacity-100">
-            <li class="list-group-item">
-                <span class="date">20.12</span>
-                Проектный практикум в предметной области психология
-            </li>
-            <li class="list-group-item">A second item</li>
-            <li class="list-group-item">A third item</li>
-            <li class="list-group-item">A fourth item</li>
-            <li class="list-group-item">And a fifth one</li>
+            <?php
+            foreach ($timetable as $date => $lessons) {
+                $lessons = collect($lessons)->map(function ($lesson) use ($lessons) {
+                    $similars = $lessons->filter(function ($tmt) use ($lesson) {
+                        return $tmt['dayDate'] == $lesson['dayDate']
+                            && $tmt['Group']['id'] != $lesson['Group']['id']
+                            && $tmt['DisciplineID'] == $lesson['DisciplineID']
+                            && $tmt['Number'] == $lesson['Number'];
+                    });
+                    if ($similars->count() > 0) {
+                        $lesson['Group'] = array_merge([$lesson['Group']], $similars->pluck('Group')->unique()->toArray());
+                    } else {
+                        $lesson['Group'] = [$lesson['Group']];
+                    }
+                    return $lesson;
+                })->unique("Number");
+                //echo json_encode($lessons, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+                echo "<li class='list-group-item'>";
+                echo "<div class='labels'>
+                    <span class='date me-1'>" . convertDate('d.m', $date) . "</span>";
+                foreach (collect($lessons)->pluck("Type") as $type) {
+                    echo "<span class='type me-1'>" . mb_substr($type, 0, 1) . "</span>";
+                }
+                echo "</div>";
+                foreach ($lessons as $lesson) {
+                    echo "<div>{$lesson['Discipline']} " . implode(' ', collect($lesson['Group'])->pluck('name')->toArray()) . " </div>";
+                }
+                echo "</li>";
+            }
+            ?>
         </ul>
     </div>
 </div>
@@ -81,42 +85,20 @@ include 'functions.php';
     const lessonAmount = 5;
     const topHeight = 8;
 
-    function signum(x) {
-        return (x === 0) ? 0 : Math.abs(x) / x;
+    function generateDay(lessons) {
+        return $(`<div class="day"></div>`)
+            .append('<div class="lesson">314</div>')
+            .append('<div class="lesson">211-212</div>')
+            .append('<div class="lesson">211-212</div>')
     }
 
-    function makeGridLines() {
-        for (let i = 1; i <= 4; i++) {
-            lines.append(`<span class="timeLine ${i}"></span>`);
-        }
+    function generateGrid() {
+        $(`<div class="month"></div>`)
+            .append(generateDay())
+            .appendTo($('#monthGrid'))
     }
 
-    function fillDay(line, from, to) {
-        const lessonHeight = (100 - topHeight) / lessonAmount;
-        const top = (topHeight + lessonHeight * from) * signum(from - 1);
-        const range = to - from;
-        //FIXME: Signum not working on height calculation
-        const rangeHeight = (range * lessonHeight) + 8 - (topHeight * signum(from - 1));
-        line.html(`${from}-${to}`)
-
-        line.css({
-            'top': `${top}%`,
-            'height': `${rangeHeight}%`
-        })
-    }
-
-    lines.prepend('<span class="overlay"></span>')
-    $('.line .head').click(function () {
-        $('.line.active').removeClass('active');
-        $(this).parent().addClass('active');
-    })
-
-    fillDay($('.line:eq(0) .overlay'), 1, 3);
-    fillDay($('.line:eq(1) .overlay'), 2, 5);
-    fillDay($('.line:eq(4) .overlay'), 1, 4);
-    fillDay($('.line:eq(3) .overlay'), 2, 3);
-    makeGridLines()
-    //draw(document.getElementById('timeLines'))
+    generateGrid();
 </script>
 </html>
 
