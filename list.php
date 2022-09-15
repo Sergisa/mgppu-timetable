@@ -15,7 +15,7 @@ $timetable = $timetable
     ->where("Department.code", "ИТ");
 $timetable = collapseSimilarities($timetable)
     ->groupBy('dayDate')
-    ->sortBy('TimeStart');
+    ->sortBy(['TimeStart']);
 ?>
 <!doctype html>
 <html lang="en">
@@ -73,20 +73,21 @@ $timetable = collapseSimilarities($timetable)
     const topHeight = 8;
 
     function generateDay(lessons) {
-        return $(`<div class="day"></div>`)
-            .append('<div class="lesson">314</div>')
-            .append('<div class="lesson">211-212</div>')
-            .append('<div class="lesson">211-212</div>')
+        let dayPattern = $(`<div class="day"></div>`)
+        for (const lesson of lessons) {
+            dayPattern.append(`<div class="${lesson === null ? "" : "lesson"}">${lesson === null ? "" : lesson}</div>`)
+        }
+        return dayPattern;
     }
 
     function generateDayLine() {
         return $(`<div class="dayLine"></div>`)
-            .append(generateDay())
-            .append(generateDay())
-            .append(generateDay())
-            .append(generateDay())
-            .append(generateDay())
-            .append(generateDay())
+            .append(generateDay([312]))
+            .append(generateDay([null, 405, 548]))
+            .append(generateDay([566]))
+            .append(generateDay(["211-212"]))
+            .append(generateDay(["211-212"]))
+            .append(generateDay(["211-212"]))
     }
 
     function generateGrid(month) {
