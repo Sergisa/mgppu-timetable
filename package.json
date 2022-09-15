@@ -13,9 +13,9 @@
     "stylelint-config-twbs-bootstrap": "^3.0.1"
   },
   "scripts": {
-    "test": "sass style.scss:style.css",
-    "test1": "node-sass --help",
-    "test2": "sass --help"
+    "css-compile": "sass style.scss:style.css",
+    "css-watch": "sass style.scss:style.css --watch",
+    "sass-help": "sass --help"
   },
   "repository": {
     "type": "git",

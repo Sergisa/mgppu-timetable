@@ -1,0 +1,39 @@
+.calendar {
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  display: flex;
+
+  .month {
+    height: 100%;
+    overflow-x: scroll;
+
+    .dayLine {
+      @include make-row();
+      flex-wrap: nowrap;
+      /*display: flex;
+      justify-content: space-between;*/
+      height: 23%;
+
+      .day {
+        @include make-col-ready();
+        @include make-col(2);
+        /*flex-grow: 1;
+        display: inline-block;*/
+        border-radius: 3px;
+        border: 2px solid #D8737F;
+        background-color: #475C7A;
+        color: #D8737F;
+        margin-bottom: map-get($spacers, 1);
+        margin-right: map-get($spacers, 1);
+
+        .lesson {
+          background-color: #685D79;
+          //margin: .4em 0;
+          padding: 0 .4em;
+          height: 18%;
+        }
+      }
+    }
+  }
+}

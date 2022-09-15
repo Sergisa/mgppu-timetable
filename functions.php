@@ -7,6 +7,40 @@ function convertDate($pattern, $date): string
     return date($pattern, strtotime($date));
 }
 
+function getLessonSignature($lesson): string
+{
+    return $lesson['Discipline'].' ';
+}
+
+function getGroupsSignature($lesson): string
+{
+    $groupCodeList = collect($lesson['Group'])->pluck('name')->map(function ($code) {
+        preg_match_all('/(\d{2}[А-Я]{2})-([А-Я]+)\((.+)\)([А-Я]+)-(\d)/u', $code, $m);
+        return $m[2][0];
+    })->toArray();
+    return implode(', ', $groupCodeList);
+}
+
+function collapseSimilarities(Collection $timetable): Collection
+{
+    return $timetable->map(function ($lesson) use ($timetable) {
+        $similarities = $timetable->filter(function ($tmt) use ($lesson) {
+            return $tmt['dayDate'] == $lesson['dayDate']
+                && $tmt['Group']['id'] != $lesson['Group']['id']
+                && $tmt['DisciplineID'] == $lesson['DisciplineID']
+                && $tmt['Number'] == $lesson['Number'];
+        });
+        if ($similarities->count() > 0) {
+            $lesson['Group'] = array_merge([$lesson['Group']], $similarities->pluck('Group')->unique()->toArray());
+        } else {
+            $lesson['Group'] = [$lesson['Group']];
+        }
+        return $lesson;
+    })->unique(function ($item) {
+        return $item['dayDate'] . $item['Number'];
+    });
+}
+
 function groupCollapsing($timetable): Collection
 {
     return $timetable->map(function ($item) use ($timetable) {

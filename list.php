@@ -12,7 +12,8 @@ $currentDate = date("d.m.Y");
 $timetable = $timetable
     //->where('dayDate', $currentDate)
     ->where("TeacherFIO", "Исаков Сергей Сергеевич")
-    ->where("Department.code", "ИТ")
+    ->where("Department.code", "ИТ");
+$timetable = collapseSimilarities($timetable)
     ->groupBy('dayDate')
     ->sortBy('TimeStart');
 ?>
@@ -38,30 +39,14 @@ $timetable = $timetable
     </style>
 </head>
 <body class="container">
-<!--<pre><code>-->
-<?php //echo json_encode($timetable, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) ?><!--</code></pre>-->
 <div class="row">
-    <div class="col-8 d-flex matrix row justify-content-between align-items-start flex-nowrap overflow-auto" id="monthGrid"></div>
+    <div class="col-8 matrix row calendar py-1" id="monthGrid"></div>
+
     <div id="listDays" class="col-4">
         <ul class="list-group list-group-flush bg-opacity-100">
             <?php
             foreach ($timetable as $date => $lessons) {
-                $lessons = collect($lessons)->map(function ($lesson) use ($lessons) {
-                    $similars = $lessons->filter(function ($tmt) use ($lesson) {
-                        return $tmt['dayDate'] == $lesson['dayDate']
-                            && $tmt['Group']['id'] != $lesson['Group']['id']
-                            && $tmt['DisciplineID'] == $lesson['DisciplineID']
-                            && $tmt['Number'] == $lesson['Number'];
-                    });
-                    if ($similars->count() > 0) {
-                        $lesson['Group'] = array_merge([$lesson['Group']], $similars->pluck('Group')->unique()->toArray());
-                    } else {
-                        $lesson['Group'] = [$lesson['Group']];
-                    }
-                    return $lesson;
-                })->unique("Number");
-                //echo json_encode($lessons, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-                echo "<li class='list-group-item'>";
+                echo "<li class='list-group-item' data-date='$date'>";
                 echo "<div class='labels'>
                     <span class='date me-1'>" . convertDate('d.m', $date) . "</span>";
                 foreach (collect($lessons)->pluck("Type") as $type) {
@@ -69,7 +54,9 @@ $timetable = $timetable
                 }
                 echo "</div>";
                 foreach ($lessons as $lesson) {
-                    echo "<div>{$lesson['Discipline']} " . implode(' ', collect($lesson['Group'])->pluck('name')->toArray()) . " </div>";
+                    $lessonSign = getLessonSignature($lesson);
+                    $groupsSign = getGroupsSignature($lesson);
+                    echo "<div class='lesson'>{$lessonSign}<span class='groupCode'>{$groupsSign}</span></div>";
                 }
                 echo "</li>";
             }
@@ -92,9 +79,22 @@ $timetable = $timetable
             .append('<div class="lesson">211-212</div>')
     }
 
-    function generateGrid() {
-        $(`<div class="month"></div>`)
+    function generateDayLine() {
+        return $(`<div class="dayLine"></div>`)
             .append(generateDay())
+            .append(generateDay())
+            .append(generateDay())
+            .append(generateDay())
+            .append(generateDay())
+            .append(generateDay())
+    }
+
+    function generateGrid(month) {
+        $(`<div class="month"></div>`)
+            .append(generateDayLine())
+            .append(generateDayLine())
+            .append(generateDayLine())
+            .append(generateDayLine())
             .appendTo($('#monthGrid'))
     }
 

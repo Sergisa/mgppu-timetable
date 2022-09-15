@@ -1,0 +1,63 @@
+$scrollbar-thumb-color:#AB6C82;
+$scrollbar-background-color:#475C7A;
+
+#listDays {
+  .list-group {
+    height: 100vh;
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    scrollbar-color: $scrollbar-thumb-color $scrollbar-background-color;
+
+    &::-webkit-scrollbar {
+      background-color: $scrollbar-background-color;
+      width: 7px;
+    }
+
+    &::-webkit-scrollbar-track {
+      width: 7px;
+      background-color: $scrollbar-background-color;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      width: 7px;
+      border-radius: 4px;
+      background-color: $scrollbar-thumb-color;
+    }
+
+
+    .list-group-item {
+      background: none;
+      color: #FCBB6D;
+      border-color: #D8737F;
+      font-weight: 300;
+
+      .lesson {
+        @include font-size($font-size-sm);
+        /*    overflow: hidden;
+            white-space: nowrap;*/
+      }
+
+      span.date {
+        font-weight: bold;
+        color: #FCBB6D;
+        background-color: #685d79;
+        padding: 0 0.8em;
+        border-radius: 5px;
+      }
+
+      span.type {
+        font-weight: bold;
+        color: #D8737F;
+        background-color: #685d79;
+        padding: 0 0.8em;
+        border-radius: 5px;
+        text-transform: uppercase;
+      }
+
+      span.groupCode {
+        font-weight: bold;
+        color: #D8737F;
+      }
+    }
+  }
+}

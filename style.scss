@@ -1,5 +1,7 @@
 @use "sass:math";
 @import "node_modules/bootstrap/scss/bootstrap";
+@import "day-list";
+@import "calendar";
 
 .container .row {
   height: 100vh;
@@ -97,42 +99,4 @@ body {
   height: 0;
   border-bottom: 1px dashed;
   left: 0;
-}
-
-#listDays .list-group-item {
-  background: none;
-  color: #FCBB6D;
-  border-color: #D8737F;
-  font-weight: 300;
-
-  span.date {
-    font-weight: bold;
-    color: #FCBB6D;
-    background-color: #685d79;
-    padding: 0 0.8em;
-    border-radius: 5px;
-  }
-
-  span.type {
-    font-weight: bold;
-    color: #D8737F;
-    background-color: #685d79;
-    padding: 0 0.8em;
-    border-radius: 5px;
-    text-transform: uppercase;
-  }
-}
-.month{
-  .day{
-    border-radius: 3px;
-    display: inline-block;
-    border: 2px solid #D8737F;
-    background-color: #475C7A;
-    color: #D8737F;
-    .lesson{
-      background-color: #685D79;
-      margin: .4em 0;
-      padding: 0 .4em;
-    }
-  }
 }
