@@ -14,8 +14,8 @@ $timetable = $timetable
     ->where("TeacherFIO", "Исаков Сергей Сергеевич")
     ->where("Department.code", "ИТ");
 $timetable = collapseSimilarities($timetable)
-    ->groupBy('dayDate')
-    ->sortBy(['TimeStart']);
+    ->sortBy(['TimeStart'])
+    ->groupBy('dayDate');
 ?>
 <!doctype html>
 <html lang="en">
@@ -56,7 +56,7 @@ $timetable = collapseSimilarities($timetable)
                 foreach ($lessons as $lesson) {
                     $lessonSign = getLessonSignature($lesson);
                     $groupsSign = getGroupsSignature($lesson);
-                    echo "<div class='lesson'>{$lessonSign}<span class='groupCode'>{$groupsSign}</span></div>";
+                    echo "<div class='lesson' data-time='{$lesson['TimeStart']}'>{$lessonSign}<span class='groupCode'>{$groupsSign}</span></div>";
                 }
                 echo "</li>";
             }

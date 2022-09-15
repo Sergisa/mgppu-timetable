@@ -5,6 +5,7 @@ $scrollbar-background-color:#475C7A;
   .list-group {
     height: 100vh;
     overflow-y: scroll;
+    overflow-x: hidden;
     scrollbar-width: thin;
     scrollbar-color: $scrollbar-thumb-color $scrollbar-background-color;
 
