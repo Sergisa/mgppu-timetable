@@ -68,34 +68,68 @@ $timetable = collapseSimilarities($timetable)
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
+    let weekDays = [
+        'Понедельник',
+        'Вторник',
+        'Среда',
+        'Четверг',
+        'Пятница',
+        'Субота',
+        //'Воскресенье'
+    ]
+    Date.prototype.getDayName = function(){
+        let weekDays = [
+            'Воскресенье',
+            'Понедельник',
+            'Вторник',
+            'Среда',
+            'Четверг',
+            'Пятница',
+            'Суббота',
+        ]
+        return weekDays[this.getDay()]
+    }
+
+    function parseDate(dateString) {
+        const pattern = /(\d{2})\.(\d{2})\.(\d{4})/;
+        return new Date(dateString.replace(pattern, '$3-$2-$1'));
+    }
+
+    $.getJSON('getJson.php', function (data) {
+        console.log(data)
+        console.log(parseDate('16.09.2022').getDayName())
+        /*for (const date in data) {
+            if (date.includes('.09.')) console.log(data[date])
+        }*/
+    }).fail(function (data) {
+        console.error(data)
+    })
     const lines = $('.line');
     const lessonAmount = 5;
     const topHeight = 8;
 
-    function generateDay(lessons) {
-        let dayPattern = $(`<div class="day"></div>`)
+    function generateDay(dayName, lessons) {
+        let dayPattern = $(`<div class="day" data-day="${dayName}"></div>`)
         for (const lesson of lessons) {
             dayPattern.append(`<div class="${lesson === null ? "" : "lesson"}">${lesson === null ? "" : lesson}</div>`)
         }
         return dayPattern;
     }
 
-    function generateDayLine() {
-        return $(`<div class="dayLine"></div>`)
-            .append(generateDay([312]))
-            .append(generateDay([null, 405, 548]))
-            .append(generateDay([566]))
-            .append(generateDay(["211-212"]))
-            .append(generateDay(["211-212"]))
-            .append(generateDay(["211-212"]))
+    function generateDaysLine() {
+        let dayLinePattern = $(`<div class="dayLine"></div>`);
+        for (const dayName of weekDays) {
+            dayLinePattern.append(generateDay(dayName, [312]))
+        }
+        return dayLinePattern
     }
 
     function generateGrid(month) {
         $(`<div class="month"></div>`)
-            .append(generateDayLine())
-            .append(generateDayLine())
-            .append(generateDayLine())
-            .append(generateDayLine())
+            .append(generateDaysLine())
+            .append(generateDaysLine())
+            .append(generateDaysLine())
+            .append(generateDaysLine())
             .appendTo($('#monthGrid'))
     }
 
