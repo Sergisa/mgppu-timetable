@@ -1,6 +1,6 @@
 /vendor
 /node_modules
 package-lock.json
-style.css
-style.css.map
+dist/css/style.css
+dist/css/style.css.map
 .idea

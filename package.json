@@ -13,8 +13,8 @@
     "stylelint-config-twbs-bootstrap": "^3.0.1"
   },
   "scripts": {
-    "css-compile": "sass style.scss:style.css",
-    "css-watch": "sass style.scss:style.css --watch",
+    "css-compile": "sass src/scss/style.scss:dist/css/style.css",
+    "css-watch": "sass src/scss/style.scss:dist/css/style.css --watch",
     "sass-help": "sass --help"
   },
   "repository": {

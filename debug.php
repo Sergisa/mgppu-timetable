@@ -23,7 +23,7 @@ echo json_encode($timetable->toArray(), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICO
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dist/css/style.css">
     <style>
         .debug {
             color: #FCBB6D;

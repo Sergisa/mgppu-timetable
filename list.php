@@ -2,8 +2,8 @@
 include 'vendor/autoload.php';
 include 'functions.php';
 ini_set('memory_limit', '-1');
-$myfile = fopen("Timetable2022.json", "r") or die("Unable to open file!");
-$file = fread($myfile, filesize("Timetable2022.json"));
+$myfile = fopen("data/Timetable2022.json", "r") or die("Unable to open file!");
+$file = fread($myfile, filesize("data/Timetable2022.json"));
 fclose($myfile);
 $timetable = collect(json_decode($file, true));
 $timetable = groupCollapsing($timetable);
@@ -17,7 +17,7 @@ $timetable = collapseSimilarities($timetable)
     ->sortBy(['TimeStart'])
     ->groupBy('dayDate');
 ?>
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -30,7 +30,7 @@ $timetable = collapseSimilarities($timetable)
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
           rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dist/css/style.css">
     <title>Document</title>
     <style>
         body {
@@ -40,7 +40,7 @@ $timetable = collapseSimilarities($timetable)
 </head>
 <body class="container">
 <div class="row">
-    <div class="col-8 matrix row calendar py-1" id="monthGrid"></div>
+    <div class="col-8 matrix calendar py-1" id="monthGrid"></div>
 
     <div id="listDays" class="col-4">
         <ul class="list-group list-group-flush bg-opacity-100">
@@ -67,72 +67,28 @@ $timetable = collapseSimilarities($timetable)
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="src/js/dateDriver.js"></script>
+<script src="src/js/calendar.js"></script>
+<script src="src/js/dayList.js"></script>
 <script>
-    let weekDays = [
-        'Понедельник',
-        'Вторник',
-        'Среда',
-        'Четверг',
-        'Пятница',
-        'Субота',
-        //'Воскресенье'
-    ]
-    Date.prototype.getDayName = function(){
-        let weekDays = [
-            'Воскресенье',
-            'Понедельник',
-            'Вторник',
-            'Среда',
-            'Четверг',
-            'Пятница',
-            'Суббота',
-        ]
-        return weekDays[this.getDay()]
-    }
+    const lines = $('.line');
+    const lessonAmount = 5;
+    const topHeight = 8;
 
-    function parseDate(dateString) {
-        const pattern = /(\d{2})\.(\d{2})\.(\d{4})/;
-        return new Date(dateString.replace(pattern, '$3-$2-$1'));
-    }
+    $(document).ready(function () {
+        scrollToCurrentDate();
+    })
 
     $.getJSON('getJson.php', function (data) {
         console.log(data)
         console.log(parseDate('16.09.2022').getDayName())
+        window.lessonsTimetable = data
         /*for (const date in data) {
             if (date.includes('.09.')) console.log(data[date])
         }*/
     }).fail(function (data) {
         console.error(data)
     })
-    const lines = $('.line');
-    const lessonAmount = 5;
-    const topHeight = 8;
-
-    function generateDay(dayName, lessons) {
-        let dayPattern = $(`<div class="day" data-day="${dayName}"></div>`)
-        for (const lesson of lessons) {
-            dayPattern.append(`<div class="${lesson === null ? "" : "lesson"}">${lesson === null ? "" : lesson}</div>`)
-        }
-        return dayPattern;
-    }
-
-    function generateDaysLine() {
-        let dayLinePattern = $(`<div class="dayLine"></div>`);
-        for (const dayName of weekDays) {
-            dayLinePattern.append(generateDay(dayName, [312]))
-        }
-        return dayLinePattern
-    }
-
-    function generateGrid(month) {
-        $(`<div class="month"></div>`)
-            .append(generateDaysLine())
-            .append(generateDaysLine())
-            .append(generateDaysLine())
-            .append(generateDaysLine())
-            .appendTo($('#monthGrid'))
-    }
-
     generateGrid();
 </script>
 </html>

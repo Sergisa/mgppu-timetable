@@ -6,13 +6,23 @@
 
   .month {
     height: 100%;
-    overflow-x: scroll;
+
+    .header {
+      display: flex;
+      @include make-row(0);
+      justify-content: space-between;
+
+      span {
+        @include make-col(2);
+        color: #FCBB6D;
+      }
+    }
 
     .dayLine {
-      @include make-row();
+      @include make-row(0);
       flex-wrap: nowrap;
-      /*display: flex;
-      justify-content: space-between;*/
+      /*display: flex;*/
+      justify-content: end;
       height: 25%;
 
       .day {
