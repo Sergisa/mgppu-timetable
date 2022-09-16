@@ -40,7 +40,7 @@ $timetable = collapseSimilarities($timetable)
 </head>
 <body class="container">
 <div class="row">
-    <div class="col-8 matrix calendar py-1" id="monthGrid"></div>
+    <div class="col-8 calendar py-1" id="monthGrid"></div>
 
     <div id="listDays" class="col-4">
         <ul class="list-group list-group-flush bg-opacity-100">
