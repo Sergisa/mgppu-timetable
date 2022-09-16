@@ -1,5 +1,5 @@
-$scrollbar-thumb-color:#AB6C82;
-$scrollbar-background-color:#475C7A;
+$scrollbar-thumb-color: #AB6C82;
+$scrollbar-background-color: $body-bg;
 
 #listDays {
   .list-group {
@@ -27,29 +27,24 @@ $scrollbar-background-color:#475C7A;
 
 
     .list-group-item {
-      background: none;
-      color: #FCBB6D;
-      border-color: #D8737F;
       font-weight: 300;
 
       .lesson {
         @include font-size($font-size-sm);
-        /*    overflow: hidden;
-            white-space: nowrap;*/
       }
 
       span.date {
         font-weight: bold;
-        color: #FCBB6D;
-        background-color: #685d79;
+        color: $primary;
+        background-color: $secondary;
         padding: 0 0.8em;
         border-radius: 5px;
       }
 
       span.type {
         font-weight: bold;
-        color: #D8737F;
-        background-color: #685d79;
+        color: $accent;
+        background-color: $secondary;
         padding: 0 0.8em;
         border-radius: 5px;
         text-transform: uppercase;
@@ -57,7 +52,7 @@ $scrollbar-background-color:#475C7A;
 
       span.groupCode {
         font-weight: bold;
-        color: #D8737F;
+        color: $accent;
       }
     }
   }

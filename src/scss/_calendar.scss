@@ -1,52 +1,53 @@
 .calendar {
+  //@include make-col(8, 0);
   align-items: flex-start;
   justify-content: space-between;
-  flex-wrap: nowrap;
-  display: flex;
+  //flex-wrap: nowrap;
+  //display: flex;
 
-  .month {
-    height: 100%;
 
-    .header {
-      display: flex;
-      @include make-row(0);
-      justify-content: space-between;
+  .header {
+    padding: map-get($spacers, 2) 0;
+    //display: flex;
+    //@include make-row(0);
+    //justify-content: space-between;
 
-      span {
-        text-align: center;
-        @include make-col(2);
-        color: #FCBB6D;
-      }
+    span {
+      text-align: center;
+      //@include make-col(2);
+      color: #FCBB6D;
     }
+  }
 
-    .dayLine {
-      @include make-row(0);
-      flex-wrap: nowrap;
-      justify-content: end;
-      height: 25%;
+  .dayLine {
+    //@include make-row(0);
+    flex-wrap: nowrap;
+    justify-content: end;
+    height: 25%;
 
-      .day {
-        @include make-col(2);
-        border-radius: 3px;
-        border: 2px solid #D8737F;
-        background-color: #475C7A;
-        color: #D8737F;
-        margin-bottom: map-get($spacers, 1);
-        margin-right: map-get($spacers, 1);
+    .day {
+      padding: 0;
+      border-radius: 3px;
+      border: 2px solid #D8737F;
+      background-color: #475C7A;
+      color: #D8737F;
+      margin-bottom: map-get($spacers, 1);
+      margin-right: map-get($spacers, 1);
+      max-width: 16%;
 
-        div {//empty lesson block
-          padding: 0 .4em;
-          height: 20%;
-          text-align: center;
-          display: flex;
-          align-items: center;
-          justify-content: center;
+      div { //empty lesson block
+        padding: 0 .4em;
+        height: 20%;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
-          &.lesson {
-            background-color: #685D79;
-          }
+        &.lesson {
+          background-color: #685D79;
         }
       }
     }
   }
+
 }

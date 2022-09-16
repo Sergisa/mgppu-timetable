@@ -1,15 +1,18 @@
+$primary: #FCBB6D;
+$secondary: #685D79;
+$accent: #D8737F;
+$body-bg: #475C7A;
+
+$list-group-bg: $body-bg;
+$list-group-color: $primary;
+$list-group-border-color: $accent;
+$list-group-active-color: $primary;
+$list-group-active-bg: darken($body-bg, 5%);
+$list-group-active-border-color: darken($body-bg, 10%);
 @use "sass:math";
 @import "../../node_modules/bootstrap/scss/bootstrap";
 @import "day-list";
 @import "calendar";
-
-.container .row {
-  height: 100vh;
-}
-
-body {
-  background-color: #475C7A;
-}
 
 .overlayCanvas {
   position: absolute;
@@ -22,7 +25,7 @@ body {
 
 .line .lesson {
   height: math.div(100-8, 5)*1%;
-  color: #FCBB6D;
+  color: $primary;
   display: flex;
   align-items: center;
   text-align: start;
@@ -38,7 +41,7 @@ body {
   content: "";
   position: absolute;
   //height: 10%;
-  background: #685D79;
+  background: $secondary;
   //display: block;
   width: 100%;
   z-index: -1;
@@ -52,9 +55,9 @@ body {
 .line {
   text-align: center;
   border-radius: 3px;
-  border: 2px solid #D8737F;
-  background-color: #475C7A;
-  color: #D8737F;
+  border: 2px solid $accent;
+  background-color: $body-bg;
+  color: $accent;
   height: 97vh;
   position: relative;
   z-index: 2;
