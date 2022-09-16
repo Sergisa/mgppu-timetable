@@ -9,23 +9,24 @@
   .header {
     padding: map-get($spacers, 2) 0;
     //display: flex;
-    //@include make-row(0);
+    @include make-row(0);
     //justify-content: space-between;
 
     span {
       text-align: center;
-      //@include make-col(2);
+      @include make-col(2);
       color: #FCBB6D;
     }
   }
 
   .dayLine {
-    //@include make-row(0);
+    @include make-row(0);
     flex-wrap: nowrap;
     justify-content: end;
     height: 25%;
 
     .day {
+      @include make-col(2);
       padding: 0;
       border-radius: 3px;
       border: 2px solid #D8737F;

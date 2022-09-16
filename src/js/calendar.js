@@ -1,6 +1,3 @@
-let dayLinePattern = $(`<div class="dayLine row"></div>`);
-const headerPattern = $(`<div class="header row"></div>`);
-
 function generateDay(dayName, lessons) {
     let dayPattern = $(`<div class="day" data-day="${dayName}"></div>`)
     for (const lesson of lessons) {
@@ -10,13 +7,15 @@ function generateDay(dayName, lessons) {
 }
 
 function generateHeaderLine() {
+    const headerPattern = $(`<div class="header"></div>`);
     for (let day of calendarWeekDays) {
-        headerPattern.append(`<span class="col-2">${day}</span>`)
+        headerPattern.append(`<span>${day}</span>`)
     }
     return headerPattern
 }
 
 function generateDaysLine(shiftIndex) {
+    let dayLinePattern = $(`<div class="dayLine"></div>`);
     for (let i = (shiftIndex === undefined) ? 0 : shiftIndex; i < calendarWeekDays.length; i++) {
         dayLinePattern.append(generateDay(calendarWeekDays[i], [312]))
     }

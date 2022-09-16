@@ -4,9 +4,14 @@ let calendarWeekDays = [
     'Среда',
     'Четверг',
     'Пятница',
-    'Субота',
+    'Суббота',
     //'Воскресенье'
 ]
+
+Date.prototype.getMonthName = function () {
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    return monthNames[this.getMonth()];
+}
 Date.prototype.getDayIndex = function () {
     let weekDays = [
         'Monday',
