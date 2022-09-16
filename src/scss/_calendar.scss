@@ -13,6 +13,7 @@
       justify-content: space-between;
 
       span {
+        text-align: center;
         @include make-col(2);
         color: #FCBB6D;
       }
@@ -21,7 +22,6 @@
     .dayLine {
       @include make-row(0);
       flex-wrap: nowrap;
-      /*display: flex;*/
       justify-content: end;
       height: 25%;
 
@@ -34,8 +34,7 @@
         margin-bottom: map-get($spacers, 1);
         margin-right: map-get($spacers, 1);
 
-        div {
-          //margin: .4em 0;
+        div {//empty lesson block
           padding: 0 .4em;
           height: 20%;
           text-align: center;
