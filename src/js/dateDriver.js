@@ -24,8 +24,10 @@ Date.prototype.hasNextInWeek = function (finalWeekDay) {
 Date.prototype.next = function () {
     if (this.hasNextInMonth()) {
         this.setDate(this.getDate() + 1)
+        return this;
+    }else{
+        return null;
     }
-    return this;
 }
 Date.prototype.getDayIndex = function () {
     let weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
