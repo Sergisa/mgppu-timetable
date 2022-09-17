@@ -34,10 +34,11 @@ function generateHeaderLine() {
 function generateDaysLine(currentDate) {
     let dayLinePattern = $(`<div class="dayLine"></div>`);
     while (true) {
-        console.log("DATE BY WEEK", currentDate.toLocaleDateString()) // FIXME: 30.09 в цикле
+        console.log("DATE BY WEEK", currentDate.toLocaleDateString())
         if (currentDate.getDayName() !== 'Воскресенье') dayLinePattern.append(generateDay(currentDate, [312]))//Проверяем что выводим не воскресенье
-        if (currentDate.hasNextInWeek("Суббота") && currentDate.hasNextInMonth()) {
-            currentDate.next()
+        if (currentDate.hasNextInMonth()) {
+            if (currentDate.hasNextInWeek()) currentDate.next()
+            else break
         } else {
             break
         }
