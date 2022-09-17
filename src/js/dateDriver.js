@@ -7,11 +7,6 @@ let calendarWeekDays = [
     'Суббота',
     //'Воскресенье'
 ]
-
-Date.prototype.getMonthName = function () {
-    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    return monthNames[this.getMonth()];
-}
 Date.prototype.hasNextInMonth = function () {
     return this.getDate() !== this.lastDay();
 }
@@ -29,10 +24,6 @@ Date.prototype.next = function () {
         return null;
     }
 }
-Date.prototype.getDayIndex = function () {
-    let weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-    return weekDays.indexOf(this.toString().split(' ')[0]) + 1
-}
 Date.prototype.getDayName = function () {
     let weekDays = [
         'Воскресенье',
@@ -44,9 +35,4 @@ Date.prototype.getDayName = function () {
         'Суббота',
     ]
     return weekDays[this.getDay()]
-}
-
-function parseDate(dateString) {
-    const pattern = /(\d{2})\.(\d{2})\.(\d{4})/;
-    return new Date(dateString.replace(pattern, '$3-$2-$1'));
 }
