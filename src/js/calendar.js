@@ -12,7 +12,7 @@ const headerPattern = $(`<div class="header"></div>`);
 function generateDay(date, lessons) {
     const dayView = dayPattern.clone()
     dayView.attr({
-        "data-day": calendarWeekDays[date.getDay() - 1],
+        "data-day": date.getDayName(),
         "data-date": date.toLocaleDateString()
     })
     for (const lesson of lessons) {
