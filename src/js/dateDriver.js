@@ -18,8 +18,8 @@ Date.prototype.hasNextInMonth = function () {
 Date.prototype.lastDay = function () {
     return new Date(this.getFullYear(), this.getMonth() + 1, 0).getDate();
 }
-Date.prototype.hasNextInWeek = function () {
-    return this.getDayName() !== "Воскресенье"
+Date.prototype.hasNextInWeek = function (finalWeekDay) {
+    return this.getDayName() !== finalWeekDay ?? "Воскресенье"
 }
 Date.prototype.next = function () {
     if (this.hasNextInMonth()) {
