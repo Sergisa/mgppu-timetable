@@ -19,13 +19,13 @@ Date.prototype.lastDay = function () {
     return new Date(this.getFullYear(), this.getMonth() + 1, 0).getDate();
 }
 Date.prototype.hasNextInWeek = function (finalWeekDay) {
-    return this.getDayName() !== finalWeekDay ?? "Воскресенье"
+    return this.getDayName() !== (finalWeekDay ?? "Воскресенье")
 }
 Date.prototype.next = function () {
     if (this.hasNextInMonth()) {
         this.setDate(this.getDate() + 1)
         return this;
-    }else{
+    } else {
         return null;
     }
 }
