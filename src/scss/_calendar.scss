@@ -23,10 +23,18 @@
     @include make-row(0);
     flex-wrap: nowrap;
     justify-content: end;
-    height: 25%;
+    height: 19%;
+
+    &:last-child {
+      justify-content: start;
+
+      //& > .day:first-child {
+      //  margin-left: map-get($spacers, 1);
+      //}
+    }
 
     .day {
-      @include make-col(2);
+      @include make-col();
       padding: 0;
       border-radius: 3px;
       border: 2px solid #D8737F;
@@ -34,7 +42,8 @@
       color: #D8737F;
       margin-bottom: map-get($spacers, 1);
       margin-right: map-get($spacers, 1);
-      max-width: 16%;
+      margin-left: map-get($spacers, 1);
+      max-width: 15.76666667%;
 
       div { //empty lesson block
         padding: 0 .4em;

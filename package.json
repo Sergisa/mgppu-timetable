@@ -7,6 +7,9 @@
     "bootstrap": "^5.1.3"
   },
   "devDependencies": {
+    "@babel/cli": "^7.18.10",
+    "@babel/core": "^7.19.1",
+    "@babel/preset-env": "^7.19.1",
     "node-sass": "^7.0.1",
     "sass": "^1.51.0",
     "stylelint": "^14.8.1",
@@ -15,6 +18,8 @@
   "scripts": {
     "css-compile": "sass src/scss/style.scss:dist/css/style.css",
     "css-watch": "sass src/scss/style.scss:dist/css/style.css --watch",
+    "js-compile": "babel src/js -d dist/js --presets @babel/preset-env --compact=true --minified",
+    "js-watch": "babel src/js -d dist/js --presets @babel/preset-env --compact=true --watch",
     "sass-help": "sass --help"
   },
   "repository": {

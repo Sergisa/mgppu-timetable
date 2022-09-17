@@ -1,5 +1,13 @@
-function generateDay(dayName, lessons) {
-    let dayPattern = $(`<div class="day" data-day="${dayName}"></div>`)
+const defaultMonth = 9;
+
+/**
+ *
+ * @param date {Date}
+ * @param lessons {Object}
+ * @returns {*|jQuery|HTMLElement}
+ */
+function generateDay(date, lessons) {
+    let dayPattern = $(`<div class="day" data-day="${calendarWeekDays[date.getDay() - 1]}" data-date="${date.toLocaleDateString()}"></div>`)
     for (const lesson of lessons) {
         dayPattern.append(`<div class="${lesson === null ? "" : "lesson"}">${lesson === null ? "" : lesson}</div>`)
     }
@@ -14,18 +22,25 @@ function generateHeaderLine() {
     return headerPattern
 }
 
-function generateDaysLine(shiftIndex) {
+function generateDaysLine(startDate) {
+    let currentDate = startDate
     let dayLinePattern = $(`<div class="dayLine"></div>`);
-    for (let i = (shiftIndex === undefined) ? 0 : shiftIndex; i < calendarWeekDays.length; i++) {
-        dayLinePattern.append(generateDay(calendarWeekDays[i], [312]))
+    while (currentDate.hasNextInMonth() && currentDate.hasNextInWeek()) {
+        console.log("DATE BY WEEK", currentDate.toLocaleDateString())
+        if (currentDate.getDayName() !== 'Воскресенье') {
+            dayLinePattern.append(generateDay(currentDate, [312]))
+        }
+        currentDate.next()
     }
     return dayLinePattern
 }
 
 function generateGrid(month) {
-    $('#monthGrid').append(generateHeaderLine())
-        .append(generateDaysLine(3))
-        .append(generateDaysLine())
-        .append(generateDaysLine())
-        .append(generateDaysLine())
+    const monthGrid = $('#monthGrid').append(generateHeaderLine())
+    let currentDate = new Date(2022, (defaultMonth ?? month) - 1, 1)
+    while (currentDate.hasNextInMonth()) {//FIXME: пропадает последнее чило месяца
+        //console.log("DATE BY MONTH", currentDate.toLocaleDateString())
+        monthGrid.append(generateDaysLine(currentDate))
+        currentDate.next()
+    }
 }

@@ -67,9 +67,9 @@ $timetable = collapseSimilarities($timetable)
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="src/js/dateDriver.js"></script>
-<script src="src/js/calendar.js"></script>
-<script src="src/js/dayList.js"></script>
+<script src="dist/js/dateDriver.js"></script>
+<script src="dist/js/calendar.js"></script>
+<script src="dist/js/dayList.js"></script>
 <script>
     const lines = $('.line');
     const lessonAmount = 5;
@@ -81,7 +81,7 @@ $timetable = collapseSimilarities($timetable)
 
     $.getJSON('getJson.php', function (data) {
         console.log(data)
-        console.log(parseDate('16.09.2022').getDayName())
+        //console.log(parseDate('16.09.2022').getDayName())
         window.lessonsTimetable = data
         /*for (const date in data) {
             if (date.includes('.09.')) console.log(data[date])
