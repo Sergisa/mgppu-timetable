@@ -14,6 +14,10 @@ function generateDay(date, lessons) {
     return dayPattern;
 }
 
+/**
+ *
+ * @returns {*|jQuery|HTMLElement}
+ */
 function generateHeaderLine() {
     const headerPattern = $(`<div class="header"></div>`);
     for (let day of calendarWeekDays) {
@@ -24,34 +28,31 @@ function generateHeaderLine() {
 
 /**
  *
- * @param startDate {Date}
  * @returns {*|jQuery|HTMLElement}
+ * @param currentDate
  */
-function generateDaysLine(startDate) {
-    let currentDate = startDate
+function generateDaysLine(currentDate) {
     let dayLinePattern = $(`<div class="dayLine"></div>`);
     while (true) {
         console.log("DATE BY WEEK", currentDate.toLocaleDateString()) // FIXME: 30.09 в цикле
-        if (currentDate.getDayName() !== 'Воскресенье') { //Проверяем что выводим не воскресенье
-            dayLinePattern.append(generateDay(currentDate, [312]))
-            if (currentDate !== null && currentDate.hasNextInWeek("Суббота")) {
-                currentDate = currentDate.next()
-            } else {
-                break
-            }
-        }else{
-            currentDate = currentDate.next()
+        if (currentDate.getDayName() !== 'Воскресенье') dayLinePattern.append(generateDay(currentDate, [312]))//Проверяем что выводим не воскресенье
+        if (currentDate.hasNextInWeek("Суббота") && currentDate.hasNextInMonth()) {
+            currentDate.next()
+        } else {
             break
         }
-
     }
     return dayLinePattern
 }
 
+/**
+ *
+ * @param month{number}
+ */
 function generateGrid(month) {
     const monthGrid = $('#monthGrid').append(generateHeaderLine())
     let currentDate = new Date(2022, (defaultMonth ?? month) - 1, 1)
-    while (true) {//FIXME: пропадает последнее чило месяца
+    while (true) {
         console.info("DATE BY MONTH", currentDate.toLocaleDateString())
         monthGrid.append(generateDaysLine(currentDate))
         if (currentDate.hasNextInMonth()) {
