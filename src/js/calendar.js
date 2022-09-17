@@ -25,12 +25,12 @@ function generateHeaderLine() {
 function generateDaysLine(startDate) {
     let currentDate = startDate
     let dayLinePattern = $(`<div class="dayLine"></div>`);
-    while (currentDate.hasNextInMonth() && currentDate.hasNextInWeek()) {
+    while (currentDate!==null && currentDate.hasNextInWeek("Суббота")) {
         console.log("DATE BY WEEK", currentDate.toLocaleDateString())
         if (currentDate.getDayName() !== 'Воскресенье') {
             dayLinePattern.append(generateDay(currentDate, [312]))
         }
-        currentDate.next()
+        currentDate = currentDate.next()
     }
     return dayLinePattern
 }
@@ -39,8 +39,8 @@ function generateGrid(month) {
     const monthGrid = $('#monthGrid').append(generateHeaderLine())
     let currentDate = new Date(2022, (defaultMonth ?? month) - 1, 1)
     while (currentDate.hasNextInMonth()) {//FIXME: пропадает последнее чило месяца
-        //console.log("DATE BY MONTH", currentDate.toLocaleDateString())
+        console.info("DATE BY MONTH", currentDate.toLocaleDateString())
         monthGrid.append(generateDaysLine(currentDate))
-        currentDate.next()
+        currentDate = currentDate.next()
     }
 }
