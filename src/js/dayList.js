@@ -13,6 +13,7 @@ function scrollToDate(accentDate) {
         $dayListUl.animate({
             scrollTop: dayLiBlock.offset().top - 5
         }, 1000);
+        dayLiBlock.addClass('active')
     }
 }
 
