@@ -9,7 +9,7 @@ function convertDate($pattern, $date): string
 
 function getLessonSignature($lesson): string
 {
-    return $lesson['Discipline'].' ';
+    return $lesson['Discipline'] . ' ';
 }
 
 function getGroupsSignature($lesson): string
@@ -17,8 +17,8 @@ function getGroupsSignature($lesson): string
     $groupCodeList = collect($lesson['Group'])->pluck('name')->map(function ($code) {
         preg_match_all('/(\d{2}[А-Я]{2})-([А-Я]+)\((.+)\)([А-Я]+)-(\d)/u', $code, $m);
         return $m[2][0];
-    })->toArray();
-    return implode(', ', $groupCodeList);
+    });
+    return ($groupCodeList->count() > 1) ? implode(', ', $groupCodeList->toArray()) : "";
 }
 
 function collapseSimilarities(Collection $timetable): Collection
