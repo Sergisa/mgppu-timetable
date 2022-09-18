@@ -10,9 +10,11 @@ function scrollToDate(accentDate) {
     }
     let dayLiBlock = $dayListUl.find(`li[data-date='${accentDate}']`)
     if (dayLiBlock.length > 0) {
-        $dayListUl.animate({
-            scrollTop: dayLiBlock.offset().top - 5
-        }, 1000);
+        if (dayLiBlock.position().top > 7) {
+            $dayListUl.animate({
+                scrollTop: dayLiBlock.position().top - 5
+            }, 1000);
+        }
         dayLiBlock.addClass('active')
     }
 }
