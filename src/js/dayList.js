@@ -1,9 +1,17 @@
 const $dayListUl = $("#listDays>ul")
 
-function scrollToDate(date) {
-    if ($dayListUl.find(`[data-date='${date}]'`).length > 0) {
+/**
+ *
+ * @param accentDate {string|Date}
+ */
+function scrollToDate(accentDate) {
+    if (accentDate instanceof Date) {
+        accentDate = accentDate.toLocaleDateString();
+    }
+    let dayLiBlock = $dayListUl.find(`li[data-date='${accentDate}']`)
+    if (dayLiBlock.length > 0) {
         $dayListUl.animate({
-            scrollTop: $dayListUl.find(`[data-date='${date}]'`).offset().top - 5
+            scrollTop: dayLiBlock.offset().top - 5
         }, 1000);
     }
 }
