@@ -16,7 +16,11 @@ function getLessonSignature($lesson): string
 {
     return $lesson['Discipline'] . ' ';
 }
-
+function getLessonIndex($lesson): string
+{
+    preg_match_all('/(\d) *пара/ui', $lesson['Number'], $index);
+    return $index[1][0];
+}
 function getGroupsSignature($lesson): string
 {
     $groupCodeList = collect($lesson['Group'])->pluck('name')->map(function ($code) {

@@ -57,7 +57,8 @@ $timetable = collapseSimilarities($timetable)
                 foreach ($lessons as $lesson) {
                     $lessonSign = getLessonSignature($lesson);
                     $groupsSign = getGroupsSignature($lesson);
-                    echo "<div class='lesson' data-time='{$lesson['TimeStart']}'>{$lessonSign}<span class='groupCode'>{$groupsSign}</span></div>";
+                    $lessonIndex = getLessonIndex($lesson);
+                    echo "<div class='lesson' data-time='{$lesson['TimeStart']}'><b>{$lessonIndex}.</b> {$lessonSign}<span class='groupCode'>{$groupsSign}</span></div>";
                 }
                 echo "</li>";
             }
