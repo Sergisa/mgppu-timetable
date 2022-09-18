@@ -73,10 +73,6 @@ $timetable = collapseSimilarities($timetable)
 <script src="dist/js/calendar.js"></script>
 <script src="dist/js/dayList.js"></script>
 <script>
-    const lines = $('.line');
-    const lessonAmount = 5;
-    const topHeight = 8;
-
     $(document).ready(function () {
         scrollToCurrentDate();
     })
@@ -85,10 +81,13 @@ $timetable = collapseSimilarities($timetable)
         console.log(data)
         window.lessonsTimetable = data
         generateGrid();
+        $('#monthGrid .day').click(function () {
+            console.log(this.dataset.date)
+            scrollToDate(this.dataset.date)
+        })
     }).fail(function (data) {
         console.error(data)
     })
-
 </script>
 </html>
 
