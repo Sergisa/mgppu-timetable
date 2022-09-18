@@ -14,7 +14,8 @@ $timetable = $timetable
     ->where("TeacherFIO", "Исаков Сергей Сергеевич")
     ->where("Department.code", "ИТ");
 $timetable = collapseSimilarities($timetable)
-    ->sortBy(['TimeStart'])
+    ->sortBy(['Number'])
+    ->sortByDate('dayDate')
     ->groupBy('dayDate');
 ?>
 <!DOCTYPE html>

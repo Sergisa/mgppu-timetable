@@ -2,6 +2,11 @@
 
 use Illuminate\Support\Collection;
 
+Collection::macro('sortByDate', function (string $column = 'created_at', bool $descending = false) {
+    return $this->sortBy(function ($datum) use ($column) {
+        return strtotime(((object)$datum)->$column);
+    }, SORT_REGULAR, $descending);
+});
 function convertDate($pattern, $date): string
 {
     return date($pattern, strtotime($date));
