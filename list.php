@@ -83,15 +83,12 @@ $timetable = collapseSimilarities($timetable)
 
     $.getJSON('getJson.php', function (data) {
         console.log(data)
-        //console.log(parseDate('16.09.2022').getDayName())
         window.lessonsTimetable = data
-        /*for (const date in data) {
-            if (date.includes('.09.')) console.log(data[date])
-        }*/
+        generateGrid();
     }).fail(function (data) {
         console.error(data)
     })
-    generateGrid();
+
 </script>
 </html>
 

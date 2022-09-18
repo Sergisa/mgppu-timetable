@@ -10,13 +10,14 @@ const headerPattern = $(`<div class="header"></div>`);
  * @returns {*|jQuery|HTMLElement}
  */
 function generateDay(date, lessons) {
+    console.log(date, lessons)
     const dayView = dayPattern.clone()
     dayView.attr({
         "data-day": date.getDayName(),
         "data-date": date.toLocaleDateString()
     })
-    for (const lesson of lessons) {
-        dayView.append(`<div class="${lesson === null ? "" : "lesson"}">${lesson === null ? "" : lesson}</div>`)
+    for (const lesson of lessons ?? []) {
+        dayView.append(`<div class="${lesson === null ? "" : "lesson"}">${lesson === null ? "" : lesson.Coords.room.index}</div>`)
     }
     return dayView;
 }
@@ -40,10 +41,11 @@ function generateHeaderLine() {
  */
 function generateDaysLine(currentDate) {
     const monthLineView = dayLinePattern.clone()
+
     while (true) {
         console.log("DATE BY WEEK", currentDate.toLocaleDateString())
         if (currentDate.getDayName() !== 'Воскресенье') {
-            monthLineView.append(generateDay(currentDate, [312]))
+            monthLineView.append(generateDay(currentDate, lessonsTimetable[currentDate.toLocaleDateString()]))
         }
         if (currentDate.hasNextInMonth()) {
             if (currentDate.hasNextInWeek()) currentDate.next()
@@ -63,7 +65,6 @@ function generateGrid(month) {
     const monthGrid = $('#monthGrid').append(generateHeaderLine())
     let currentDate = new Date(2022, defaultMonth ?? month, 1)
     while (true) {
-        console.info("DATE BY MONTH", currentDate.toLocaleDateString())
         monthGrid.append(generateDaysLine(currentDate))
         if (currentDate.hasNextInMonth()) {
             currentDate.next()

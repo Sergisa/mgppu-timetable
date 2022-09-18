@@ -17,6 +17,6 @@ $timetable = $timetable
 $timetable = collapseSimilarities($timetable)
     ->sortBy(['TimeStart'])
     //->values()
-    ->groupBy(['dayDate' ], true);
+    ->groupBy(['dayDate' ]);
 
 echo json_encode($timetable->toArray(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
