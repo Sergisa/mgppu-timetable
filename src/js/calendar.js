@@ -10,14 +10,20 @@ const headerPattern = $(`<div class="header"></div>`);
  * @returns {*|jQuery|HTMLElement}
  */
 function generateDay(date, lessons) {
-    console.log(date, lessons)
+    //console.log(date, lessons)
     const dayView = dayPattern.clone()
     dayView.attr({
         "data-day": date.getDayName(),
         "data-date": date.toLocaleDateString()
     })
-    for (const lesson of lessons ?? []) {
-        dayView.append(`<div class="${lesson === null ? "" : "lesson"}">${lesson === null ? "" : lesson.Coords.room.index}</div>`)
+    if (lessons !== undefined) {
+        for (const lesson of lessons) {
+            const $lessonPattern = $(`<div class="lesson">${lesson === null ? "" : lesson.Coords.room.index}</div>`)
+            $lessonPattern.attr({
+                "data-lesson-index": lesson.Number.matchAll(/(\d) *пара/gui).next().value[1],
+            })
+            dayView.append($lessonPattern)
+        }
     }
     return dayView;
 }
@@ -43,7 +49,7 @@ function generateDaysLine(currentDate) {
     const monthLineView = dayLinePattern.clone()
 
     while (true) {
-        console.log("DATE BY WEEK", currentDate.toLocaleDateString())
+        //console.log("DATE BY WEEK", currentDate.toLocaleDateString())
         if (currentDate.getDayName() !== 'Воскресенье') {
             monthLineView.append(generateDay(currentDate, lessonsTimetable[currentDate.toLocaleDateString()]))
         }
