@@ -15,7 +15,7 @@
     span {
       text-align: center;
       @include make-col(2);
-      color: #FCBB6D;
+      color: $primary;
     }
   }
 
@@ -37,9 +37,9 @@
       @include make-col();
       padding: 0;
       border-radius: 3px;
-      border: 2px solid #D8737F;
-      background-color: #475C7A;
-      color: #D8737F;
+      border: 2px solid $primary;
+      background-color: $body-bg;
+      color: $accent;
       margin-bottom: map-get($spacers, 1);
       margin-right: map-get($spacers, 1);
       margin-left: map-get($spacers, 1);
@@ -68,7 +68,7 @@
       }
 
       .lesson {
-        background-color: #685D79;
+        background-color: $secondary;
         position: absolute;
         width: 100%;
         height: 1.3rem;
