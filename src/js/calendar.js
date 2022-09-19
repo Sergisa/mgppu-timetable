@@ -1,6 +1,6 @@
 const defaultMonth = new Date().getMonth();
 const dayLinePattern = $(`<div class="dayLine"></div>`);
-const dayPattern = $(`<div class="day"></div>`)
+const dayPattern = $(`<div class="day list-group"></div>`)
 const headerPattern = $(`<div class="header"></div>`);
 
 /**
@@ -10,7 +10,7 @@ const headerPattern = $(`<div class="header"></div>`);
  * @returns {*|jQuery|HTMLElement}
  */
 function generateDay(date, lessons) {
-    //console.log(date, lessons)
+    const $lessonPattern = $(`<div class="lesson list-group-item"></div>`)
     const dayView = dayPattern.clone()
     dayView.attr({
         "data-day": date.getDayName(),
@@ -19,12 +19,13 @@ function generateDay(date, lessons) {
         "title": date.toLocaleDateString()
     })
     if (lessons !== undefined) {
-        for (const lesson of lessons) {
-            const $lessonPattern = $(`<div class="lesson">${lesson === null ? "" : lesson.Coords.room.index}</div>`)
-            $lessonPattern.attr({
-                "data-lesson-index": lesson.Number.matchAll(/(\d) *пара/gui).next().value[1],
-            })
-            dayView.append($lessonPattern)
+        for (let i = 1; i <= 5; i++) {
+            const lesson = lessons.find((lesson) => lesson.Number === `${i} пара`);
+            if (lesson) {
+                $lessonPattern.clone().html(`<span>${lesson.Coords.room.index}</span>`).attr("data-lesson-index", i).appendTo(dayView)
+            } else {
+                dayView.append($lessonPattern.clone().addClass('empty'))
+            }
         }
     }
     return dayView;
@@ -51,7 +52,6 @@ function generateDaysLine(currentDate) {
     const monthLineView = dayLinePattern.clone()
 
     while (true) {
-        //console.log("DATE BY WEEK", currentDate.toLocaleDateString())
         if (currentDate.getDayName() !== 'Воскресенье') {
             monthLineView.append(generateDay(currentDate, lessonsTimetable[currentDate.toLocaleDateString()]))
         }
