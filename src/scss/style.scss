@@ -40,9 +40,7 @@ $list-group-active-border-color: darken($body-bg, 10%);
   border-radius: 3px;
   content: "";
   position: absolute;
-  //height: 10%;
   background: $secondary;
-  //display: block;
   width: 100%;
   z-index: -1;
   top: 0;
@@ -75,7 +73,6 @@ $list-group-active-border-color: darken($body-bg, 10%);
   @include media-breakpoint-up(lg) {
     @include make-col(2);
   }
-  //@include row-cols(4);
 }
 
 .line.active {
@@ -87,7 +84,6 @@ $list-group-active-border-color: darken($body-bg, 10%);
   @include media-breakpoint-up(lg) {
     @include make-col(4);
   }
-  //@include row-cols(4);
 }
 
 @for $i from 1 through 5 {
