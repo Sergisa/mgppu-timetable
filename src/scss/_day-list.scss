@@ -27,7 +27,8 @@ $scrollbar-background-color: $body-bg;
 
 
     .list-group-item {
-      font-weight: 300;
+      font-weight: 400;
+      color: darken($primary, 10%);
 
       .lesson {
         @include font-size($font-size-sm);
@@ -35,7 +36,7 @@ $scrollbar-background-color: $body-bg;
 
       span.date {
         font-weight: bold;
-        color: $primary;
+        color: $accent;
         background-color: $secondary;
         padding: 0 0.8em;
         border-radius: 5px;
@@ -43,7 +44,7 @@ $scrollbar-background-color: $body-bg;
 
       span.type {
         font-weight: bold;
-        color: $accent;
+        color: $primary;
         background-color: $secondary;
         padding: 0 0.8em;
         border-radius: 5px;
