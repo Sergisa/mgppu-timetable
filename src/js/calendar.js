@@ -14,6 +14,7 @@ function generateDay(date, lessons) {
     const dayView = dayPattern.clone()
     dayView.attr({
         "data-day": date.getDayName(),
+        "data-day-number": date.getDate(),
         "data-date": date.toLocaleDateString(),
         "title": date.toLocaleDateString()
     })

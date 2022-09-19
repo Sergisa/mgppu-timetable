@@ -48,7 +48,23 @@
       cursor: pointer;
 
       &:hover {
-        background-color: transparentize(#D8737F, .5);
+        background: linear-gradient(transparentize($primary, .9), transparentize($primary, .7));
+
+        &:after {
+          content: attr(data-day-number);
+          width: 100%;
+          height: 100%;
+          position: relative;
+          top: 0;
+          left: 0;
+          display: flex;
+          text-align: center;
+          justify-content: center;
+          align-items: center;
+          font-size: xx-large;
+          font-weight: 800;
+          color: transparentize($accent, .5);
+        }
       }
 
       .lesson {
