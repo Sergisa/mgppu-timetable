@@ -41,9 +41,9 @@ $timetable = collapseSimilarities($timetable)
 </head>
 <body class="container">
 <div class="row">
-    <div class="col-8 calendar py-1" id="monthGrid"></div>
+    <div class="col-12 col-md-8 calendar py-1" id="monthGrid"></div>
 
-    <div id="listDays" class="col-4">
+    <div id="listDays" class="col-12 col-md-4">
         <ul class="list-group list-group-flush bg-opacity-100">
             <?php
             foreach ($timetable as $date => $lessons) {
