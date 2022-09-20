@@ -69,6 +69,7 @@ $timetable = collapseSimilarities($timetable)
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="dist/js/bsBreakPointDriver.js"></script>
 <script src="dist/js/dateDriver.js"></script>
 <script src="dist/js/calendar.js"></script>
 <script src="dist/js/dayList.js"></script>
