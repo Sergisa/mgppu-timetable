@@ -1,22 +1,7 @@
 <?php
 include 'vendor/autoload.php';
 include 'functions.php';
-ini_set('memory_limit', '-1');
-$myfile = fopen("data/Timetable2022.json", "r") or die("Unable to open file!");
-$file = fread($myfile, filesize("data/Timetable2022.json"));
-fclose($myfile);
-$timetable = collect(json_decode($file, true));
-$timetable = groupCollapsing($timetable);
-$currentDate = date("d.m.Y");
-//$currentDate = date("d.m.Y", strtotime("+1 day", strtotime(date("d.m.Y"))));
-$timetable = $timetable
-    //->where('dayDate', $currentDate)
-    ->where("TeacherFIO", "Исаков Сергей Сергеевич")
-    ->where("Department.code", "ИТ");
-$timetable = collapseSimilarities($timetable)
-    ->sortBy(['Number'])
-    ->sortByDate('dayDate')
-    ->groupBy('dayDate');
+$timetable = getData();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -69,10 +54,7 @@ $timetable = collapseSimilarities($timetable)
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="dist/js/bsBreakPointDriver.js"></script>
-<script src="dist/js/dateDriver.js"></script>
-<script src="dist/js/calendar.js"></script>
-<script src="dist/js/dayList.js"></script>
+<script src="dist/js/bundle.js"></script>
 <script>
     $(document).ready(function () {
         scrollToCurrentDate();
@@ -81,7 +63,7 @@ $timetable = collapseSimilarities($timetable)
     $.getJSON('getJson.php', function (data) {
         console.log(data)
         window.lessonsTimetable = data
-        generateGrid();
+        generateGrid(new Date().getMonth());
         $('#monthGrid .day').click(function () {
             console.log(this.dataset.date)
             scrollToDate(this.dataset.date)
