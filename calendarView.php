@@ -22,41 +22,9 @@ $timetable = getData();
         body {
             font-family: 'Nunito', sans-serif;
         }
-
-        .right-menu {
-            position: fixed;
-            right: -130px;
-            top: 0;
-            z-index: 10;
-            height: 101%;
-            display: flex;
-            width: 260px;
-            flex-direction: column;
-            align-items: start;
-            justify-content: center;
-            border-radius: 50%;
-            background: -moz-radial-gradient(#48484833, #33333370);
-            font-weight: bolder;
-            color: white;
-        }
-
-        .right-menu .menu-element:hover {
-            color: #FCBB6D;
-        }
-
-        .right-menu .menu-element {
-            margin: 30px 0;
-            cursor: pointer;
-        }
     </style>
 </head>
 <body class="container">
-<div class="right-menu">
-    <div class="menu-element">Скачать</div>
-    <div class="menu-element">Распечатать расписание</div>
-    <div class="menu-element">Изменить Группу</div>
-    <div class="menu-element">Изменить преподавателя</div>
-</div>
 <div class="row">
     <div class="col-12 col-md-8 calendar py-1" id="monthGrid"></div>
 
