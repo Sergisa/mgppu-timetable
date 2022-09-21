@@ -26,50 +26,41 @@ $timetable = getData();
 </head>
 <body class="container">
 <div class="row">
-    <div class="col-12 col-md-8 calendar py-1" id="monthGrid"></div>
-
-    <div id="listDays" class="col-12 col-md-4">
-        <ul class="list-group list-group-flush bg-opacity-100">
-            <?php
-            foreach ($timetable as $date => $lessons) {
-                echo "<li class='list-group-item' data-date='$date'>";
-                echo "<div class='labels'>
-                    <span class='date me-1'>" . convertDate('d.m', $date) . "</span>";
-                foreach (collect($lessons)->pluck("Type") as $type) {
-                    echo "<span class='type me-1'>" . mb_substr($type, 0, 1) . "</span>";
-                }
-                echo "</div>";
-                foreach ($lessons as $lesson) {
-                    $lessonSign = getLessonSignature($lesson);
-                    $groupsSign = getGroupsSignature($lesson);
-                    $lessonIndex = getLessonIndex($lesson);
-                    echo "<div class='lesson' data-time='{$lesson['TimeStart']}'><b>{$lessonIndex}.</b> {$lessonSign}<span class='groupCode'>{$groupsSign}</span></div>";
-                }
-                echo "</li>";
-            }
-            ?>
-        </ul>
-    </div>
+    <form action="">
+        <select name="group" id="group-select">
+            <option value="ee">21ИТ-ПИ(б/о)ПИП-1</option>
+        </select>
+        <div class="select" id="groupSelect">
+            <div class="selection">Выберите вариант</div>
+            <div class="variant-list"></div>
+        </div>
+        <button class="btn btn-primary">Перейти к расписанию</button>
+    </form>
 </div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="dist/js/bundle.js"></script>
+<script src="dist/js/jquery.easing.js"></script>
+<script src="dist/js/selection.js"></script>
 <script>
     $(document).ready(function () {
-        scrollToCurrentDate();
+    })
+    const groupSelector = new Selector($('#groupSelect'))
+    groupSelector.fillData({
+        "d": '21ИТ-ПИ(б/о)ПИП-1',
+        "s": '20ИТ-ПИ(б/о)ПИП-1',
+        "a": '19ИТ-МО(б/о)ИСБД-1'
+    })
+    groupSelector.onItemClicked(function (data) {
+        console.log(data)
     })
 
-    $.getJSON('getJson.php', function (data) {
-        console.log(data)
-        window.lessonsTimetable = data
-        generateGrid(new Date().getMonth());
-        $('#monthGrid .day').click(function () {
-            console.log(this.dataset.date)
-            scrollToDate(this.dataset.date)
-        })
-    }).fail(function (data) {
-        console.error(data)
+    $('.variant').click(function () {
+        $('.variant-list .variant.active').removeClass('active')
+        $(this).addClass('active')
+    })
+    $('#groupSelect').click(function () {
+        $(this).find('.variant-list').toggleClass('active')
     })
 </script>
 </html>
