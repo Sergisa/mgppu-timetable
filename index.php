@@ -27,40 +27,56 @@ $timetable = getData();
 <body class="container">
 <div class="row">
     <form action="">
+        <label for="group-select" class="text-light">Выберите группу</label>
         <select name="group" id="group-select">
             <option value="ee">21ИТ-ПИ(б/о)ПИП-1</option>
         </select>
-        <div class="select" id="groupSelect">
-            <div class="selection">Выберите вариант</div>
-            <div class="variant-list"></div>
-        </div>
+        <label for="professor-select"></label>
+        <select name="professor" id="professor-select">
+            <option value="ee">21ИТ-ПИ(б/о)ПИП-1</option>
+        </select>
         <button class="btn btn-primary">Перейти к расписанию</button>
     </form>
+
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Dropdown button
+        </button>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+        </ul>
+    </div>
+
 </div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="dist/js/jquery.easing.js"></script>
+<script src="dist/js/bsBreakPointDriver.js"></script>
 <script src="dist/js/selection.js"></script>
 <script>
-    $(document).ready(function () {
+    $(document).on('ready', function () {
     })
-    const groupSelector = new Selector($('#groupSelect'))
-    groupSelector.fillData({
-        "d": '21ИТ-ПИ(б/о)ПИП-1',
-        "s": '20ИТ-ПИ(б/о)ПИП-1',
-        "a": '19ИТ-МО(б/о)ИСБД-1'
-    })
-    groupSelector.onItemClicked(function (data) {
-        console.log(data)
+    const groupSelector = Selector.generate(document.getElementById('group-select'))
+    const professorSelector = Selector.generate(document.getElementById('professor-select'))
+    groupSelector.setOnItemClicked(function (data, object) {
+        console.log("GROUP ON ITEM CLICKED", data, groupSelector.getSelection(), object)
+        return false;
+    });
+    professorSelector.setOnItemClicked(function (data, object) {
+        console.log("PROFESSOR ON ITEM CLICKED", data, professorSelector.getSelection(), object)
+        return false;
     })
 
-    $('.variant').click(function () {
-        $('.variant-list .variant.active').removeClass('active')
-        $(this).addClass('active')
+    $.getJSON('data/professors.json', function (data) {
+        professorSelector.fillData(data)
+        console.log(data)
     })
-    $('#groupSelect').click(function () {
-        $(this).find('.variant-list').toggleClass('active')
+    $.getJSON('data/groups.json', function (data) {
+        groupSelector.fillData(data)
+        console.log(data)
     })
 </script>
 </html>
