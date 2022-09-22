@@ -92,7 +92,7 @@ $timetable = getData();
         scrollToCurrentDate();
     })
 
-    $.getJSON('getJson.php', function (data) {
+    $.getJSON('getTimetable.php', function (data) {
         console.log(data)
         window.lessonsTimetable = data
         generateGrid(new Date().getMonth());

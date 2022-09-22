@@ -9,11 +9,9 @@ $timetable = collect(json_decode($file, true));
 $timetable = groupCollapsing($timetable);
 $currentDate = date("d.m.Y");
 //$currentDate = date("d.m.Y", strtotime("+1 day", strtotime(date("d.m.Y"))));
-/*$timetable = $timetable;
-    ->where("Department.code", "ИТ")
-    ->where("TeacherFIO", "Исаков Сергей Сергеевич");*/
+$timetable = $timetable->pluck("Group")->unique()->values();
 //$timetable = collapseSimilarities($timetable)->groupBy('dayDate')->sortBy('TimeStart');
-echo json_encode($timetable->pluck('Teacher')->unique()->toArray(), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+echo json_encode($timetable->toArray(), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 ?>
 <!doctype html>
 <html lang="en">
