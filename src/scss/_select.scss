@@ -23,9 +23,11 @@
   display: none;
   top: 112%;
   left: 0;
+  overflow-y: scroll;
 
   &.active {
     display: block;
+    z-index: 10;
   }
 
   .variant {

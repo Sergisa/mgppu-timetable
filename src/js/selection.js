@@ -7,10 +7,14 @@ const $variantPattern = $(`<div class="variant"></div>`)
 class Selector {
     constructor($rootElement, config) {
         this.relatedSelectTag = config.relatedSelectTag;
-        this.synchronizeSelectors = config.sync ?? false;
+        this.synchronizeSelectors = config.sync ?? false; //FIXME: true leads to endless cycle
         this.hideAssociatedLabel = config.hideAssociatedLabel ?? false;
         this.$root = $rootElement;
+        this.$selection = $rootElement.find('.selection');
         this.$list = $rootElement.find('.variant-list');
+        $(window).on('resize', () => {
+            this.adaptSize()
+        })
         this.$root.on('selectionchange', (event) => {
             event.preventDefault();
             event.stopPropagation()
@@ -18,7 +22,15 @@ class Selector {
         });
         this.$root.on('click', () => {
             this.toggleList();
-            return false;
+            this.adaptSize()
+        })
+    }
+
+    adaptSize() {
+        this.$list.css({
+            "max-height": (
+                $(window).height() - this.$list.offset().top - parseInt(this.$list.css('border-width'))
+            ) + "px"
         })
     }
 
@@ -35,16 +47,8 @@ class Selector {
         this.hideList()
     }
 
-    isShown() {
-        this.$list.hasClass('active')
-    }
-
     toggleList() {
         this.$list.toggleClass('active')
-    }
-
-    showList() {
-        this.$list.addClass('active')
     }
 
     hideList() {
@@ -63,7 +67,7 @@ class Selector {
             let optionTag = document.createElement("option")
             optionTag.value = key;
             optionTag.innerHTML = key;
-            this.relatedSelectTag.add(optionTag)
+            this.relatedSelectTag.appendChild(optionTag)
         }
     }
 
@@ -98,16 +102,15 @@ class Selector {
 
     /**
      *
-     * @param event {JQuery.Event}
+     * @param event {Event}
      */
     static clearMenus(event) {
-        //const openedLists = $('.variant-list.active').removeClass('active')
-        //:not(.variant), :not(.select), :not(.selection)
-        /*if (!$(e).is('.variant, .select')) {
-            this.toggleList();
-            e.preventDefault()
-            return false;
-        }*/
+        document.querySelectorAll('.variant-list.active').forEach(function (listElement) {
+            const selectorObject = Selector.getOrCreateInstance(listElement.parentElement)
+            if (event.target !== selectorObject.$selection.get(0)) {
+                selectorObject.hideList()
+            }
+        })
     }
 
     /**
@@ -135,7 +138,7 @@ class Selector {
 
     /**
      *
-     * @param $tag {jQuery}
+     * @param $tag {jQuery|HTMLDivElement}
      * @returns {*|Selector}
      */
     static getOrCreateInstance($tag) {
@@ -147,4 +150,3 @@ class Selector {
 }
 
 $(document).on('click', Selector.clearMenus)
-//TODO: create mechanism closing other dropdowns
