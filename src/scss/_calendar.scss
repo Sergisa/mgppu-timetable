@@ -6,16 +6,24 @@
   .header {
     padding: map-get($spacers, 2) 0;
     @include make-row(0);
+    flex-wrap: nowrap;
+
 
     span {
       text-align: center;
-      @include make-col(2);
+      @include make-col(4);
+      @include media-breakpoint-up(sm) {
+        @include make-col(4);
+      }
+      @include media-breakpoint-up(md) {
+        @include make-col(2);
+      }
       color: $primary;
     }
   }
 
   .dayLine {
-    @include make-row(0);
+    @include make-row();
     flex-wrap: nowrap;
     justify-content: end;
 
@@ -24,7 +32,13 @@
     }
 
     .day {
-      @include make-col();
+      @include make-col(4);
+      @include media-breakpoint-up(sm) {
+        @include make-col(4);
+      }
+      @include media-breakpoint-up(md) {
+        @include make-col(2);
+      }
       min-height: 50px;
       padding: 0;
       border-radius: 3px;
