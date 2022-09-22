@@ -25,84 +25,86 @@
     }
   }
 
-  .dayLine {
-    @include make-row(0);
-    flex-wrap: nowrap;
-    width: 100%;
+  .day-grid {
+    @include make-row();
+    .dayLine {
+      @include make-row(0);
+      flex-wrap: nowrap;
+      width: 100%;
 
-    &:first-of-type {
-      justify-content: end;
-    }
+      &:first-of-type {
+        justify-content: end;
+      }
 
-    &:last-child {
-      justify-content: start;
-    }
+      &:last-child {
+        justify-content: start;
+      }
 
-    .day {
-      @include make-col-ready();
-      @include make-col(4);
-      @include media-breakpoint-up(sm) {
+      .day {
         @include make-col(4);
-      }
-      @include media-breakpoint-up(md) {
-        @include make-col(2);
-      }
-      min-height: 50px;
-      padding: 0;
-      border-radius: 3px;
-      border: 2px solid $accent;
-      background-color: $body-bg;
-      color: $accent;
-      margin-bottom: map-get($spacers, 1);
-      margin-right: map-get($spacers, 1);
-      margin-left: map-get($spacers, 1);
-      //max-width: 15.76666667%;
-      position: relative;
-      cursor: pointer;
+        @include media-breakpoint-up(sm) {
+          @include make-col(4);
+        }
+        @include media-breakpoint-up(md) {
+          @include make-col(2);
+        }
+        min-height: 50px;
+        padding: 0;
+        border-radius: 3px;
+        border: 2px solid $accent;
+        background-color: $body-bg;
+        color: $accent;
+        margin-bottom: map-get($spacers, 1);
+        margin-right: map-get($spacers, 1);
+        margin-left: map-get($spacers, 1);
+        //max-width: 15.76666667%;
+        position: relative;
+        cursor: pointer;
 
-      &:hover {
-        background: linear-gradient(transparentize($accent, .9), transparentize($accent, .7));
+        &:hover {
+          background: linear-gradient(transparentize($accent, .9), transparentize($accent, .7));
 
-        &:after {
-          content: attr(data-day-number);
+          &:after {
+            content: attr(data-day-number);
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+            font-size: xx-large;
+            font-weight: 800;
+            color: transparentize($accent, .5);
+          }
+        }
+
+        .lesson {
           width: 100%;
-          height: 100%;
-          position: absolute;
-          top: 0;
-          left: 0;
-          display: flex;
+          min-height: 33px;
+          padding: 4px 0;
           text-align: center;
-          justify-content: center;
+          display: flex;
           align-items: center;
-          font-size: xx-large;
-          font-weight: 800;
-          color: transparentize($accent, .5);
-        }
-      }
+          justify-content: center;
+          margin: 0;
+          border-radius: 0;
+          border-top-width: 0;
+          border-bottom-width: 1px;
+          border-left-width: 0;
+          border-right-width: 0;
+          border-style: dashed;
 
-      .lesson {
-        width: 100%;
-        min-height: 33px;
-        padding: 4px 0;
-        text-align: center;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0;
-        border-radius: 0;
-        border-top-width: 0;
-        border-bottom-width: 1px;
-        border-left-width: 0;
-        border-right-width: 0;
-        border-style: dashed;
+          span {
+            width: 100%;
+            background-color: $secondary;
+          }
 
-        span {
-          width: 100%;
-          background-color: $secondary;
-        }
-
-        &.empty {
-          //visibility: hidden;
+          &.empty {
+            //visibility: hidden;
+          }
         }
       }
     }
