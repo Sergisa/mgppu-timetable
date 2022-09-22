@@ -26,29 +26,17 @@ $timetable = getData();
 </head>
 <body class="container">
 <div class="row">
-    <form action="">
-        <label for="group-select" class="text-light">Выберите группу</label>
-        <select name="group" id="group-select">
-            <option value="ee">21ИТ-ПИ(б/о)ПИП-1</option>
-        </select>
-        <label for="professor-select"></label>
-        <select name="professor" id="professor-select">
-            <option value="ee">21ИТ-ПИ(б/о)ПИП-1</option>
-        </select>
+    <form action="calendarView.php">
+        <div class="mb-3">
+            <label for="group-select" class="text-light">Выберите группу</label>
+            <select name="group" id="group-select"></select>
+        </div>
+        <div class="mb-3">
+            <label for="professor-select" class="text-light">Выберите преподавателя</label>
+            <select name="professor" id="professor-select"></select>
+        </div>
         <button class="btn btn-primary">Перейти к расписанию</button>
     </form>
-
-    <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown button
-        </button>
-        <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-        </ul>
-    </div>
-
 </div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
