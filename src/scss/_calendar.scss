@@ -2,6 +2,7 @@
   align-items: flex-start;
   justify-content: space-between;
   overflow-wrap: break-word;
+  overflow-x: scroll;
 
   .header {
     padding: map-get($spacers, 2) 0;
@@ -18,20 +19,28 @@
       @include media-breakpoint-up(md) {
         @include make-col(2);
       }
+      margin-right: 0.25rem;
+      margin-left: 0.25rem;
       color: $primary;
     }
   }
 
   .dayLine {
-    @include make-row();
+    @include make-row(0);
     flex-wrap: nowrap;
-    justify-content: end;
+    width: 100%;
+
+    &:first-of-type {
+      justify-content: end;
+      background-color: red;
+    }
 
     &:last-child {
       justify-content: start;
     }
 
     .day {
+      @include make-col-ready();
       @include make-col(4);
       @include media-breakpoint-up(sm) {
         @include make-col(4);
@@ -48,7 +57,7 @@
       margin-bottom: map-get($spacers, 1);
       margin-right: map-get($spacers, 1);
       margin-left: map-get($spacers, 1);
-      max-width: 15.76666667%;
+      //max-width: 15.76666667%;
       position: relative;
       cursor: pointer;
 
