@@ -3,11 +3,22 @@ const $selectPattern = $(`<div class="select" id="groupSelect">
     <div class="variant-list"></div>
 </div>`)
 const $variantPattern = $(`<div class="variant"></div>`)
+const changeSelectedByContent = (element, value) => {
+    changeSelected(element, value, 'text')
+};
+const changeSelectedByValue = (element, value) => {
+    changeSelected(element, value, 'value')
+};
+const changeSelected = (element, value, prop) => {
+    const $options = Array.from(element.options);
+    const optionToSelect = $options.find(item => item[prop] === value);
+    element.value = optionToSelect.value;
+};
 
 class Selector {
     constructor($rootElement, config) {
         this.relatedSelectTag = config.relatedSelectTag;
-        this.synchronizeSelectors = config.sync ?? false; //FIXME: true leads to endless cycle
+        this.synchronizeSelectors = config.synchronizeSelectors ?? false; //FIXME: true leads to endless cycle
         this.hideAssociatedLabel = config.hideAssociatedLabel ?? false;
         this.$root = $rootElement;
         this.$selection = $rootElement.find('.selection');
@@ -40,10 +51,11 @@ class Selector {
      * @private
      */
     #clickHandler(event) {
-        this.$root.find('.variant.active').removeClass('active')
+        this.clearSelection()
         event.currentTarget.classList.add('active')
         if (this.externalHandler) this.externalHandler(event, this)
         this.$root.find('.selection').html(event.currentTarget.innerHTML);
+        changeSelectedByContent(this.relatedSelectTag, event.currentTarget.innerHTML)
         this.hideList()
     }
 
@@ -63,10 +75,10 @@ class Selector {
         $variantPattern.clone().attr({
             "data-value": key ?? value
         }).html(value).on('click', this.#clickHandler.bind(this)).appendTo(this.$root.find('.variant-list'))
-        if (this.synchronizeSelectors) {
+        if (this.synchronizeSelectors) {//FIXME: Первым стоит старый объект Option
             let optionTag = document.createElement("option")
             optionTag.value = key;
-            optionTag.innerHTML = key;
+            optionTag.innerHTML = value;
             this.relatedSelectTag.appendChild(optionTag)
         }
     }
@@ -91,9 +103,15 @@ class Selector {
         this.$list.empty()
     }
 
+    clearSelection() {
+        this.$list.find('.active').removeClass('active')
+        this.relatedSelectTag.selectedIndex = -1
+    }
+
     fillData(lines) {
         this.clear()
         this.appendData(lines)
+        this.clearSelection()
     }
 
     getSelection() {
@@ -119,7 +137,7 @@ class Selector {
      * @param config {Object}
      * @returns {Selector}
      */
-    static generate(selectTag, config) {
+    static generate(selectTag, config = undefined) {
         if (selectTag instanceof jQuery) {
             selectTag = selectTag.get();
         }
@@ -128,11 +146,12 @@ class Selector {
             if (config.hideAssociatedLabel) document.querySelector(`label[for='${selectTag.id}']`).style.display = 'none';
         }
         const $selectTag = $selectPattern.clone()
-        const selectorObject = new this($selectTag.insertAfter(selectTag), config ?? {
-            relatedSelectTag: selectTag
-        });
+        config.relatedSelectTag = selectTag
+        const selectorObject = new this($selectTag.insertAfter(selectTag), config);
         $selectTag.data("selector", selectorObject)
-        selectorObject.fillData(selectTag.options)
+
+        const opts = {...selectTag.options}
+        selectorObject.fillData(opts)
         return selectorObject;
     }
 

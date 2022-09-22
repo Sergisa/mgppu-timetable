@@ -45,10 +45,11 @@ $timetable = getData();
 <script src="dist/js/bsBreakPointDriver.js"></script>
 <script src="dist/js/selection.js"></script>
 <script>
-    $(document).on('ready', function () {
-    })
-    const groupSelector = Selector.generate(document.getElementById('group-select'))
-    const professorSelector = Selector.generate(document.getElementById('professor-select'))
+    let config = {
+        synchronizeSelectors: true
+    }
+    const groupSelector = Selector.generate(document.getElementById('group-select'), config)
+    const professorSelector = Selector.generate(document.getElementById('professor-select'), config)
     groupSelector.setOnItemClicked(function (data, object) {
         console.log("GROUP ON ITEM CLICKED", data, groupSelector.getSelection(), object)
         return false;
