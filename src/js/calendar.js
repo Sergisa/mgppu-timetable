@@ -72,8 +72,9 @@ function generateDaysLine(currentDate) {
 function generateGrid(month) {
     const monthGrid = $('#monthGrid').append(generateHeaderLine())
     let currentDate = new Date(2022, defaultMonth ?? month, 1)
+    const $dayGrid = $(`<div class="day-grid"></div>`).appendTo(monthGrid)
     while (true) {
-        monthGrid.append(generateDaysLine(currentDate))
+        $dayGrid.append(generateDaysLine(currentDate))
         if (currentDate.hasNextInMonth()) {
             currentDate.next()
         } else {
