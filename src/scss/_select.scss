@@ -22,8 +22,9 @@
   border-radius: 5px;
   display: none;
   top: 112%;
+  width: 100%;
   left: 0;
-  overflow-y: scroll;
+  overflow-y: auto;
 
   &.active {
     display: block;
