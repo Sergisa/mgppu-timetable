@@ -17,6 +17,7 @@
     "stylelint-config-twbs-bootstrap": "^3.0.1"
   },
   "scripts": {
+    "compile": "npm run css-compile && npm run js-compile",
     "css-compile": "sass src/scss/style.scss:dist/css/style.css",
     "css-watch": "sass src/scss/style.scss:dist/css/style.css --watch",
     "js-compile": "babel src/js/jquery.easing.js src/js/dateDriver.js src/js/bsBreakPointDriver.js  src/js/dayList.js src/js/calendar.js -o dist/js/bundle.js --minified",
