@@ -2,25 +2,24 @@
   align-items: flex-start;
   justify-content: space-between;
   overflow-wrap: break-word;
-  overflow-x: scroll;
+  overflow-x: auto;
 
   .header {
     padding: map-get($spacers, 2) 0;
-    @include make-row(0);
+    @include make-row();
     flex-wrap: nowrap;
 
 
     span {
       text-align: center;
+      @include make-col-ready();
       @include make-col(4);
-      @include media-breakpoint-up(sm) {
+      @include media-breakpoint-up(xs) {
         @include make-col(4);
       }
       @include media-breakpoint-up(md) {
         @include make-col(2);
       }
-      margin-right: 0.25rem;
-      margin-left: 0.25rem;
       color: $primary;
     }
   }
@@ -41,8 +40,7 @@
       }
 
       .day {
-        @include make-col(4);
-        @include media-breakpoint-up(sm) {
+        @include media-breakpoint-up(xs) {
           @include make-col(4);
         }
         @include media-breakpoint-up(md) {
@@ -55,8 +53,8 @@
         background-color: $body-bg;
         color: $accent;
         margin-bottom: map-get($spacers, 1);
-        margin-right: map-get($spacers, 1);
-        margin-left: map-get($spacers, 1);
+        //margin-right: map-get($spacers, 1);
+        //margin-left: map-get($spacers, 1);
         //max-width: 15.76666667%;
         position: relative;
         cursor: pointer;
