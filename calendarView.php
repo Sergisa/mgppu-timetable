@@ -38,7 +38,11 @@ $_monthsList = getMonths()
         <p class="lead text-primary d-md-inline m-0 mb-md-3">
             <?php
             if (isTeacherTimetable()) {
-                echo getTeacherById($_GET['professor']) . " ";
+                if(!array_key_exists('professor', $_GET)){
+                    echo  "Исаков Сергей Сергеевич ";
+                }else {
+                    echo getTeacherById($_GET['professor']) . " ";
+                }
             } elseif (!array_key_exists('group', $_GET)) {
                 echo "Исаков Сергей Сергеевич ";
             } else {
