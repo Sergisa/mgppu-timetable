@@ -29,8 +29,10 @@ $_monthsList = getMonths()
 <div class="row">
 
     <div class="col-12 col-md-8">
-
         <h1 class="fw-bolder month-title text-primary d-inline">
+            <a href="/">
+                <i class="bi bi-backspace"></i>
+            </a>
             <?= $_monthsList[(int)date('m')] ?>
         </h1>
         <p class="lead text-primary d-inline">

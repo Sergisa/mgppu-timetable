@@ -23,3 +23,19 @@ $container-max-widths: (
 @import "calendar";
 @import "select";
 @import "week-lines";
+a {
+  text-decoration: none;
+
+  .bi-backspace {
+    color: $accent;
+    cursor: pointer;
+    border-radius: 3px;
+    padding: 0 .3rem;
+    display: inline-flex;
+
+    &:hover {
+      background-color: $secondary;
+    }
+  }
+
+}
