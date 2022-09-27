@@ -2,6 +2,20 @@
 include 'vendor/autoload.php';
 include 'functions.php';
 $timetable = getData();
+$_monthsList = [
+    1 => "Январь",
+    2 => "Февраль",
+    3 => "Март",
+    4 => "Апрель",
+    5 => "Май",
+    6 => "Июнь",
+    7 => "Июль",
+    8 => "Август",
+    9 => "Сентябрь",
+    10 => "Октябрь",
+    11 => "Ноябрь",
+    12 => "Декабрь"
+];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,8 +40,9 @@ $timetable = getData();
 </head>
 <body class="container">
 <div class="row">
-    <div class="col-12 col-md-8 calendar py-1" id="monthGrid"></div>
-
+    <div class="col-12 col-md-8 calendar py-1" id="monthGrid">
+        <h1 class="fw-bolder month-title text-primary"><?= $_monthsList[(int)date('m')] ?></h1>
+    </div>
     <div id="listDays" class="col-12 col-md-4">
         <ul class="list-group list-group-flush bg-opacity-100">
             <?php
