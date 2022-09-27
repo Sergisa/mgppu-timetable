@@ -34,14 +34,25 @@ $_monthsList = getMonths()
             <?= $_monthsList[(int)date('m')] ?>
         </h1>
         <p class="lead text-primary d-inline">
-            <?= array_key_exists('professor', $_GET) ? getTeacherById($_GET['professor']) : "Исаков Сергей Сергеевич" ?>
-            <?= array_key_exists('group', $_GET) ? getGroupById($_GET['group']) : "" ?>
+            <?php
+            if (array_key_exists('professor', $_GET)) {
+                echo getTeacherById($_GET['professor']) . " ";
+            } elseif (!array_key_exists('group', $_GET)) {
+                echo "Исаков Сергей Сергеевич ";
+            } else {
+                echo "";
+            }
+            echo array_key_exists('group', $_GET) ? getGroupById($_GET['group']) : "";
+            ?>
         </p>
         <div class="calendar py-1" id="monthGrid"></div>
     </div>
     <div id="listDays" class="col-12 col-md-4">
         <ul class="list-group list-group-flush bg-opacity-100">
             <?php
+            if ($timetable->isEmpty()) {
+                echo "<h2 class='text-primary text-center mt-4'>Нет пар</h2>";
+            }
             foreach ($timetable as $date => $lessons) {
                 echo "<li class='list-group-item' data-date='$date'>";
                 echo "<div class='labels'>

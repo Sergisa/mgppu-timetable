@@ -18,8 +18,10 @@ $timetable = $timetable
     })->filter(function ($lesson) {
         if (array_key_exists('professor', $_GET)) {
             return ($lesson['Teacher']['id'] == $_GET['professor']);
-        } else {
+        } elseif (!array_key_exists('group', $_GET)) {
             return ($lesson['Teacher']['name'] == "Исаков Сергей Сергеевич");
+        } else {
+            return true;
         }
     });
 //->where("dayDate", "ИТ");
