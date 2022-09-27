@@ -6,9 +6,7 @@
 
   .header {
     padding: map-get($spacers, 2) 0;
-    @include make-row();
-    flex-wrap: nowrap;
-
+    display: flex;
 
     span {
       text-align: center;
@@ -25,7 +23,6 @@
   }
 
   .day-grid {
-    @include make-row();
     .dayLine {
       @include make-row(0);
       flex-wrap: nowrap;
