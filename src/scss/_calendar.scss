@@ -79,7 +79,7 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
               font-size: xx-large;
               font-weight: 800;
               color: transparentize($primary, .3);
-              background: linear-gradient(lighten(transparentize($secondary, .9), .4), lighten(transparentize($secondary, .7), .4));
+              background: linear-gradient(transparentize($secondary, .9), transparentize($secondary, .7));
             }
 
             .lesson {
@@ -105,7 +105,7 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
 
             span {
               width: 100%;
-              background-color: lighten(transparentize($secondary, .8), .4);
+              background-color: transparentize($secondary, .8);
             }
           }
         }

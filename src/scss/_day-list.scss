@@ -1,4 +1,4 @@
-$scrollbar-thumb-color: transparentize($secondary, .5);
+$scrollbar-thumb-color: transparentize($secondary, .6);
 $scrollbar-background-color: $body-bg;
 
 #listDays {
@@ -39,8 +39,7 @@ $scrollbar-background-color: $body-bg;
 
       span.date {
         font-weight: bold;
-        color: saturate($secondary, 20%);
-        background-color: lighten(transparentize($secondary, .8), .4);
+        color: $primary;
         padding: 0 0.8em;
         border-radius: 5px;
       }
@@ -48,7 +47,7 @@ $scrollbar-background-color: $body-bg;
       span.type {
         font-weight: bold;
         color: $primary;
-        background-color: lighten(transparentize($secondary, .8), .4);
+        background-color: transparentize($secondary, .8);
         padding: 0 0.8em;
         border-radius: 5px;
         text-transform: uppercase;
