@@ -17,6 +17,26 @@ function getLessonSignature($lesson): string
     return $lesson['Discipline'] . ' ';
 }
 
+function getLessonTypeSignature($type): string
+{
+    return mb_substr($type == "Практические занятия" ? "Семинар" : "Лекции", 0, 1);
+}
+
+function getGroupYear($group): string
+{
+    preg_match_all('/(\d{2})([А-Я]{2})-([А-Я]+)\((.+)\)([А-Я]+)-(\d)/u', $group, $m);
+    return $m[1][0];
+}
+
+function getCourseNumber($group, $currentMonth = null, $currentYear = null): string
+{
+    $activeMonth = $currentMonth ?? date('m');
+    $activeYear = $currentYear ?? date('y'); // y: 22 Y: 2022
+    $course = $activeYear - getGroupYear($group);
+    if ($activeMonth >= 9 && $activeMonth <= 12) $course++;
+    return "{$course} курс";
+}
+
 function getLessonIndex($lesson): string
 {
     preg_match_all('/(\d) *пара/ui', $lesson['Number'], $index);
@@ -29,7 +49,7 @@ function getGroupsSignature($lesson): string
         preg_match_all('/(\d{2}[А-Я]{2})-([А-Я]+)\((.+)\)([А-Я]+)-(\d)/u', $code, $m);
         return $m[2][0];
     });
-    return ($groupCodeList->count() > 1) ? implode(', ', $groupCodeList->toArray()) : "";
+    return ($groupCodeList->count() > 1) ? "(" . implode(', ', $groupCodeList->toArray()) . ")" : "";
 }
 
 function collapseSimilarities(Collection $timetable): Collection
@@ -114,5 +134,8 @@ function getData(): Collection
     return collapseSimilarities($timetable)
         ->sortBy(['Number'])
         ->sortByDate('dayDate')
+        ->filter(function ($lesson) {
+            return str_contains($lesson['dayDate'], "." . date('m') . ".");
+        })
         ->groupBy('dayDate');
 }

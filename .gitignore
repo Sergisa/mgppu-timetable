@@ -6,3 +6,4 @@ dist/css/style.css.map
 .idea
 dist
 timetable.iml
+.phpunit.result.cache

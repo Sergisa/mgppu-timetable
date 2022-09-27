@@ -2,6 +2,20 @@
 include 'vendor/autoload.php';
 include 'functions.php';
 $timetable = getData();
+$_monthsList = [
+    1 => "Январь",
+    2 => "Февраль",
+    3 => "Март",
+    4 => "Апрель",
+    5 => "Май",
+    6 => "Июнь",
+    7 => "Июль",
+    8 => "Август",
+    9 => "Сентябрь",
+    10 => "Октябрь",
+    11 => "Ноябрь",
+    12 => "Декабрь"
+];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,44 +36,13 @@ $timetable = getData();
         body {
             font-family: 'Nunito', sans-serif;
         }
-
-        .right-menu {
-            position: fixed;
-            right: -130px;
-            top: 0;
-            z-index: 10;
-            height: 101%;
-            display: flex;
-            width: 260px;
-            flex-direction: column;
-            align-items: start;
-            justify-content: center;
-            border-radius: 50%;
-            background: -moz-radial-gradient(#48484833, #33333370);
-            font-weight: bolder;
-            color: white;
-        }
-
-        .right-menu .menu-element:hover {
-            color: #FCBB6D;
-        }
-
-        .right-menu .menu-element {
-            margin: 30px 0;
-            cursor: pointer;
-        }
     </style>
 </head>
 <body class="container">
-<div class="right-menu">
-    <div class="menu-element">Скачать</div>
-    <div class="menu-element">Распечатать расписание</div>
-    <div class="menu-element">Изменить Группу</div>
-    <div class="menu-element">Изменить преподавателя</div>
-</div>
 <div class="row">
-    <div class="col-12 col-md-8 calendar py-1" id="monthGrid"></div>
-
+    <div class="col-12 col-md-8 calendar py-1" id="monthGrid">
+        <h1 class="fw-bolder month-title text-primary"><?= $_monthsList[(int)date('m')] ?></h1>
+    </div>
     <div id="listDays" class="col-12 col-md-4">
         <ul class="list-group list-group-flush bg-opacity-100">
             <?php
@@ -68,14 +51,15 @@ $timetable = getData();
                 echo "<div class='labels'>
                     <span class='date me-1'>" . convertDate('d.m', $date) . "</span>";
                 foreach (collect($lessons)->pluck("Type") as $type) {
-                    echo "<span class='type me-1'>" . mb_substr($type, 0, 1) . "</span>";
+                    echo "<span class='type me-1'>" . getLessonTypeSignature($type) . "</span>";
                 }
                 echo "</div>";
                 foreach ($lessons as $lesson) {
                     $lessonSign = getLessonSignature($lesson);
                     $groupsSign = getGroupsSignature($lesson);
+                    $courseSign = getCourseNumber($lesson['Group'][0]['name']);
                     $lessonIndex = getLessonIndex($lesson);
-                    echo "<div class='lesson' data-time='{$lesson['TimeStart']}'><b>{$lessonIndex}.</b> {$lessonSign}<span class='groupCode'>{$groupsSign}</span></div>";
+                    echo "<div class='lesson' data-time='{$lesson['TimeStart']}'><b>{$lessonIndex}.</b> {$lessonSign}<span class='groupCode'>$groupsSign $courseSign</span></div>";
                 }
                 echo "</li>";
             }
