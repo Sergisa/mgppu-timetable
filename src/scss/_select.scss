@@ -8,6 +8,11 @@
   background: $body-bg;
   padding: .7rem;
   border-radius: 5px;
+
+  i.bi {
+    cursor: pointer;
+    float: right;
+  }
 }
 
 .variant-list {

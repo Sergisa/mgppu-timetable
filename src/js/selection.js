@@ -1,5 +1,7 @@
+const $arrow = `<i class="bi bi-chevron-down"></i>`;
+const clear = `<i class="bi bi-x-lg"></i>`;
 const $selectPattern = $(`<div class="select" id="groupSelect">
-    <div class="selection">Выберите вариант</div>
+    <div class="selection">Все ${$arrow}</div>
     <div class="variant-list"></div>
 </div>`)
 const $variantPattern = $(`<div class="variant"></div>`)
@@ -54,7 +56,12 @@ class Selector {
         this.clearSelection()
         event.currentTarget.classList.add('active')
         if (this.externalHandler) this.externalHandler(event, this)
-        this.$root.find('.selection').html(event.currentTarget.innerHTML);
+        let $clear = $(clear)
+        $clear.on('click', () => {
+            this.clearSelection()
+            this.$selection.html($selectPattern.find('.selection').clone().html());
+        })
+        this.$selection.html(event.currentTarget.innerHTML).append($clear);
         changeSelectedByContent(this.relatedSelectTag, event.currentTarget.innerHTML)
         this.hideList()
     }
