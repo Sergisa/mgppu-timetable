@@ -1,9 +1,5 @@
 .select {
   position: relative;
-  @include make-col(12);
-  @include media-breakpoint-up(md) {
-    @include make-col(3);
-  }
 }
 
 .selection {

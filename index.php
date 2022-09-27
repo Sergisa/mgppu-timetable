@@ -7,8 +7,7 @@ $timetable = getData();
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
@@ -26,12 +25,12 @@ $timetable = getData();
 </head>
 <body class="container">
 <div class="row">
-    <form action="calendarView.php">
-        <div class="mb-3">
+    <form action="calendarView.php" class="col-md-4 col-xs-12 mx-auto">
+        <div class="mb-3 col-12">
             <label for="group-select" class="text-light">Выберите группу</label>
             <select name="group" id="group-select"></select>
         </div>
-        <div class="mb-3">
+        <div class="mb-3 col-12">
             <label for="professor-select" class="text-light">Выберите преподавателя</label>
             <select name="professor" id="professor-select"></select>
         </div>

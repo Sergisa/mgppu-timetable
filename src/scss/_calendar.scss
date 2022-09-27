@@ -26,6 +26,7 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
       color: $primary;
       display: flex;
       min-width: calc(100% / $days-count);
+      word-break: break-all;//TODO:remove wordBreak. Make smaller font-size
     }
   }
 

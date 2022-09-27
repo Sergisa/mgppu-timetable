@@ -7,6 +7,42 @@ Collection::macro('sortByDate', function (string $column = 'created_at', bool $d
         return strtotime(((object)$datum)->$column);
     }, SORT_REGULAR, $descending);
 });
+function getMonths(): array
+{
+    return [
+        1 => "Январь",
+        2 => "Февраль",
+        3 => "Март",
+        4 => "Апрель",
+        5 => "Май",
+        6 => "Июнь",
+        7 => "Июль",
+        8 => "Август",
+        9 => "Сентябрь",
+        10 => "Октябрь",
+        11 => "Ноябрь",
+        12 => "Декабрь"
+    ];
+}
+
+function getFileData($fileName)
+{
+    $myfile = fopen("data/$fileName", "r") or die("Unable to open file!");
+    $file = fread($myfile, filesize("data/$fileName"));
+    fclose($myfile);
+    return collect(json_decode($file, true));
+}
+
+function getGroupById($id)
+{
+    return getFileData('groups.json')[$id];
+}
+
+function getTeacherById($id)
+{
+    return getFileData('professors.json')[$id];
+}
+
 function convertDate($pattern, $date): string
 {
     return date($pattern, strtotime($date));
@@ -129,13 +165,23 @@ function getData(): Collection
     $timetable = collect(json_decode($file, true));
     $timetable = groupCollapsing($timetable);
     $timetable = $timetable
-        ->where("TeacherFIO", "Исаков Сергей Сергеевич")
-        ->where("Department.code", "ИТ");
-    return collapseSimilarities($timetable)
-        ->sortBy(['Number'])
-        ->sortByDate('dayDate')
+        //->where("TeacherFIO", "Исаков Сергей Сергеевич")
+        //->where("Department.code", "ИТ")
         ->filter(function ($lesson) {
             return str_contains($lesson['dayDate'], "." . date('m') . ".");
         })
+        ->filter(function ($lesson) {
+            return !array_key_exists('group', $_GET) || $lesson['Group']['id'] == $_GET['group'];
+        })
+        ->filter(function ($lesson) {
+            if (array_key_exists('professor', $_GET)) {
+                return ($lesson['Teacher']['id'] == $_GET['professor']);
+            } else {
+                return ($lesson['Teacher']['name'] == "Исаков Сергей Сергеевич");
+            }
+        });
+    return collapseSimilarities($timetable)
+        ->sortBy(['Number'])
+        ->sortByDate('dayDate')
         ->groupBy('dayDate');
 }

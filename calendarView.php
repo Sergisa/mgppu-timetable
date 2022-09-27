@@ -2,20 +2,7 @@
 include 'vendor/autoload.php';
 include 'functions.php';
 $timetable = getData();
-$_monthsList = [
-    1 => "Январь",
-    2 => "Февраль",
-    3 => "Март",
-    4 => "Апрель",
-    5 => "Май",
-    6 => "Июнь",
-    7 => "Июль",
-    8 => "Август",
-    9 => "Сентябрь",
-    10 => "Октябрь",
-    11 => "Ноябрь",
-    12 => "Декабрь"
-];
+$_monthsList = getMonths()
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,10 +25,19 @@ $_monthsList = [
         }
     </style>
 </head>
-<body class="container">
+<body class="container py-2">
 <div class="row">
-    <div class="col-12 col-md-8 calendar py-1" id="monthGrid">
-        <h1 class="fw-bolder month-title text-primary"><?= $_monthsList[(int)date('m')] ?></h1>
+
+    <div class="col-12 col-md-8">
+
+        <h1 class="fw-bolder month-title text-primary d-inline">
+            <?= $_monthsList[(int)date('m')] ?>
+        </h1>
+        <p class="lead text-primary d-inline">
+            <?= array_key_exists('professor', $_GET) ? getTeacherById($_GET['professor']) : "Исаков Сергей Сергеевич" ?>
+            <?= array_key_exists('group', $_GET) ? getGroupById($_GET['group']) : "" ?>
+        </p>
+        <div class="calendar py-1" id="monthGrid"></div>
     </div>
     <div id="listDays" class="col-12 col-md-4">
         <ul class="list-group list-group-flush bg-opacity-100">
@@ -75,8 +71,15 @@ $_monthsList = [
     $(document).ready(function () {
         scrollToCurrentDate();
     })
-
-    $.getJSON('getTimetable.php', function (data) {
+    const urlParams = new URLSearchParams(window.location.search);
+    const rqObject = {}
+    if (urlParams.has('professor')) {
+        rqObject.professor = urlParams.get('professor');
+    }
+    if (urlParams.has('group')) {
+        rqObject.group = urlParams.get('group');
+    }
+    $.getJSON('getTimetable.php', rqObject).done(function (data) {
         console.log(data)
         window.lessonsTimetable = data
         generateGrid(new Date().getMonth());
@@ -85,7 +88,7 @@ $_monthsList = [
             scrollToDate(this.dataset.date)
         })
     }).fail(function (data) {
-        console.error(data)
+        console.info(data.responseText)
     })
 </script>
 </html>
