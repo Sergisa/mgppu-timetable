@@ -4,7 +4,7 @@ $scrollbar-background-color: $body-bg;
 #listDays {
   .list-group {
     @include media-breakpoint-up(md) {
-      height: 100vh;
+      height: calc(100vh - (map-get($spacers, 2) * 2));
     }
 
     overflow-y: scroll;

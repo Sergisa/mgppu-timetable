@@ -9,6 +9,10 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
   justify-content: space-between;
   overflow-wrap: break-word;
   overflow-x: auto;
+  overflow-y: auto;
+  @include media-breakpoint-up(md) {
+    max-height: 92vh;
+  }
 
   .header {
     padding: map-get($spacers, 2) 0;
@@ -26,7 +30,7 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
       color: $primary;
       display: flex;
       min-width: calc(100% / $days-count);
-      word-break: break-all;//TODO:remove wordBreak. Make smaller font-size
+      word-break: break-all; //TODO:remove wordBreak. Make smaller font-size
     }
   }
 
