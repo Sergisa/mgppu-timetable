@@ -28,7 +28,7 @@ function generateDay(date, lessons) {
             }
         }
     }
-    return dayView;
+    return $(`<div class="day-wrapper"></div>`).append(dayView);
 }
 
 /**
