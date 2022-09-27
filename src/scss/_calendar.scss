@@ -1,101 +1,113 @@
+$days-count: 6;
+$col-per-screen-sm: 3.5;
+$col-per-screen-lg: 6;
+$day-horizontal-margin: 3px;
+$line-width-sm: calc(100% * ($days-count / $col-per-screen-sm));
+$line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
 .calendar {
-  //@include make-col(8, 0);
   align-items: flex-start;
   justify-content: space-between;
-  //flex-wrap: nowrap;
-  //display: flex;
-
+  overflow-wrap: break-word;
+  overflow-x: auto;
 
   .header {
     padding: map-get($spacers, 2) 0;
-    //display: flex;
-    @include make-row(0);
-    //justify-content: space-between;
+    display: flex;
+    @include media-breakpoint-up(xs) {
+      width: $line-width-sm;
+    }
+    @include media-breakpoint-up(md) {
+      width: $line-width-lg;
+    }
 
     span {
       text-align: center;
-      @include make-col(2);
+      justify-content: center;
       color: $primary;
+      display: flex;
+      min-width: calc(100% / $days-count);
     }
   }
 
-  .dayLine {
-    @include make-row(0);
-    flex-wrap: nowrap;
-    justify-content: end;
-    height: 19%;
-
-    &:last-child {
-      justify-content: start;
-
-      //& > .day:first-child {
-      //  margin-left: map-get($spacers, 1);
-      //}
-    }
-
-    .day {
-      @include make-col();
-      padding: 0;
-      border-radius: 3px;
-      border: 2px solid $accent;
-      background-color: $body-bg;
-      color: $accent;
-      margin-bottom: map-get($spacers, 1);
-      margin-right: map-get($spacers, 1);
-      margin-left: map-get($spacers, 1);
-      max-width: 15.76666667%;
-      position: relative;
-      cursor: pointer;
-
-      &:hover {
-        background: linear-gradient(transparentize($accent, .9), transparentize($accent, .7));
-
-        &:after {
-          content: attr(data-day-number);
-          width: 100%;
-          height: 100%;
-          position: relative;
-          top: 0;
-          left: 0;
-          display: flex;
-          text-align: center;
-          justify-content: center;
-          align-items: center;
-          font-size: xx-large;
-          font-weight: 800;
-          color: transparentize($accent, .5);
-        }
+  .day-grid {
+    .dayLine {
+      flex-wrap: nowrap;
+      @include media-breakpoint-up(xs) {
+        width: $line-width-sm;
+      }
+      @include media-breakpoint-up(md) {
+        width: $line-width-lg
       }
 
-      .lesson {
-        background-color: $secondary;
-        position: absolute;
-        width: 100%;
-        height: 1.3rem;
-        padding: 0 .4em;
-        text-align: center;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+      display: flex;
 
-        &[data-lesson-index='1'] {
-          top: 0;
-        }
+      &:first-of-type {
+        justify-content: end;
+      }
 
-        &[data-lesson-index='2'] {
-          top: 20%;
-        }
+      &:last-child {
+        justify-content: start;
+      }
 
-        &[data-lesson-index='3'] {
-          top: 40%;
-        }
+      .day-wrapper {
+        min-width: calc(100% / $days-count);
+        margin-bottom: map-get($spacers, 1);
+        position: relative;
+        cursor: pointer;
+        padding: 0 $day-horizontal-margin;
 
-        &[data-lesson-index='4'] {
-          top: 60%;
-        }
+        .day {
+          border-radius: 3px;
+          border: 2px solid $accent;
+          background-color: $body-bg;
+          color: $accent;
+          min-height: 50px;
+          height: 100%;
 
-        &[data-lesson-index='5'] {
-          top: 80%;
+          &:hover {
+            &:after {
+              content: attr(data-day-number);
+              width: 100%;
+              height: 100%;
+              position: absolute;
+              top: 0;
+              left: 0;
+              display: flex;
+              text-align: center;
+              justify-content: center;
+              align-items: center;
+              font-size: xx-large;
+              font-weight: 800;
+              color: transparentize($primary, .3);
+              background: linear-gradient(transparentize($accent, .9), transparentize($accent, .7));
+            }
+
+            .lesson {
+              opacity: .3;
+            }
+          }
+
+          .lesson {
+            width: 100%;
+            min-height: 33px;
+            padding: 4px 0;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            border-radius: 0;
+            border-top-width: 0;
+            border-bottom-width: 1px;
+            border-left-width: 0;
+            border-right-width: 0;
+            border-style: dashed;
+
+            span {
+              width: 100%;
+              background-color: $secondary;
+            }
+          }
         }
       }
     }

@@ -3,7 +3,10 @@ $scrollbar-background-color: $body-bg;
 
 #listDays {
   .list-group {
-    height: 100vh;
+    @include media-breakpoint-up(md) {
+      height: 100vh;
+    }
+
     overflow-y: scroll;
     overflow-x: hidden;
     scrollbar-width: thin;

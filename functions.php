@@ -16,11 +16,13 @@ function getLessonSignature($lesson): string
 {
     return $lesson['Discipline'] . ' ';
 }
+
 function getLessonIndex($lesson): string
 {
     preg_match_all('/(\d) *пара/ui', $lesson['Number'], $index);
     return $index[1][0];
 }
+
 function getGroupsSignature($lesson): string
 {
     $groupCodeList = collect($lesson['Group'])->pluck('name')->map(function ($code) {
@@ -93,4 +95,24 @@ function groupCollapsing($timetable): Collection
 
         return $newObj->toArray();
     });
+}
+
+/**
+ * @return Collection
+ */
+function getData(): Collection
+{
+    ini_set('memory_limit', '-1');
+    $myfile = fopen("data/Timetable2022.json", "r") or die("Unable to open file!");
+    $file = fread($myfile, filesize("data/Timetable2022.json"));
+    fclose($myfile);
+    $timetable = collect(json_decode($file, true));
+    $timetable = groupCollapsing($timetable);
+    $timetable = $timetable
+        ->where("TeacherFIO", "Исаков Сергей Сергеевич")
+        ->where("Department.code", "ИТ");
+    return collapseSimilarities($timetable)
+        ->sortBy(['Number'])
+        ->sortByDate('dayDate')
+        ->groupBy('dayDate');
 }
