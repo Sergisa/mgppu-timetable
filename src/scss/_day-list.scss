@@ -1,4 +1,4 @@
-$scrollbar-thumb-color: $secondary;
+$scrollbar-thumb-color: transparentize($secondary, .5);
 $scrollbar-background-color: $body-bg;
 
 #listDays {
@@ -39,8 +39,8 @@ $scrollbar-background-color: $body-bg;
 
       span.date {
         font-weight: bold;
-        color: $accent;
-        background-color: $secondary;
+        color: saturate($secondary, 20%);
+        background-color: lighten(transparentize($secondary, .8), .4);
         padding: 0 0.8em;
         border-radius: 5px;
       }
@@ -48,7 +48,7 @@ $scrollbar-background-color: $body-bg;
       span.type {
         font-weight: bold;
         color: $primary;
-        background-color: $secondary;
+        background-color: lighten(transparentize($secondary, .8), .4);
         padding: 0 0.8em;
         border-radius: 5px;
         text-transform: uppercase;
@@ -56,7 +56,7 @@ $scrollbar-background-color: $body-bg;
 
       span.groupCode {
         font-weight: bold;
-        color: $accent;
+        color: $secondary;
       }
     }
   }

@@ -58,20 +58,20 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
 
         .day {
           border-radius: 3px;
-          border: 2px solid $accent;
+          border: 2px solid $secondary;
           background-color: $body-bg;
-          color: $accent;
+          color: $secondary;
           min-height: 50px;
           height: 100%;
 
           &:hover {
             &:after {
               content: attr(data-day-number);
-              width: 100%;
+              width: calc(100% - $day-horizontal-margin * 2);
               height: 100%;
               position: absolute;
               top: 0;
-              left: 0;
+              left: 0 + $day-horizontal-margin;
               display: flex;
               text-align: center;
               justify-content: center;
@@ -79,7 +79,7 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
               font-size: xx-large;
               font-weight: 800;
               color: transparentize($primary, .3);
-              background: linear-gradient(transparentize($accent, .9), transparentize($accent, .7));
+              background: linear-gradient(lighten(transparentize($secondary, .9), .4), lighten(transparentize($secondary, .7), .4));
             }
 
             .lesson {
@@ -105,7 +105,7 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
 
             span {
               width: 100%;
-              background-color: $secondary;
+              background-color: lighten(transparentize($secondary, .8), .4);
             }
           }
         }

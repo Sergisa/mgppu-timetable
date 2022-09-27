@@ -1,11 +1,10 @@
-$primary: #8458B3;
-$secondary: #A0D2EB;
-$accent: #494D5F;
-$body-bg: #E5EAF5;
+$primary: #FCBB6D;
+$secondary: #D8737F;
+$body-bg: #475C7A;
 
 $list-group-bg: $body-bg;
 $list-group-color: $primary;
-$list-group-border-color: $accent;
+$list-group-border-color: $secondary;
 $list-group-active-color: $primary;
 $list-group-active-bg: darken($body-bg, 5%);
 $list-group-active-border-color: darken($body-bg, 10%);
