@@ -17,6 +17,11 @@ function getLessonSignature($lesson): string
     return $lesson['Discipline'] . ' ';
 }
 
+function getLessonTypeSignature($type): string
+{
+    return mb_substr($type == "Практические занятия" ? "Семинар" : "Лекции", 0, 1);
+}
+
 function getLessonIndex($lesson): string
 {
     preg_match_all('/(\d) *пара/ui', $lesson['Number'], $index);

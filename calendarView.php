@@ -36,7 +36,7 @@ $timetable = getData();
                 echo "<div class='labels'>
                     <span class='date me-1'>" . convertDate('d.m', $date) . "</span>";
                 foreach (collect($lessons)->pluck("Type") as $type) {
-                    echo "<span class='type me-1'>" . mb_substr($type, 0, 1) . "</span>";
+                    echo "<span class='type me-1'>" . getLessonTypeSignature($type) . "</span>";
                 }
                 echo "</div>";
                 foreach ($lessons as $lesson) {
