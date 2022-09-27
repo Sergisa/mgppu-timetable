@@ -42,8 +42,9 @@ $timetable = getData();
                 foreach ($lessons as $lesson) {
                     $lessonSign = getLessonSignature($lesson);
                     $groupsSign = getGroupsSignature($lesson);
+                    $courseSign = getCourseNumber($lesson['Group'][0]['name']);
                     $lessonIndex = getLessonIndex($lesson);
-                    echo "<div class='lesson' data-time='{$lesson['TimeStart']}'><b>{$lessonIndex}.</b> {$lessonSign}<span class='groupCode'>{$groupsSign}</span></div>";
+                    echo "<div class='lesson' data-time='{$lesson['TimeStart']}'><b>{$lessonIndex}.</b> {$lessonSign}<span class='groupCode'>$groupsSign $courseSign</span></div>";
                 }
                 echo "</li>";
             }
