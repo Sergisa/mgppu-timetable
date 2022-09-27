@@ -58,6 +58,30 @@ function getLessonTypeSignature($type): string
     return mb_substr($type == "Практические занятия" ? "Семинар" : "Лекции", 0, 1);
 }
 
+function isTeacherTimetable($get = null): bool
+{
+    if ($get == null) {
+        $get = $_GET;
+    }
+    return array_key_exists('professor', $get) || (!array_key_exists('group', $get));
+}
+
+function isGroupTimetable($get = null): bool
+{
+    if ($get == null) {
+        $get = $_GET;
+    }
+    return array_key_exists('group', $get) && !array_key_exists('professor', $get);
+}
+
+function getTeacherSignature($lesson): string
+{
+    if (is_null($lesson['Teacher']['name'])) return "";
+    $split = explode($lesson['Teacher']['name'], " ");
+    return $lesson['Teacher']['name'];
+//    return $split[0] ." ". substr($split[1], 0, 1) ." ". substr($split[2], 0, 1);
+}
+
 function getGroupYear($group): string
 {
     preg_match_all('/(\d{2})([А-Я]{2})-([А-Я]+)\((.+)\)([А-Я]+)-(\d)/u', $group, $m);
@@ -163,7 +187,7 @@ function getData(): Collection
     $file = fread($myfile, filesize("data/Timetable2022.json"));
     fclose($myfile);
     $timetable = collect(json_decode($file, true));
-    $timetable = groupCollapsing($timetable);
+    $timetable = groupCollapsing($timetable);//FIXME: Общая психология пропала для преподавателя
     $timetable = $timetable
         //->where("TeacherFIO", "Исаков Сергей Сергеевич")
         //->where("Department.code", "ИТ")

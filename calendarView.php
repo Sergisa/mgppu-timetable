@@ -37,7 +37,7 @@ $_monthsList = getMonths()
         </h1>
         <p class="lead text-primary d-inline">
             <?php
-            if (array_key_exists('professor', $_GET)) {
+            if (isTeacherTimetable()) {
                 echo getTeacherById($_GET['professor']) . " ";
             } elseif (!array_key_exists('group', $_GET)) {
                 echo "Исаков Сергей Сергеевич ";
@@ -67,8 +67,13 @@ $_monthsList = getMonths()
                     $lessonSign = getLessonSignature($lesson);
                     $groupsSign = getGroupsSignature($lesson);
                     $courseSign = getCourseNumber($lesson['Group'][0]['name']);
+                    $teacherSign = getTeacherSignature($lesson);
                     $lessonIndex = getLessonIndex($lesson);
-                    echo "<div class='lesson' data-time='{$lesson['TimeStart']}'><b>{$lessonIndex}.</b> {$lessonSign}<span class='groupCode'>$groupsSign $courseSign</span></div>";
+                    if (isTeacherTimetable()) {
+                        echo "<div class='lesson' data-time='{$lesson['TimeStart']}'><b>{$lessonIndex}.</b> {$lessonSign}<span class='groupCode'>$groupsSign $courseSign</span></div>";
+                    } else if (isGroupTimetable()) {
+                        echo "<div class='lesson' data-time='{$lesson['TimeStart']}'><b>{$lessonIndex}.</b> {$lessonSign}<span class='groupCode'>$teacherSign</span></div>";
+                    }
                 }
                 echo "</li>";
             }
