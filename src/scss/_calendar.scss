@@ -1,3 +1,8 @@
+$days-count: 6;
+$col-per-screen-sm: 3.5;
+$col-per-screen-lg: 6;
+$line-width-sm: calc(100% * ($days-count / $col-per-screen-sm));
+$line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
 .calendar {
   align-items: flex-start;
   justify-content: space-between;
@@ -7,26 +12,34 @@
   .header {
     padding: map-get($spacers, 2) 0;
     display: flex;
+    @include media-breakpoint-up(xs) {
+      width: $line-width-sm;
+    }
+    @include media-breakpoint-up(md) {
+      width: $line-width-lg;
+    }
 
     span {
       text-align: center;
-      @include make-col-ready();
-      @include make-col(4);
-      @include media-breakpoint-up(xs) {
-        @include make-col(4);
-      }
-      @include media-breakpoint-up(md) {
-        @include make-col(2);
-      }
+      justify-content: center;
       color: $primary;
+      display: flex;
+      min-width: calc(100% / 6);
+
     }
   }
 
   .day-grid {
     .dayLine {
-      @include make-row(0);
       flex-wrap: nowrap;
-      width: 100%;
+      @include media-breakpoint-up(xs) {
+        width: $line-width-sm;
+      }
+      @include media-breakpoint-up(md) {
+        width: $line-width-lg
+      }
+
+      display: flex;
 
       &:first-of-type {
         justify-content: end;
@@ -37,12 +50,7 @@
       }
 
       .day {
-        @include media-breakpoint-up(xs) {
-          @include make-col(4);
-        }
-        @include media-breakpoint-up(md) {
-          @include make-col(2);
-        }
+        min-width: calc(100% / 6);
         min-height: 50px;
         padding: 0;
         border-radius: 3px;
@@ -50,9 +58,6 @@
         background-color: $body-bg;
         color: $accent;
         margin-bottom: map-get($spacers, 1);
-        //margin-right: map-get($spacers, 1);
-        //margin-left: map-get($spacers, 1);
-        //max-width: 15.76666667%;
         position: relative;
         cursor: pointer;
 
