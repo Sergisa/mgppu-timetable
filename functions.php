@@ -134,5 +134,8 @@ function getData(): Collection
     return collapseSimilarities($timetable)
         ->sortBy(['Number'])
         ->sortByDate('dayDate')
+        ->filter(function ($lesson) {
+            return str_contains($lesson['dayDate'], "." . date('m') . ".");
+        })
         ->groupBy('dayDate');
 }
