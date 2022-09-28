@@ -137,9 +137,19 @@ function getActiveMonth()
     return array_key_exists('month', $_GET) ? $_GET['month'] : date('m');
 }
 
+function getNextMonthLink()
+{
+    return http_build_query(array_merge($_GET, ['month' => getNextMonth()]));
+}
+
 function getNextMonth()
 {
     return (getActiveMonth() + 1) >= 10 ? (getActiveMonth() + 1) : '0' . (getActiveMonth() + 1);
+}
+
+function getPreviousMonthLink()
+{
+    return http_build_query(array_merge($_GET, ['month' => getPreviousMonth()]));
 }
 
 function getPreviousMonth()

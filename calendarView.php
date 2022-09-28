@@ -34,10 +34,10 @@ $_monthsList = getMonths()
                 <i class="bi bi-backspace"></i>
             </a>
             <?= $_monthsList[(int)getActiveMonth()] ?>
-            <a href="?month=<?= getNextMonth() ?>" class="d-inline d-md-inline">
+            <a href="?<?= getNextMonthLink() ?>" class="<?= getActiveMonth() < 12 ? "d-inline" : 'invisible' ?>">
                 <i class="bi bi-arrow-right-square fs-1 float-end"></i>
             </a>
-            <a href="?month=<?= getPreviousMonth() ?>" class="d-inline d-md-inline">
+            <a href="?<?= getPreviousMonthLink() ?>" class="<?= getActiveMonth() > 1 ? "d-inline" : 'invisible' ?>">
                 <i class="bi bi-arrow-left-square fs-1 float-end"></i>
             </a>
         </h1>
