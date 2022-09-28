@@ -36,12 +36,12 @@ function getFileData($fileName)
 
 function getGroupById($id)
 {
-    return getFileData('groups.json')[$id];//FIXME не заработает
+    return getTimetable()->pluck("Group")->unique()->values()->where('id', '=', $id)->unique()->values()[0]['name'];
 }
 
 function getTeacherById($id)
 {
-    return getFileData('professors.json')[$id];//FIXME не заработает
+    return getTimetable()->pluck("Teacher")->where('id', '=', $id)->unique()->values()[0]['name'];
 }
 
 function convertDate($pattern, $date): string
