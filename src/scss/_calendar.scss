@@ -13,6 +13,7 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
   @include media-breakpoint-up(md) {
     max-height: 92vh;
   }
+  @include scroll-bar();
 
   .header {
     padding: map-get($spacers, 2) 0;

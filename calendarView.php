@@ -60,7 +60,7 @@ $_monthsList = getMonths()
         <!--<a href="?month=next" class="d-md-block d-none">
             <i class="bi bi-arrow-right-square fs-1 float-end"></i>
         </a>-->
-        <div class="calendar py-1" id="monthGrid"></div>
+        <div class="calendar p-1" id="monthGrid"></div>
     </div>
     <div id="listDays" class="col-12 col-md-4">
         <ul class="list-group list-group-flush bg-opacity-100">
