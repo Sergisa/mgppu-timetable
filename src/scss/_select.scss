@@ -1,0 +1,43 @@
+.select {
+  position: relative;
+}
+
+.selection {
+  border: 2px solid $accent;
+  color: $accent;
+  background: $body-bg;
+  padding: .7rem;
+  border-radius: 5px;
+
+  i.bi {
+    cursor: pointer;
+    float: right;
+  }
+}
+
+.variant-list {
+  position: absolute;
+  background: $body-bg;
+  border: 2px solid $accent;
+  color: $primary;
+  border-radius: 5px;
+  display: none;
+  top: 112%;
+  width: 100%;
+  left: 0;
+  overflow-y: auto;
+
+  &.active {
+    display: block;
+    z-index: 10;
+  }
+
+  .variant {
+    cursor: pointer;
+    padding: .2rem .8rem;
+
+    &.active, &:hover {
+      background-color: darken($body-bg, 7%);
+    }
+  }
+}

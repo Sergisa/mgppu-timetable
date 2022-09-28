@@ -9,10 +9,22 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
   justify-content: space-between;
   overflow-wrap: break-word;
   overflow-x: auto;
+  overflow-y: auto;
+  position: relative;
+  @include media-breakpoint-up(md) {
+    max-height: 92vh;
+  }
+  @include scroll-bar();
 
   .header {
     padding: map-get($spacers, 2) 0;
     display: flex;
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    background: transparentize($body-bg, .8);
+    backdrop-filter: blur(2px);
     @include media-breakpoint-up(xs) {
       width: $line-width-sm;
     }
@@ -26,6 +38,7 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
       color: $primary;
       display: flex;
       min-width: calc(100% / $days-count);
+      word-break: break-all; //TODO:remove wordBreak. Make smaller font-size
     }
   }
 
@@ -50,7 +63,7 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
       }
 
       .day-wrapper {
-        min-width: calc(100% / $days-count);
+        width: calc(100% / $days-count);
         margin-bottom: map-get($spacers, 1);
         position: relative;
         cursor: pointer;

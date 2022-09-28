@@ -1,4 +1,3 @@
-const defaultMonth = new Date().getMonth();
 const dayLinePattern = $(`<div class="dayLine"></div>`);
 const dayPattern = $(`<div class="day list-group"></div>`)
 const headerPattern = $(`<div class="header"></div>`);
@@ -71,7 +70,7 @@ function generateDaysLine(currentDate) {
  */
 function generateGrid(month) {
     const monthGrid = $('#monthGrid').append(generateHeaderLine())
-    let currentDate = new Date(2022, defaultMonth ?? month, 1)
+    let currentDate = new Date(2022, month, 1)
     const $dayGrid = $(`<div class="day-grid"></div>`).appendTo(monthGrid)
     while (true) {
         $dayGrid.append(generateDaysLine(currentDate))

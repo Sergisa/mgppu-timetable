@@ -9,6 +9,9 @@ $list-group-active-color: $primary;
 $list-group-active-bg: darken($body-bg, 5%);
 $list-group-active-border-color: darken($body-bg, 10%);
 
+$scrollbar-thumb-color: $secondary;
+$scrollbar-background-color: $body-bg;
+
 $container-max-widths: (
         sm: 540px,
         md: 720px,
@@ -16,9 +19,44 @@ $container-max-widths: (
         xl: 1140px,
         xxl: 1420px
 ) !default;
+@mixin scroll-bar() {
+  scrollbar-width: thin;
+  scrollbar-color: $scrollbar-thumb-color $scrollbar-background-color;
+
+  &::-webkit-scrollbar {
+    background-color: $scrollbar-background-color;
+    width: 7px;
+  }
+
+  &::-webkit-scrollbar-track {
+    width: 7px;
+    background-color: $scrollbar-background-color;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    width: 7px;
+    border-radius: 4px;
+    background-color: $scrollbar-thumb-color;
+  }
+}
 
 @import "../../node_modules/bootstrap/scss/bootstrap";
 @import "day-list";
 @import "calendar";
-
+@import "select";
 @import "week-lines";
+a {
+  text-decoration: none;
+
+  .bi-backspace, .bi-arrow-right-square, .bi-arrow-left-square {
+    color: $accent;
+    cursor: pointer;
+    border-radius: 3px;
+    padding: 0 .3rem;
+    display: inline-flex;
+
+    &:hover {
+      color: darken($accent, 5%);
+    }
+  }
+}

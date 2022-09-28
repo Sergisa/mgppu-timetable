@@ -2,6 +2,7 @@
 include 'vendor/autoload.php';
 include 'functions.php';
 $timetable = getData();
+$_monthsList = getMonths()
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,26 +25,65 @@ $timetable = getData();
         }
     </style>
 </head>
-<body class="container">
+<body class="container py-2">
 <div class="row">
-    <div class="col-12 col-md-8 calendar py-1" id="monthGrid"></div>
 
+    <div class="col-12 col-md-8">
+        <h1 class="fw-bolder month-title text-primary d-md-inline">
+            <a href="/">
+                <i class="bi bi-backspace"></i>
+            </a>
+            <?= $_monthsList[(int)getActiveMonth()] ?>
+            <a href="?<?= getNextMonthLink() ?>" class="<?= getActiveMonth() < 12 ? "d-inline" : 'invisible' ?>">
+                <i class="bi bi-arrow-right-square fs-1 float-end"></i>
+            </a>
+            <a href="?<?= getPreviousMonthLink() ?>" class="<?= getActiveMonth() > 1 ? "d-inline" : 'invisible' ?>">
+                <i class="bi bi-arrow-left-square fs-1 float-end"></i>
+            </a>
+        </h1>
+        <p class="lead text-primary d-md-inline m-0 mb-md-3">
+            <?php
+            if (isTeacherTimetable()) {
+                if (!array_key_exists('professor', $_GET)) {
+                    echo "Исаков Сергей Сергеевич ";
+                } else {
+                    echo getTeacherById($_GET['professor']) . " ";
+                }
+            } elseif (!array_key_exists('group', $_GET)) {
+                echo "Исаков Сергей Сергеевич ";
+            } else {
+                echo "";
+            }
+            echo array_key_exists('group', $_GET) ? getGroupById($_GET['group']) : "";
+            ?>
+        </p>
+        <div class="calendar p-1" id="monthGrid"></div>
+    </div>
     <div id="listDays" class="col-12 col-md-4">
         <ul class="list-group list-group-flush bg-opacity-100">
             <?php
+            if ($timetable->isEmpty()) {
+                echo "<h2 class='text-primary text-center mt-4'>Нет пар</h2>";
+            }
             foreach ($timetable as $date => $lessons) {
                 echo "<li class='list-group-item' data-date='$date'>";
                 echo "<div class='labels'>
                     <span class='date me-1'>" . convertDate('d.m', $date) . "</span>";
                 foreach (collect($lessons)->pluck("Type") as $type) {
-                    echo "<span class='type me-1'>" . mb_substr($type, 0, 1) . "</span>";
+                    echo "<span class='type me-1'>" . getLessonTypeSignature($type) . "</span>";
                 }
                 echo "</div>";
                 foreach ($lessons as $lesson) {
                     $lessonSign = getLessonSignature($lesson);
                     $groupsSign = getGroupsSignature($lesson);
+                    $courseSign = getCourseNumber($lesson['Group'][0]['name']);
+                    $teacherSign = getTeacherSignature($lesson);
                     $lessonIndex = getLessonIndex($lesson);
-                    echo "<div class='lesson' data-time='{$lesson['TimeStart']}'><b>{$lessonIndex}.</b> {$lessonSign}<span class='groupCode'>{$groupsSign}</span></div>";
+                    if (isTeacherTimetable()) {
+                        echo "<div class='lesson' data-time='{$lesson['TimeStart']}'><b>$lessonIndex.</b> $lessonSign<span class='groupCode'>$groupsSign $courseSign</span></div>";
+                    } else if (isGroupTimetable()) {
+                        echo "<div class='lesson' data-time='{$lesson['TimeStart']}'><b>$lessonIndex.</b> $lessonSign<span class='groupCode'>$teacherSign ${lesson['Type']}</span></div>";
+                    }
                 }
                 echo "</li>";
             }
@@ -56,20 +96,30 @@ $timetable = getData();
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="dist/js/bundle.js"></script>
 <script>
-    $(document).ready(function () {
-        scrollToCurrentDate();
+    $(document).on('ready', function () {
+        //scrollToCurrentDate();
     })
-
-    $.getJSON('getJson.php', function (data) {
+    const urlParams = new URLSearchParams(window.location.search);
+    const rqObject = {}
+    if (urlParams.has('professor')) {
+        rqObject.professor = urlParams.get('professor');
+    }
+    if (urlParams.has('group')) {
+        rqObject.group = urlParams.get('group');
+    }
+    if (urlParams.has('month')) {
+        rqObject.month = urlParams.get('month');
+    }
+    $.getJSON('getTimetable.php', rqObject).done(function (data) {
         console.log(data)
         window.lessonsTimetable = data
-        generateGrid(new Date().getMonth());
-        $('#monthGrid .day').click(function () {
+        generateGrid(urlParams.has('month') ? parseInt(urlParams.get('month')) - 1 : new Date().getMonth());
+        $('#monthGrid .day').on('click', function () {
             console.log(this.dataset.date)
             scrollToDate(this.dataset.date)
         })
     }).fail(function (data) {
-        console.error(data)
+        console.info(data.responseText)
     })
 </script>
 </html>
