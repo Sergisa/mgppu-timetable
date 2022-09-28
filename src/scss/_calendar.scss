@@ -63,7 +63,7 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
       }
 
       .day-wrapper {
-        min-width: calc(100% / $days-count);
+        width: calc(100% / $days-count);
         margin-bottom: map-get($spacers, 1);
         position: relative;
         cursor: pointer;
