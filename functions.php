@@ -111,13 +111,14 @@ function getGroupsSignature($lesson): string
     return "(" . implode(', ', $groupCodeList->toArray()) . ")";
 }
 
-function collapseSimilarities(Collection $timetable): Collection
+function joinParallelLessonsByGroup(Collection $timetable): Collection
 {
     return $timetable->map(function ($lesson) use ($timetable) {
         $similarities = $timetable->filter(function ($tmt) use ($lesson) {
             return $tmt['dayDate'] == $lesson['dayDate']
                 && $tmt['Group']['id'] != $lesson['Group']['id']
                 && $tmt['DisciplineID'] == $lesson['DisciplineID']
+                && $tmt['Coords']['room']['id'] == $lesson['Coords']['room']['id']
                 && $tmt['Number'] == $lesson['Number'];
         });
         if ($similarities->count() > 0) {
@@ -136,7 +137,7 @@ function getActiveMonth()
     return array_key_exists('month', $_GET) ? $_GET['month'] : date('m');
 }
 
-function getNextMonthLink()
+function getNextMonthLink(): string
 {
     return http_build_query(array_merge($_GET, ['month' => getNextMonth()]));
 }
@@ -146,7 +147,7 @@ function getNextMonth()
     return (getActiveMonth() + 1) >= 10 ? (getActiveMonth() + 1) : '0' . (getActiveMonth() + 1);
 }
 
-function getPreviousMonthLink()
+function getPreviousMonthLink(): string
 {
     return http_build_query(array_merge($_GET, ['month' => getPreviousMonth()]));
 }
@@ -156,7 +157,7 @@ function getPreviousMonth()
     return (getActiveMonth() - 1) >= 10 ? (getActiveMonth() - 1) : '0' . (getActiveMonth() - 1);
 }
 
-function groupCollapsing($timetable): Collection
+function collapseDataHierarchically($timetable): Collection
 {
     return $timetable->map(function ($item) use ($timetable) {
         $newObj = collect($item)->prepend([
@@ -201,25 +202,23 @@ function groupCollapsing($timetable): Collection
     });
 }
 
+function getTimetable(): Collection
+{
+    $timetable = getFileData("Timetable2022.json");
+    return collapseDataHierarchically($timetable); //FIXME: Общая психология пропала для препода
+}
+
 /**
  * @return Collection
  */
 function getData(): Collection
 {
-    ini_set('memory_limit', '-1');
-    $myfile = fopen("data/Timetable2022.json", "r") or die("Unable to open file!");
-    $file = fread($myfile, filesize("data/Timetable2022.json"));
-    fclose($myfile);
-    $timetable = collect(json_decode($file, true));
-    $timetable = groupCollapsing($timetable);//FIXME: Общая психология пропала для преподавателя
-    $timetable = $timetable
-        //->where("TeacherFIO", "Исаков Сергей Сергеевич")
-        //->where("Department.code", "ИТ")
+    return joinParallelLessonsByGroup(getTimetable()
         ->filter(function ($lesson) {
             return str_contains($lesson['dayDate'], "." . getActiveMonth() . ".");
         })
         ->filter(function ($lesson) {
-            return !array_key_exists('group', $_GET) || $lesson['Group']['id'] == $_GET['group'];
+            return !array_key_exists('group', $_GET) || ($lesson['Group']['id'] == $_GET['group']);
         })
         ->filter(function ($lesson) {
             if (array_key_exists('professor', $_GET)) {
@@ -229,8 +228,7 @@ function getData(): Collection
             } else {
                 return true;
             }
-        });
-    return collapseSimilarities($timetable)
+        }))
         ->sortBy(['Number'])
         ->sortByDate('dayDate')
         ->groupBy('dayDate');
