@@ -92,8 +92,9 @@ class Selector {
 
     appendData(lines) {
         if (lines instanceof Array) {
+            console.log('ARRAY', lines)
             for (const line of lines) {
-                this.addLine(null, line)
+                this.addLine(line.id ?? "null", line.name ?? "NULL")
             }
         } else if (lines instanceof HTMLOptionsCollection) {
             for (const optionObject of lines) {

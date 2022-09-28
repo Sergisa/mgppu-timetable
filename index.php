@@ -60,11 +60,11 @@ $timetable = getData();
         return false;
     })
 
-    $.getJSON('data/professors.json', function (data) {
+    $.getJSON('getProfessors.php', function (data) {
         professorSelector.fillData(data)
         console.log(data)
     })
-    $.getJSON('data/groups.json', function (data) {
+    $.getJSON('getGroups.php', function (data) {
         groupSelector.fillData(data)
         console.log(data)
     })
