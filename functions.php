@@ -77,9 +77,8 @@ function isGroupTimetable($get = null): bool
 function getTeacherSignature($lesson): string
 {
     if (is_null($lesson['Teacher']['name'])) return "";
-    $split = explode($lesson['Teacher']['name'], " ");
-    return $lesson['Teacher']['name'];
-//    return $split[0] ." ". substr($split[1], 0, 1) ." ". substr($split[2], 0, 1);
+    $split = explode(" ", $lesson['Teacher']['name']);
+    return $split[0] . " " . mb_substr($split[1], 0, 1) . "." . mb_substr($split[2], 0, 1) . ".";
 }
 
 function getGroupYear($group): string

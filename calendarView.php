@@ -57,9 +57,6 @@ $_monthsList = getMonths()
             echo array_key_exists('group', $_GET) ? getGroupById($_GET['group']) : "";
             ?>
         </p>
-        <!--<a href="?month=next" class="d-md-block d-none">
-            <i class="bi bi-arrow-right-square fs-1 float-end"></i>
-        </a>-->
         <div class="calendar p-1" id="monthGrid"></div>
     </div>
     <div id="listDays" class="col-12 col-md-4">
@@ -83,9 +80,9 @@ $_monthsList = getMonths()
                     $teacherSign = getTeacherSignature($lesson);
                     $lessonIndex = getLessonIndex($lesson);
                     if (isTeacherTimetable()) {
-                        echo "<div class='lesson' data-time='{$lesson['TimeStart']}'><b>{$lessonIndex}.</b> {$lessonSign}<span class='groupCode'>$groupsSign $courseSign</span></div>";
+                        echo "<div class='lesson' data-time='{$lesson['TimeStart']}'><b>$lessonIndex.</b> $lessonSign<span class='groupCode'>$groupsSign $courseSign</span></div>";
                     } else if (isGroupTimetable()) {
-                        echo "<div class='lesson' data-time='{$lesson['TimeStart']}'><b>{$lessonIndex}.</b> {$lessonSign}<span class='groupCode'>$teacherSign</span></div>";
+                        echo "<div class='lesson' data-time='{$lesson['TimeStart']}'><b>$lessonIndex.</b> $lessonSign<span class='groupCode'>$teacherSign ${lesson['Type']}</span></div>";
                     }
                 }
                 echo "</li>";
@@ -99,8 +96,8 @@ $_monthsList = getMonths()
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="dist/js/bundle.js"></script>
 <script>
-    $(document).ready(function () {
-        scrollToCurrentDate();
+    $(document).on('ready', function () {
+        //scrollToCurrentDate();
     })
     const urlParams = new URLSearchParams(window.location.search);
     const rqObject = {}
@@ -117,7 +114,7 @@ $_monthsList = getMonths()
         console.log(data)
         window.lessonsTimetable = data
         generateGrid(urlParams.has('month') ? parseInt(urlParams.get('month')) - 1 : new Date().getMonth());
-        $('#monthGrid .day').click(function () {
+        $('#monthGrid .day').on('click', function () {
             console.log(this.dataset.date)
             scrollToDate(this.dataset.date)
         })
