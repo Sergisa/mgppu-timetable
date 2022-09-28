@@ -10,6 +10,7 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
   overflow-wrap: break-word;
   overflow-x: auto;
   overflow-y: auto;
+  position: relative;
   @include media-breakpoint-up(md) {
     max-height: 92vh;
   }
@@ -18,6 +19,12 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
   .header {
     padding: map-get($spacers, 2) 0;
     display: flex;
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    background: transparentize($body-bg, .8);
+    backdrop-filter: blur(2px);
     @include media-breakpoint-up(xs) {
       width: $line-width-sm;
     }
