@@ -8,11 +8,13 @@ $file = fread($myfile, filesize("data/Timetable2022.json"));
 fclose($myfile);
 $timetable = collect(json_decode($file, true));
 $timetable = groupCollapsing($timetable);//FIXME: Общая психология пропала для препода
-$currentDate = date("d.m.Y");
 $timetable = $timetable
     //->where('dayDate', $currentDate)
     //->where("TeacherFIO", "Исаков Сергей Сергеевич")
     //->where("Department.code", "ИТ")
+    ->filter(function ($lesson) {
+        return str_contains($lesson['dayDate'], "." . getActiveMonth() . ".");
+    })
     ->filter(function ($lesson) {
         return !array_key_exists('group', $_GET) || ($lesson['Group']['id'] == $_GET['group']);
     })->filter(function ($lesson) {
@@ -28,7 +30,6 @@ $timetable = $timetable
 $timetable = collapseSimilarities($timetable)
     ->sortBy(['TimeStart'])
     //->values()
-
     ->groupBy(['dayDate']);
 
 echo json_encode($timetable->toArray(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);

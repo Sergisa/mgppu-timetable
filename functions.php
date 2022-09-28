@@ -132,6 +132,21 @@ function collapseSimilarities(Collection $timetable): Collection
     });
 }
 
+function getActiveMonth()
+{
+    return array_key_exists('month', $_GET) ? $_GET['month'] : date('m');
+}
+
+function getNextMonth()
+{
+    return (getActiveMonth() + 1) >= 10 ? (getActiveMonth() + 1) : '0' . (getActiveMonth() + 1);
+}
+
+function getPreviousMonth()
+{
+    return (getActiveMonth() - 1) >= 10 ? (getActiveMonth() - 1) : '0' . (getActiveMonth() - 1);
+}
+
 function groupCollapsing($timetable): Collection
 {
     return $timetable->map(function ($item) use ($timetable) {
@@ -192,7 +207,7 @@ function getData(): Collection
         //->where("TeacherFIO", "Исаков Сергей Сергеевич")
         //->where("Department.code", "ИТ")
         ->filter(function ($lesson) {
-            return str_contains($lesson['dayDate'], "." . date('m') . ".");
+            return str_contains($lesson['dayDate'], "." . getActiveMonth() . ".");
         })
         ->filter(function ($lesson) {
             return !array_key_exists('group', $_GET) || $lesson['Group']['id'] == $_GET['group'];

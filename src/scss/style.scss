@@ -26,7 +26,7 @@ $container-max-widths: (
 a {
   text-decoration: none;
 
-  .bi-backspace {
+  .bi-backspace,.bi-arrow-right-square,.bi-arrow-left-square {
     color: $accent;
     cursor: pointer;
     border-radius: 3px;

@@ -33,14 +33,20 @@ $_monthsList = getMonths()
             <a href="/">
                 <i class="bi bi-backspace"></i>
             </a>
-            <?= $_monthsList[(int)date('m')] ?>
+            <?= $_monthsList[(int)getActiveMonth()] ?>
+            <a href="?month=<?= getNextMonth() ?>" class="d-inline d-md-inline">
+                <i class="bi bi-arrow-right-square fs-1 float-end"></i>
+            </a>
+            <a href="?month=<?= getPreviousMonth() ?>" class="d-inline d-md-inline">
+                <i class="bi bi-arrow-left-square fs-1 float-end"></i>
+            </a>
         </h1>
         <p class="lead text-primary d-md-inline m-0 mb-md-3">
             <?php
             if (isTeacherTimetable()) {
-                if(!array_key_exists('professor', $_GET)){
-                    echo  "Исаков Сергей Сергеевич ";
-                }else {
+                if (!array_key_exists('professor', $_GET)) {
+                    echo "Исаков Сергей Сергеевич ";
+                } else {
                     echo getTeacherById($_GET['professor']) . " ";
                 }
             } elseif (!array_key_exists('group', $_GET)) {
@@ -51,6 +57,9 @@ $_monthsList = getMonths()
             echo array_key_exists('group', $_GET) ? getGroupById($_GET['group']) : "";
             ?>
         </p>
+        <!--<a href="?month=next" class="d-md-block d-none">
+            <i class="bi bi-arrow-right-square fs-1 float-end"></i>
+        </a>-->
         <div class="calendar py-1" id="monthGrid"></div>
     </div>
     <div id="listDays" class="col-12 col-md-4">
@@ -101,10 +110,13 @@ $_monthsList = getMonths()
     if (urlParams.has('group')) {
         rqObject.group = urlParams.get('group');
     }
+    if (urlParams.has('month')) {
+        rqObject.month = urlParams.get('month');
+    }
     $.getJSON('getTimetable.php', rqObject).done(function (data) {
         console.log(data)
         window.lessonsTimetable = data
-        generateGrid(new Date().getMonth());
+        generateGrid(urlParams.has('month') ? parseInt(urlParams.get('month')) - 1 : new Date().getMonth());
         $('#monthGrid .day').click(function () {
             console.log(this.dataset.date)
             scrollToDate(this.dataset.date)
