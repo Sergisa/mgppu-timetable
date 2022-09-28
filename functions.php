@@ -109,7 +109,7 @@ function getGroupsSignature($lesson): string
         preg_match_all('/(\d{2}[А-Я]{2})-([А-Я]+)\((.+)\)([А-Я]+)-(\d)/u', $code, $m);
         return $m[2][0];
     });
-    return ($groupCodeList->count() > 1) ? "(" . implode(', ', $groupCodeList->toArray()) . ")" : "";
+    return "(" . implode(', ', $groupCodeList->toArray()) . ")";
 }
 
 function collapseSimilarities(Collection $timetable): Collection
