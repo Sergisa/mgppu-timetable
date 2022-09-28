@@ -13,8 +13,7 @@ $timetable = getData();
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Nunito:wght@200;300;400;500;600;700;800;900&family=Raleway:wght@100;200;300;400;500;600;700;800;900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="dist/css/style.css">
     <title>Document</title>
     <style>
@@ -25,15 +24,15 @@ $timetable = getData();
 </head>
 <body class="container">
 <div class="row">
-    <form action="calendarView.php" class="col-md-4 col-xs-12 mx-auto">
+    <form action="calendarView.php" class="col-lg-6 col-md-9 col-sm-9 col-xs-12 mx-auto">
         <h4 class="text-primary">Пока только для бакалавров</h4>
         <h4 class="text-primary">Для магистров не подходит</h4>
         <div class="mb-3 col-12">
-            <label for="group-select" class="text-light">Выберите группу</label>
+            <label for="group-select" class="text-primary">Выберите группу</label>
             <select name="group" id="group-select"></select>
         </div>
         <div class="mb-3 col-12">
-            <label for="professor-select" class="text-light">Выберите преподавателя</label>
+            <label for="professor-select" class="text-primary">Выберите преподавателя</label>
             <select name="professor" id="professor-select"></select>
         </div>
         <button class="btn btn-primary">Перейти к расписанию</button>

@@ -1,6 +1,7 @@
-$primary: #FCBB6D;
-$secondary: #D8737F;
-$body-bg: #475C7A;
+$primary: saturate(#5a6a7a, 30%);
+$secondary: darken(#A6A2A1, 10%);
+$body-bg: #C6CBD1;
+$body-color: $secondary;
 
 $list-group-bg: $body-bg;
 $list-group-color: $primary;
@@ -48,15 +49,17 @@ $container-max-widths: (
 a {
   text-decoration: none;
 
-  .bi-backspace, .bi-arrow-right-square, .bi-arrow-left-square {
-    color: $accent;
+  .bi {
+    color: $secondary;
     cursor: pointer;
     border-radius: 3px;
-    padding: 0 .3rem;
+    margin-left: map-get($spacers, 1);
+    //padding: 0 .3rem;
     display: inline-flex;
 
     &:hover {
-      color: darken($accent, 5%);
+      color: darken($secondary, 5%);
+      background-color: darken($body-bg, 5%);
     }
   }
 }

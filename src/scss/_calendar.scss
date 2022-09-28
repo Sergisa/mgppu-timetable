@@ -115,10 +115,11 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
             border-left-width: 0;
             border-right-width: 0;
             border-style: dashed;
+            font-weight: 600;
 
             span {
               width: 100%;
-              background-color: transparentize($secondary, .8);
+              background-color: transparentize($secondary, .9);
             }
           }
         }

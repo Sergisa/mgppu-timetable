@@ -3,8 +3,8 @@
 }
 
 .selection {
-  border: 2px solid $accent;
-  color: $accent;
+  border: 2px solid $secondary;
+  color: $primary;
   background: $body-bg;
   padding: .7rem;
   border-radius: 5px;
@@ -18,7 +18,7 @@
 .variant-list {
   position: absolute;
   background: $body-bg;
-  border: 2px solid $accent;
+  border: 2px solid $secondary;
   color: $primary;
   border-radius: 5px;
   display: none;
