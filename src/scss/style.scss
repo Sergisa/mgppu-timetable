@@ -49,7 +49,7 @@ $container-max-widths: (
 a {
   text-decoration: none;
 
-  .bi-backspace,.bi-arrow-right-square,.bi-arrow-left-square {
+  .bi-backspace, .bi-arrow-right-square, .bi-arrow-left-square {
     color: $accent;
     cursor: pointer;
     border-radius: 3px;
@@ -57,8 +57,7 @@ a {
     display: inline-flex;
 
     &:hover {
-      background-color: $secondary;
+      color: darken($accent, 5%);
     }
   }
-
 }
