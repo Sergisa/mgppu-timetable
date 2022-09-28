@@ -4,5 +4,5 @@ include 'functions.php';
 $timetable = getTimetable();
 $professorsList = $timetable
     ->pluck("Teacher")
-    ->unique()->values()->toArray();
-echo json_encode($professorsList, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+    ->unique()->sortBy('name')->values()->toArray();
+echo json_encode($professorsList, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);

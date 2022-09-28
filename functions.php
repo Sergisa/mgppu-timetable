@@ -27,6 +27,7 @@ function getMonths(): array
 
 function getFileData($fileName)
 {
+    ini_set('memory_limit', '-1');
     $myfile = fopen("data/$fileName", "r") or die("Unable to open file!");
     $file = fread($myfile, filesize("data/$fileName"));
     fclose($myfile);
@@ -35,12 +36,12 @@ function getFileData($fileName)
 
 function getGroupById($id)
 {
-    return getFileData('groups.json')[$id];
+    return getFileData('groups.json')[$id];//FIXME не заработает
 }
 
 function getTeacherById($id)
 {
-    return getFileData('professors.json')[$id];
+    return getFileData('professors.json')[$id];//FIXME не заработает
 }
 
 function convertDate($pattern, $date): string
