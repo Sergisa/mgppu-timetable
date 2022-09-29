@@ -1,8 +1,5 @@
 @use 'sass:color';
 
-$scrollbar-thumb-color: transparentize($secondary, .6);
-$scrollbar-background-color: $body-bg;
-
 #listDays {
   .list-group {
     @include media-breakpoint-up(md) {
@@ -17,7 +14,7 @@ $scrollbar-background-color: $body-bg;
       color: darken($primary, 10%);
 
       .lesson {
-        @include font-size($font-size-sm);
+        @include font-size($font-size-base);
         margin-bottom: .5rem;
       }
 
@@ -42,17 +39,23 @@ $scrollbar-background-color: $body-bg;
         text-transform: uppercase;
       }
 
-      span.groupCode, span.course-sign, span.typeSign, span.teacherSign {
-        font-family: "Montserrat Medium", sans-serif;
-        //color: adjust-color($primary, $lightness: -28%, $saturation: 1%);
-        color: #1e3852;
-        background: darken($body-bg, 6%);
-        //background:#b1b8c0bf;
-        padding: .25rem;
-        border-radius: 5px;
-        word-wrap: normal;
-        word-break: keep-all;
-        overflow-x: hidden;
+      .lesson-description {
+        margin-left: map-get($spacers, 4);
+
+
+        span.groupCode, span.course-sign, span.typeSign, span.teacherSign {
+          font-family: "Montserrat Medium", sans-serif;
+          //color: adjust-color($primary, $lightness: -28%, $saturation: 1%);
+          color: adjust-color($primary, $lightness: -9%, $hue: 20deg);
+          //background: darken($primary, 6%);
+          //background:#b1b8c0bf;
+          //padding: .25rem;
+          font-weight: 500;
+          border-radius: 5px;
+          word-wrap: normal;
+          word-break: keep-all;
+          overflow-x: hidden;
+        }
       }
     }
   }
