@@ -80,11 +80,11 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
           &:hover {
             &:after {
               content: attr(data-day-number);
-              width: 100%;
+              width: calc(100% - $day-horizontal-margin * 2);
               height: 100%;
               position: absolute;
               top: 0;
-              left: 0;
+              left: 0 + $day-horizontal-margin;
               display: flex;
               text-align: center;
               justify-content: center;
