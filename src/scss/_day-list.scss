@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 $scrollbar-thumb-color: transparentize($secondary, .6);
 $scrollbar-background-color: $body-bg;
 
@@ -16,6 +18,11 @@ $scrollbar-background-color: $body-bg;
 
       .lesson {
         @include font-size($font-size-sm);
+        margin-bottom: .5rem;
+      }
+
+      .labels {
+        margin-bottom: .5rem;
       }
 
       span.date {
@@ -35,9 +42,17 @@ $scrollbar-background-color: $body-bg;
         text-transform: uppercase;
       }
 
-      span.groupCode {
+      span.groupCode, span.course-sign, span.typeSign, span.teacherSign {
         font-family: "Montserrat Medium", sans-serif;
-        color: $primary;
+        //color: adjust-color($primary, $lightness: -28%, $saturation: 1%);
+        color: #1e3852;
+        background: darken($body-bg, 6%);
+        //background:#b1b8c0bf;
+        padding: .25rem;
+        border-radius: 5px;
+        word-wrap: normal;
+        word-break: keep-all;
+        overflow-x: hidden;
       }
     }
   }

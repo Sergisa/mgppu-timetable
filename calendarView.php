@@ -80,9 +80,9 @@ $_monthsList = getMonths()
                     $teacherSign = getTeacherSignature($lesson);
                     $lessonIndex = getLessonIndex($lesson);
                     if (isTeacherTimetable()) {
-                        echo "<div class='lesson' data-time='{$lesson['TimeStart']}'><b>$lessonIndex.</b> $lessonSign<span class='groupCode'>$groupsSign $courseSign</span></div>";
+                        echo "<div class='lesson' data-time='{$lesson['TimeStart']}'><b>$lessonIndex.</b> $lessonSign<span class='groupCode'>$groupsSign</span> <span class='course-sign'>$courseSign</span></div>";
                     } else if (isGroupTimetable()) {
-                        echo "<div class='lesson' data-time='{$lesson['TimeStart']}'><b>$lessonIndex.</b> $lessonSign<span class='groupCode'>$teacherSign ${lesson['Type']}</span></div>";
+                        echo "<div class='lesson' data-time='{$lesson['TimeStart']}'><b>$lessonIndex.</b> $lessonSign<span class='teacherSign'>$teacherSign</span> <span class='typeSign'>${lesson['Type']}</span></div>";
                     }
                 }
                 echo "</li>";
