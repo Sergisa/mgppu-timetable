@@ -5,13 +5,12 @@
     @include media-breakpoint-up(md) {
       height: calc(100vh - (map-get($spacers, 2) * 2));
     }
-
     overflow-y: scroll;
     overflow-x: hidden;
     @include scroll-bar();
 
     .list-group-item {
-      color: darken($primary, 10%);
+      color: $list-item-color;
 
       .lesson {
         @include font-size($font-size-base);
@@ -24,16 +23,16 @@
 
       span.date {
         font-weight: bold;
-        color: $primary;
-        background-color: transparentize($secondary, .9);
+        color: $list-date-label-color;
+        background-color: $list-date-label-bg;
         padding: 0 0.8em;
         border-radius: 5px;
       }
 
       span.type {
         font-weight: bold;
-        color: $primary;
-        background-color: transparentize($secondary, .85);
+        color: $list-type-label-color;
+        background-color: $list-type-label-bg;
         padding: 0 0.8em;
         border-radius: 5px;
         text-transform: uppercase;
@@ -46,11 +45,11 @@
         span.groupCode, span.course-sign, span.typeSign, span.teacherSign {
           font-family: "Montserrat Medium", sans-serif;
           //color: adjust-color($primary, $lightness: -28%, $saturation: 1%);
-          color: adjust-color($primary, $lightness: -9%, $hue: 20deg);
+          color: $list-lesson-description-color;
           //background: darken($primary, 6%);
-          //background:#b1b8c0bf;
+          //background:$list-lesson-description-bg;
           //padding: .25rem;
-          font-weight: 500;
+          font-weight: $list-lesson-description-weight;
           border-radius: 5px;
           word-wrap: normal;
           word-break: keep-all;

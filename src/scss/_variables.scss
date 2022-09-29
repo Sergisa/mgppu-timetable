@@ -1,0 +1,57 @@
+$primary: saturate(#6A453B, 30%);
+$secondary: darken(#7399BD, 10%);
+$body-bg: #C6CBD1;
+$body-color: #1C477F;
+
+$list-group-bg: $body-bg;
+$list-group-color: $primary;
+$list-group-border-color: $secondary;
+$list-group-active-color: $primary;
+$list-group-active-bg: darken($body-bg, 10%);
+$list-group-active-border-color: darken($body-bg, 10%);
+
+$scrollbar-thumb-color: $secondary;
+$scrollbar-background-color: $body-bg;
+
+$container-max-widths: (
+        sm: 540px,
+        md: 720px,
+        lg: 960px,
+        xl: 1140px,
+        xxl: 1420px
+) !default;
+
+$head-text-color: $primary;
+$navigation-icons-color: $secondary;
+$navigation-icons-hover-color: darken($secondary, 5%);
+$navigation-icons-hover-bg: darken($body-bg, 5%);
+
+/*CALENDAR UI*/
+$calendar-day-name-header-bg: transparentize($body-bg, .8);
+$calendar-day-name-header-color: $primary;
+$calendar-day-name-header-filter: blur(2px);
+$calendar-day-border: 2px solid $secondary;
+$calendar-day-bg: var(--bs-body-bg);
+$calendar-day-color: $secondary;
+
+$calendar-day-overlay-color: transparentize($primary, .3);
+$calendar-day-overlay-bg: linear-gradient(transparentize($secondary, .9), transparentize($secondary, .7));
+$calendar-day-overlay-text-weight: 800;
+
+$calendar-lesson-overlay-opacity: .3;
+$calendar-lesson-bg: transparentize($secondary, .9);
+$calendar-lesson-text-weight: 600;
+$calendar-lesson-threshold: 4px;
+$calendar-lesson-border-width: 1px;
+$calendar-lesson-border-style: dashed;
+
+/*DAY LIST*/
+$list-group-bg: var(--bs-body-bg);
+$list-item-color: darken($primary, 10%);
+$list-date-label-color: $primary;
+$list-date-label-bg: transparentize($secondary, .9);
+$list-type-label-color: $primary;
+$list-type-label-bg: transparentize($secondary, .85);
+$list-lesson-description-color: adjust-color($primary, $lightness: -9%, $hue: 20deg);
+$list-lesson-description-bg: #b1b8c0bf;
+$list-lesson-description-weight: 500;

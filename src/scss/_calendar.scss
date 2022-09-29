@@ -1,9 +1,28 @@
+@use "sass:math";
 $days-count: 6;
 $col-per-screen-sm: 3.5;
 $col-per-screen-lg: 6;
 $day-horizontal-margin: 3px;
 $line-width-sm: calc(100% * ($days-count / $col-per-screen-sm));
 $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
+a {
+  text-decoration: none;
+
+  .bi {
+    color: $navigation-icons-color;
+    cursor: pointer;
+    border-radius: 3px;
+    margin-left: map-get($spacers, 1);
+    //padding: 0 .3rem;
+    display: inline-flex;
+
+    &:hover {
+      color: $navigation-icons-hover-color;
+      background-color: $navigation-icons-hover-bg;
+    }
+  }
+}
+
 .calendar {
   align-items: flex-start;
   justify-content: space-between;
@@ -23,8 +42,8 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
     top: 0;
     left: 0;
     z-index: 2;
-    background: transparentize($body-bg, .8);
-    backdrop-filter: blur(2px);
+    background: $calendar-day-name-header-bg;
+    backdrop-filter: $calendar-day-name-header-filter;
     @include media-breakpoint-up(xs) {
       width: $line-width-sm;
     }
@@ -35,7 +54,7 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
     span {
       text-align: center;
       justify-content: center;
-      color: $primary;
+      color: $calendar-day-name-header-color;
       display: flex;
       min-width: calc(100% / $days-count);
       word-break: break-all; //TODO:remove wordBreak. Make smaller font-size
@@ -51,7 +70,6 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
       @include media-breakpoint-up(md) {
         width: $line-width-lg
       }
-
       display: flex;
 
       &:first-of-type {
@@ -71,9 +89,9 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
 
         .day {
           border-radius: 3px;
-          border: 2px solid $secondary;
-          background-color: $body-bg;
-          color: $secondary;
+          border: $calendar-day-border;
+          background-color: $calendar-day-bg;
+          color: $calendar-day-color;
           min-height: 50px;
           height: 100%;
 
@@ -90,20 +108,20 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
               justify-content: center;
               align-items: center;
               font-size: xx-large;
-              font-weight: 800;
-              color: transparentize($primary, .3);
-              background: linear-gradient(transparentize($secondary, .9), transparentize($secondary, .7));
+              font-weight: $calendar-day-overlay-text-weight;
+              color: $calendar-day-overlay-color;
+              background: $calendar-day-overlay-bg;
             }
 
             .lesson {
-              opacity: .3;
+              opacity: $calendar-lesson-overlay-opacity;
             }
           }
 
           .lesson {
             width: 100%;
             min-height: 33px;
-            padding: 4px 0;
+            padding: math.div($calendar-lesson-threshold,2) 0;
             text-align: center;
             display: flex;
             align-items: center;
@@ -111,15 +129,15 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
             margin: 0;
             border-radius: 0;
             border-top-width: 0;
-            border-bottom-width: 1px;
+            border-bottom-width: $calendar-lesson-border-width;
             border-left-width: 0;
             border-right-width: 0;
-            border-style: dashed;
-            font-weight: 600;
+            border-style: $calendar-lesson-border-style;
+            font-weight: $calendar-lesson-text-weight;
 
             span {
               width: 100%;
-              background-color: transparentize($secondary, .9);
+              background-color: $calendar-lesson-bg;
             }
           }
         }
