@@ -10,7 +10,7 @@
     @include scroll-bar();
 
     .list-group-item {
-      color: $list-item-color;
+      color: $list-item-text-color;
 
       .lesson {
         @include font-size($font-size-base);
@@ -23,7 +23,7 @@
 
       span.date {
         font-weight: bold;
-        color: $list-date-label-color;
+        color: $list-date-label-text-color;
         background-color: $list-date-label-bg;
         padding: 0 0.8em;
         border-radius: 5px;
@@ -31,7 +31,7 @@
 
       span.type {
         font-weight: bold;
-        color: $list-type-label-color;
+        color: $list-type-label-text-color;
         background-color: $list-type-label-bg;
         padding: 0 0.8em;
         border-radius: 5px;
@@ -45,7 +45,7 @@
         span.groupCode, span.course-sign, span.typeSign, span.teacherSign {
           font-family: "Montserrat Medium", sans-serif;
           //color: adjust-color($primary, $lightness: -28%, $saturation: 1%);
-          color: $list-lesson-description-color;
+          color: $list-lesson-description-text-color;
           //background: darken($primary, 6%);
           //background:$list-lesson-description-bg;
           //padding: .25rem;

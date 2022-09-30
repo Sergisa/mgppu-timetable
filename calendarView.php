@@ -29,19 +29,19 @@ $_monthsList = getMonths()
 <div class="row">
 
     <div class="col-12 col-md-8">
-        <h1 class="fw-bolder month-title text-primary d-md-inline">
-            <a href="/">
+        <h1 class="month-title">
+            <a href="/" class="back">
                 <i class="bi bi-backspace"></i>
             </a>
             <?= $_monthsList[(int)getActiveMonth()] ?>
-            <a href="?<?= getNextMonthLink() ?>" class="<?= getActiveMonth() < 12 ? "d-inline" : 'invisible' ?>">
-                <i class="bi bi-arrow-right-square fs-1 float-end"></i>
+            <a href="?<?= getNextMonthLink() ?>" class="next-day <?= getActiveMonth() < 12 ? "d-inline" : 'invisible' ?>">
+                <i class="bi bi-arrow-right-square"></i>
             </a>
-            <a href="?<?= getPreviousMonthLink() ?>" class="<?= getActiveMonth() > 1 ? "d-inline" : 'invisible' ?>">
-                <i class="bi bi-arrow-left-square fs-1 float-end"></i>
+            <a href="?<?= getPreviousMonthLink() ?>" class="prev-day <?= getActiveMonth() > 1 ? "d-inline" : 'invisible' ?>">
+                <i class="bi bi-arrow-left-square"></i>
             </a>
         </h1>
-        <p class="lead text-primary d-md-inline m-0 mb-md-3">
+        <p class="timetable-subtitle">
             <?php
             if (isTeacherTimetable()) {
                 if (!array_key_exists('professor', $_GET)) {
@@ -57,7 +57,7 @@ $_monthsList = getMonths()
             echo array_key_exists('group', $_GET) ? getGroupById($_GET['group']) : "";
             ?>
         </p>
-        <div class="calendar p-1" id="monthGrid"></div>
+        <div class="calendar" id="monthGrid"></div>
     </div>
     <div id="listDays" class="col-12 col-md-4">
         <ul class="list-group list-group-flush bg-opacity-100">

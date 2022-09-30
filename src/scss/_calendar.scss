@@ -1,26 +1,51 @@
 @use "sass:math";
+
 $days-count: 6;
 $col-per-screen-sm: 3.5;
 $col-per-screen-lg: 6;
 $day-horizontal-margin: 3px;
 $line-width-sm: calc(100% * ($days-count / $col-per-screen-sm));
 $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
-a {
-  text-decoration: none;
 
-  .bi {
-    color: $navigation-icons-color;
-    cursor: pointer;
-    border-radius: 3px;
-    margin-left: map-get($spacers, 1);
-    //padding: 0 .3rem;
-    display: inline-flex;
+.month-title {
+  font-weight: bolder;
+  color: $head-text-color;
+  @include media-breakpoint-up(md) {
+    display: inline;
+  }
 
-    &:hover {
-      color: $navigation-icons-hover-color;
-      background-color: $navigation-icons-hover-bg;
+  a.next-day, a.prev-day {
+    float: right;
+  }
+
+  a.back, a.next-day, a.prev-day {
+    text-decoration: none;
+
+    .bi {
+      color: $navigation-icons-color;
+      cursor: pointer;
+      border-radius: 3px;
+      margin-left: map-get($spacers, 1);
+      display: inline-flex;
+      @include font-size(map-get($font-sizes, 1));
+
+      &:hover {
+        color: $navigation-icons-hover-color;
+        background-color: $navigation-icons-hover-bg;
+      }
     }
   }
+}
+
+.timetable-subtitle {
+  color: $head-subtitle-text-color;
+  @include font-size($lead-font-size);
+  font-weight: $lead-font-weight;
+  @include media-breakpoint-up(md) {
+    display: inline;
+    @include margin-bottom(map-get($spacers, 3))
+  }
+  @include margin(0);
 }
 
 .calendar {
@@ -30,6 +55,7 @@ a {
   overflow-x: auto;
   overflow-y: auto;
   position: relative;
+  @include padding(map-get($spacers, 1));
   @include media-breakpoint-up(md) {
     max-height: 92vh;
   }
@@ -54,7 +80,7 @@ a {
     span {
       text-align: center;
       justify-content: center;
-      color: $calendar-day-name-header-color;
+      color: $calendar-day-name-text-color;
       display: flex;
       min-width: calc(100% / $days-count);
       word-break: break-all; //TODO:remove wordBreak. Make smaller font-size
@@ -91,7 +117,7 @@ a {
           border-radius: 3px;
           border: $calendar-day-border;
           background-color: $calendar-day-bg;
-          color: $calendar-day-color;
+          color: $calendar-day-text-color;
           min-height: 50px;
           height: 100%;
 
@@ -109,7 +135,7 @@ a {
               align-items: center;
               font-size: xx-large;
               font-weight: $calendar-day-overlay-text-weight;
-              color: $calendar-day-overlay-color;
+              color: $calendar-day-overlay-text-color;
               background: $calendar-day-overlay-bg;
             }
 
@@ -121,7 +147,7 @@ a {
           .lesson {
             width: 100%;
             min-height: 33px;
-            padding: math.div($calendar-lesson-threshold,2) 0;
+            padding: math.div($calendar-lesson-threshold, 2) 0;
             text-align: center;
             display: flex;
             align-items: center;
