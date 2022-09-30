@@ -1,6 +1,6 @@
 $primary: saturate(#6A453B, 30%);
 $secondary: darken(#7399BD, 10%);
-$body-bg: #C6CBD1;
+$body-bg: lighten(#C6CBD1, 15%);
 $body-color: #1C477F;
 
 $list-group-bg: $body-bg;
@@ -30,8 +30,9 @@ $navigation-icons-hover-bg: darken($body-bg, 5%);
 /*CALENDAR UI*/
 $calendar-day-name-header-bg: transparentize($body-bg, .8);
 $calendar-day-name-text-color: var(--bs-body-color);
+$calendar-day-name-text-weight: 500;
 $calendar-day-name-header-filter: blur(2px);
-$calendar-day-border: 2px solid $secondary;
+$calendar-day-border: 1px solid $secondary;
 $calendar-day-bg: var(--bs-body-bg);
 $calendar-day-text-color: var(--bs-body-color);
 
@@ -51,8 +52,10 @@ $list-group-bg: var(--bs-body-bg);
 $list-item-text-color: darken($body-color, 10%);
 $list-date-label-text-color: var(--bs-primary);
 $list-date-label-bg: transparentize($secondary, .9);
+$list-date-label-border: none;
 $list-type-label-text-color: var(--bs-primary);
-$list-type-label-bg: transparentize($secondary, .85);
+$list-type-label-bg: none;
+$list-type-label-border: 1px solid $body-color;
 $list-lesson-description-text-color: adjust-color($primary, $lightness: -9%, $hue: 20deg);
 $list-lesson-description-bg: #b1b8c0bf;
 $list-lesson-description-weight: 500;
