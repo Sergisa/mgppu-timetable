@@ -21,6 +21,7 @@ function generateDay(date, lessons) {
         for (let i = 1; i <= 5; i++) {
             const lesson = lessons.find((lesson) => lesson.Number === `${i} пара`);
             if (lesson) {
+                if (lesson.Coords.room.index.toLowerCase() === "спортивный зал") lesson.Coords.room.index = 'спорт. зал'
                 $lessonPattern.clone().html(`<span>${lesson.Coords.room.index}</span>`).attr("data-lesson-index", i).appendTo(dayView)
             } else {
                 dayView.append($lessonPattern.clone().addClass('empty'))

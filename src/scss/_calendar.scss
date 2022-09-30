@@ -148,7 +148,7 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
           .lesson {
             width: 100%;
             min-height: 33px;
-            padding: math.div($calendar-lesson-threshold, 2) 0;
+            padding: 4px 0;
             text-align: center;
             display: flex;
             align-items: center;
@@ -162,6 +162,12 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
             border-style: $calendar-lesson-border-style;
             font-weight: $calendar-lesson-text-weight;
             word-break: break-all;
+            height: 100%;
+            line-height: .9rem;
+
+            &.empty:before {
+              display: none;
+            }
 
             &:before {
               color: lighten($body-color, 5%);
@@ -169,7 +175,7 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
               background: $calendar-lesson-bg;
               @include padding-left(map-get($spacers, 2));
               @include padding-right(map-get($spacers, 2));
-              height: calc(100% - ($calendar-lesson-threshold / 2));
+              height: calc(100%);
               display: flex;
               align-items: center;
             }
@@ -177,7 +183,10 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
             span {
               width: 100%;
               background-color: $calendar-lesson-bg;
-
+              height: 100%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
             }
           }
         }
