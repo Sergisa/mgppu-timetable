@@ -22,6 +22,7 @@
       }
 
       span.date {
+        border: $list-date-label-border;
         font-weight: bold;
         color: $list-date-label-text-color;
         background-color: $list-date-label-bg;
@@ -30,6 +31,7 @@
       }
 
       span.type {
+        border: $list-type-label-border;
         font-weight: bold;
         color: $list-type-label-text-color;
         background-color: $list-type-label-bg;

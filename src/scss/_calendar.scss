@@ -78,6 +78,7 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
     }
 
     span {
+      font-weight: $calendar-day-name-text-weight;
       text-align: center;
       justify-content: center;
       color: $calendar-day-name-text-color;
