@@ -160,10 +160,23 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
             border-right-width: 0;
             border-style: $calendar-lesson-border-style;
             font-weight: $calendar-lesson-text-weight;
+            word-break: break-all;
+
+            &:before {
+              color: lighten($body-color, 5%);
+              content: attr(data-lesson-index);
+              background: $calendar-lesson-bg;
+              @include padding-left(map-get($spacers, 2));
+              @include padding-right(map-get($spacers, 2));
+              height: calc(100% - ($calendar-lesson-threshold / 2));
+              display: flex;
+              align-items: center;
+            }
 
             span {
               width: 100%;
               background-color: $calendar-lesson-bg;
+
             }
           }
         }
