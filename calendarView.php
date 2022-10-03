@@ -41,7 +41,7 @@ $_monthsList = getMonths()
                 <i class="bi bi-arrow-left-square fs-1 float-end"></i>
             </a>
         </h1>
-        <p class="lead text-primary d-md-inline m-0 mb-md-3">
+        <p class="lead text-primary d-md-inline m-0 mb-md-3 subtitle">
             <?php
             if (isTeacherTimetable()) {
                 if (!array_key_exists('professor', $_GET)) {

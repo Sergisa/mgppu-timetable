@@ -12,7 +12,13 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
   overflow-y: auto;
   position: relative;
   @include media-breakpoint-up(md) {
-    max-height: 92vh;
+    max-height: 87vh;
+  }
+  @include media-breakpoint-up(lg) {
+    max-height: 90vh;
+  }
+  @include media-breakpoint-up(xl) {
+    max-height: 90vh;
   }
   @include scroll-bar();
 
