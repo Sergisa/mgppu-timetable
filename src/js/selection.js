@@ -34,6 +34,7 @@ class Selector {
             return false;
         });
         this.$root.on('click', () => {
+            console.log("ROOT clicked")
             this.toggleList();
             this.adaptSize()
         })
@@ -133,7 +134,9 @@ class Selector {
     static clearMenus(event) {
         document.querySelectorAll('.variant-list.active').forEach(function (listElement) {
             const selectorObject = Selector.getOrCreateInstance(listElement.parentElement)
-            if (event.target !== selectorObject.$selection.get(0)) {
+            if ((event.target !== selectorObject.$selection.get(0)) &&
+                (event.target !== selectorObject.$selection.find('.bi-chevron-down').get(0))
+            ) {
                 selectorObject.hideList()
             }
         })
