@@ -13,6 +13,10 @@
   align-items: center;
   cursor: pointer;
 
+  &:hover {
+    background-color: darken($body-bg, 3%);
+  }
+
   i.bi {
     cursor: pointer;
     float: right;
