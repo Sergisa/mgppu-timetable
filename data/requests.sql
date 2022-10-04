@@ -129,6 +129,6 @@ WHERE РегистрДисциплины._Fld7246RRef = :academicYearId
   --AND CONVERT(VARCHAR(10), ДниПроведенияЗанятий._Fld7241, 104) = '29.03.2022'
   AND Семестры._IDRRef = :semesterId
 --   AND Институты._Fld152 = :departmentCode
-  --AND Преподаватели._IDRRef = :teacherID
+  AND Преподаватели._Description = :teacher
     /* Осенний (0x80C4000C299AE95511E6FFDE22A08A7E), Весенний(0x80C4000C299AE95511E6FFDE22A08A7D)*/
 ORDER BY ДниПроведенияЗанятий._Fld7241

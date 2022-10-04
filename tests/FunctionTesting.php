@@ -13,6 +13,22 @@ final class FunctionTesting extends TestCase
         $this->assertEquals(19, getGroupYear('19ИТ-ПИ(б/о)ПИП-1'));
         $this->assertEquals(20, getGroupYear('20ПО-ППО(м/з)ППСО-2'));
         $this->assertEquals(21, getGroupYear('21ЭП-П(м/о)ППД-1'));
+
+        $this->assertEquals(22, getGroupYear('22ЮП-П(б/о)П-1'));
+        $this->assertEquals(22, getGroupYear('22ИЭП-П(б/о)ЭкП-1'));
+        $this->assertEquals(22, getGroupYear('22ЮП-ППД(с/о)Д-1'));
+    }
+
+    public function testGettingGroupCode(): void
+    {
+        $this->assertEquals('ПИ', getGroupSpeciality('20ИТ-ПИ(б/о)ПИП-1'));
+        $this->assertEquals('МО', getGroupSpeciality('21ИТ-МО(б/о)ИСБД-1'));
+        $this->assertEquals('ПИ', getGroupSpeciality('19ИТ-ПИ(б/о)ПИП-1'));
+        $this->assertEquals('ППО', getGroupSpeciality('20ПО-ППО(м/з)ППСО-2'));
+        $this->assertEquals('П', getGroupSpeciality('21ЭП-П(м/о)ППД-1'));
+        $this->assertEquals('П', getGroupSpeciality('22ЮП-П(б/о)П-1'));
+        $this->assertEquals('П', getGroupSpeciality('22ИЭП-П(б/о)ЭкП-1'));
+        $this->assertEquals('ППД', getGroupSpeciality('22ЮП-ППД(с/о)Д-1'));
     }
 
     public function testGettingCourseNumber(): void

@@ -82,10 +82,28 @@ function getTeacherSignature($lesson): string
     return $split[0] . " " . mb_substr($split[1], 0, 1) . "." . mb_substr($split[2], 0, 1) . ".";
 }
 
+function parseGroupCode($group)
+{
+    preg_match_all('/(\d{2,})([А-я]+)-([А-я]+)\((.+)\)([А-я]+)-(\d)/u', $group, $m);
+    return $m;
+}
+
+function getGroupsSignature($lesson): string
+{
+    $groupCodeList = collect($lesson['Group'])->pluck('name')->map(function ($group) {
+        return getGroupSpeciality($group);
+    });
+    return "(" . implode(', ', $groupCodeList->toArray()) . ")";
+}
+
+function getGroupSpeciality($group): string
+{
+    return parseGroupCode($group)[3][0];
+}
+
 function getGroupYear($group): string
 {
-    preg_match_all('/(\d{2})([А-Я]{2})-([А-Я]+)\((.+)\)([А-Я]+)-(\d)/u', $group, $m);
-    return $m[1][0];
+    return parseGroupCode($group)[1][0];
 }
 
 function getCourseNumber($group, $currentMonth = null, $currentYear = null): string
@@ -101,15 +119,6 @@ function getLessonIndex($lesson): string
 {
     preg_match_all('/(\d) *пара/ui', $lesson['Number'], $index);
     return $index[1][0];
-}
-
-function getGroupsSignature($lesson): string
-{
-    $groupCodeList = collect($lesson['Group'])->pluck('name')->map(function ($code) {
-        preg_match_all('/(\d{2}[А-Я]{2})-([А-Я]+)\((.+)\)([А-Я]+)-(\d)/u', $code, $m);
-        return $m[2][0];
-    });
-    return "(" . implode(', ', $groupCodeList->toArray()) . ")";
 }
 
 function joinParallelLessonsByGroup(Collection $timetable): Collection
@@ -205,7 +214,7 @@ function collapseDataHierarchically($timetable): Collection
 
 function getTimetable(): Collection
 {
-    $timetable = getFileData("Timetable2022.json");
+    $timetable = getFileData("tmtFull.json");
     return collapseDataHierarchically($timetable); //FIXME: Общая психология пропала для препода
 }
 
