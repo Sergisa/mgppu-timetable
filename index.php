@@ -1,7 +1,6 @@
 <?php
 include 'vendor/autoload.php';
 include 'functions.php';
-$timetable = getData();
 ?>
 <!DOCTYPE html>
 <html lang="en">
