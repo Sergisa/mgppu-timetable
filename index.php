@@ -42,9 +42,7 @@ $timetable = getData();
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="dist/js/jquery.easing.js"></script>
-<script src="dist/js/bsBreakPointDriver.js"></script>
-<script src="dist/js/selection.js"></script>
+<script src="dist/js/bundle.js"></script>
 <script>
     let config = {
         synchronizeSelectors: true

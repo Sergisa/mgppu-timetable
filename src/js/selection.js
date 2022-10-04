@@ -33,11 +33,6 @@ class Selector {
             event.stopPropagation()
             return false;
         });
-        this.$root.on('click', () => {
-            console.log("ROOT clicked")
-            this.toggleList();
-            this.adaptSize()
-        })
     }
 
     adaptSize() {
@@ -132,6 +127,7 @@ class Selector {
      * @param event {Event}
      */
     static clearMenus(event) {
+        console.log(event)
         document.querySelectorAll('.variant-list.active').forEach(function (listElement) {
             const selectorObject = Selector.getOrCreateInstance(listElement.parentElement)
             if ((event.target !== selectorObject.$selection.get(0)) &&
@@ -180,3 +176,8 @@ class Selector {
 }
 
 $(document).on('click', Selector.clearMenus)
+$(document).on('click', '.selection', function () {
+    const context = Selector.getOrCreateInstance(this.parentElement);
+    context.toggleList()
+    context.adaptSize();
+})
