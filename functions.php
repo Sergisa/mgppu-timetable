@@ -231,6 +231,5 @@ function getData(): Collection
             }
         }))
         ->sortBy(['Number'])
-        ->sortByDate('dayDate')
-        ->groupBy('dayDate');
+        ->sortByDate('dayDate');
 }

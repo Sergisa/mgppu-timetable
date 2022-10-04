@@ -122,6 +122,12 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
             border-right-width: 0;
             border-style: dashed;
 
+            &[data-lesson-index="6"] {
+              border-top-style: solid;
+              border-top-color: $primary;
+              border-top-width: 2px;
+            }
+
             span {
               width: 100%;
               background-color: $secondary;

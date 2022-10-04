@@ -1,7 +1,7 @@
 <?php
 include 'vendor/autoload.php';
 include 'functions.php';
-$timetable = getData();
+$timetable = getData()->groupBy('dayDate');
 $_monthsList = getMonths()
 ?>
 <!DOCTYPE html>

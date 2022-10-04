@@ -6,9 +6,10 @@ const headerPattern = $(`<div class="header"></div>`);
  *
  * @param date {Date}
  * @param lessons {Object}
+ * @param isMagistracy
  * @returns {*|jQuery|HTMLElement}
  */
-function generateDay(date, lessons) {
+function generateDay(date, lessons, isMagistracy = false) {
     const $lessonPattern = $(`<div class="lesson list-group-item"></div>`)
     const dayView = dayPattern.clone()
     dayView.attr({
@@ -18,12 +19,12 @@ function generateDay(date, lessons) {
         "title": date.toLocaleDateString()
     })
     if (lessons !== undefined) {
-        for (let i = 1; i <= 5; i++) {
+        for (let i = 1; i <= (isMagistracy ? 7 : 5); i++) {
             const lesson = lessons.find((lesson) => lesson.Number === `${i} пара`);
             if (lesson) {
                 $lessonPattern.clone().html(`<span>${lesson.Coords.room.index}</span>`).attr("data-lesson-index", i).appendTo(dayView)
             } else {
-                dayView.append($lessonPattern.clone().addClass('empty'))
+                dayView.append($lessonPattern.clone().attr("data-lesson-index", i).addClass('empty'))
             }
         }
     }
@@ -52,7 +53,13 @@ function generateDaysLine(currentDate) {
 
     while (true) {
         if (currentDate.getDayName() !== 'Воскресенье') {
-            monthLineView.append(generateDay(currentDate, lessonsTimetable[currentDate.toLocaleDateString()]))
+            monthLineView.append(generateDay(
+                currentDate,
+                lessonsTimetable.filter((lesson) => lesson.dayDate === currentDate.toLocaleDateString()),
+                lessonsTimetable.filter((lesson) => {
+                    return (lesson.Number === "6 пара") || (lesson.Number === "7 пара")
+                }).length > 0,
+            ))
         }
         if (currentDate.hasNextInMonth()) {
             if (currentDate.hasNextInWeek()) currentDate.next()
