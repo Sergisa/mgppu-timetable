@@ -1,22 +1,22 @@
 {
-    "name": "sergisa/timetable",
-    "autoload": {
-        "psr-4": {
-            "Sergisa\\Timetable\\": "src/"
-        }
-    },
-    "authors": [
-        {
-            "name": "Sergisa",
-            "email": "phebra@yandex.ru"
-        }
-    ],
-    "require": {
-        "illuminate/collections": "^9.5",
-      "ext-json": "*",
-      "ext-mbstring": "*"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "^9.5"
+  "name": "sergisa/timetable",
+  "autoload": {
+    "psr-4": {
+      "Sergisa\\Timetable\\": "src/"
     }
+  },
+  "authors": [
+    {
+      "name": "Sergisa",
+      "email": "phebra@yandex.ru"
+    }
+  ],
+  "require": {
+    "illuminate/collections": "^9.5",
+    "ext-json": "*",
+    "ext-mbstring": "*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.5"
+  }
 }
