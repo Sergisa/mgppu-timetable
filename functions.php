@@ -118,7 +118,7 @@ function getCourseNumber($group, $currentMonth = null, $currentYear = null): str
 function getLessonIndex($lesson): string
 {
     preg_match_all('/(\d) *пара/ui', $lesson['Number'], $index);
-    return $index[1][0];
+    return $index[1][0] ?? "";
 }
 
 function joinParallelLessonsByGroup(Collection $timetable): Collection
