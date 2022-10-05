@@ -69,8 +69,8 @@ $_monthsList = getMonths()
                 echo "<li class='list-group-item' data-date='$date'>";
                 echo "<div class='labels'>
                     <span class='date me-1'>" . convertDate('d.m', $date) . "</span>";
-                foreach (collect($lessons)->pluck("Type") as $type) {
-                    echo "<span class='type me-1'>" . getLessonTypeSignature($type) . "</span>";
+                foreach (collect($lessons) as $lesson) {
+                    echo "<span class='type me-1'>" . getLessonTypeSignature($lesson["TypeID"] ?? $lesson["finalCheckType"]) . "</span>";
                 }
                 echo "</div>";
                 foreach ($lessons as $lesson) {
@@ -80,9 +80,9 @@ $_monthsList = getMonths()
                     $teacherSign = getTeacherSignature($lesson);
                     $lessonIndex = getLessonIndex($lesson);
                     if (isTeacherTimetable()) {
-                        echo "<div class='lesson' data-time='{$lesson['TimeStart']}'><b>$lessonIndex.</b> $lessonSign<span class='groupCode'>$groupsSign $courseSign</span></div>";
+                        echo "<div class='lesson' data-time='{$lesson['TimeStart']}'><b class='fw-bold'>$lessonIndex.</b> $lessonSign<span class='groupCode'>$groupsSign $courseSign</span></div>";
                     } else if (isGroupTimetable()) {
-                        echo "<div class='lesson' data-time='{$lesson['TimeStart']}'><b>$lessonIndex.</b> $lessonSign<span class='groupCode'>$teacherSign ${lesson['Type']}</span></div>";
+                        echo "<div class='lesson' data-time='{$lesson['TimeStart']}'><b class='fw-bold'>$lessonIndex.</b> $lessonSign<span class='groupCode'>$teacherSign ${lesson['Type']}</span></div>";
                     }
                 }
                 echo "</li>";

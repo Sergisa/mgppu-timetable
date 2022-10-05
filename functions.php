@@ -54,9 +54,15 @@ function getLessonSignature($lesson): string
     return $lesson['Discipline'] . ' ';
 }
 
-function getLessonTypeSignature($type): string
+function getLessonTypeSignature($typeID): ?string
 {
-    return mb_substr($type == "Практические занятия" ? "Семинар" : "Лекции", 0, 1);
+    $types = [
+        '0x80C9000C295831B711E8A95D5CD1DE1A' => ['Семинар', 'Сем.'],
+        '0xAD88005056B76B4C11E6B2C498121654' => ['Лекции', 'Лек.'],
+        '0xAD88005056B76B4C11E6B2C49FAB9534' => ['Лабораторные работы', 'Лаб.'],
+        '0xAD88005056B76B4C11E6B2C4A65DCFFA' => ['Практические занятия', 'Пр.']
+    ];
+    return $types[$typeID][1] ?? mb_substr($typeID, 0, 3);
 }
 
 function isTeacherTimetable($get = null): bool
@@ -117,8 +123,12 @@ function getCourseNumber($group, $currentMonth = null, $currentYear = null): str
 
 function getLessonIndex($lesson): string
 {
-    preg_match_all('/(\d) *пара/ui', $lesson['Number'], $index);
-    return $index[1][0] ?? "";
+    if (is_null($lesson['Number'])) {
+        return mb_substr($lesson['checkStart'], 0, 5);
+    } else {
+        preg_match_all('/(\d) *пара/ui', $lesson['Number'], $index);
+        return $index[1][0];
+    }
 }
 
 function joinParallelLessonsByGroup(Collection $timetable): Collection
