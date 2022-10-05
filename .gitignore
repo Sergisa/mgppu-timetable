@@ -7,3 +7,4 @@ dist/css/style.css.map
 dist
 timetable.iml
 .phpunit.result.cache
+data/tmtFull.json
