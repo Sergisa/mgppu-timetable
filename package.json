@@ -23,7 +23,7 @@
     "js-compile-bundle": "babel src/js/jquery.easing.js src/js/dateDriver.js src/js/bsBreakPointDriver.js src/js/dayList.js src/js/selection.js src/js/dayList.js src/js/calendar.js -o dist/js/bundle.js --minified",
     "js-compile-bundle-watch": "babel src/js/jquery.easing.js src/js/dateDriver.js src/js/bsBreakPointDriver.js src/js/dayList.js src/js/selection.js src/js/dayList.js src/js/calendar.js -o dist/js/bundle.js --watch",
     "js-compile-separate": "babel src/js -d dist/js --minified",
-    "js-watch-separate": "babel src/js -d dist/js --watch",
+    "js-compile-separate-watch": "babel src/js -d dist/js --watch",
     "sass-help": "sass --help"
   },
   "repository": {

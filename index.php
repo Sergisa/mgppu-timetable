@@ -29,11 +29,11 @@ include 'functions.php';
         <h4 class="text-primary">Для магистров не подходит</h4>
         <div class="mb-3 col-12">
             <label for="group-select" class="text-light">Выберите группу</label>
-            <select name="group" id="group-select"></select>
+            <select name="group" id="group-select" class="d-none"></select>
         </div>
         <div class="mb-3 col-12">
             <label for="professor-select" class="text-light">Выберите преподавателя</label>
-            <select name="professor" id="professor-select"></select>
+            <select name="professor" id="professor-select" class="d-none"></select>
         </div>
         <button class="btn btn-primary">Перейти к расписанию</button>
     </form>
@@ -44,7 +44,8 @@ include 'functions.php';
 <script src="dist/js/bundle.js"></script>
 <script>
     let config = {
-        synchronizeSelectors: true
+        synchronizeSelectors: true,
+        initialDisabled: true
     }
     const groupSelector = Selector.generate(document.getElementById('group-select'), config)
     const professorSelector = Selector.generate(document.getElementById('professor-select'), config)
@@ -59,11 +60,11 @@ include 'functions.php';
 
     $.getJSON('getProfessors.php', function (data) {
         professorSelector.fillData(data)
-        console.log(data)
+        professorSelector.setEnabled()
     })
     $.getJSON('getGroups.php', function (data) {
         groupSelector.fillData(data)
-        console.log(data)
+        groupSelector.setEnabled()
     })
 </script>
 </html>

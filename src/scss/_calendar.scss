@@ -116,11 +116,15 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
             justify-content: center;
             margin: 0;
             border-radius: 0;
-            border-top-width: 0;
-            border-bottom-width: 1px;
+            border-bottom-width: 0;
+            border-top-width: 1px;
             border-left-width: 0;
             border-right-width: 0;
             border-style: dashed;
+
+            &:first-of-type {
+              border-top: none;
+            }
 
             &[data-lesson-index="6"] {
               border-top-style: solid;

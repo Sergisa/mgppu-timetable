@@ -1,7 +1,10 @@
 const $arrow = `<i class="bi bi-chevron-down"></i>`;
 const clear = `<i class="bi bi-x-lg"></i>`;
+const loaderSpinner = `<div class="lds-dual-ring active"></div>`;
 const $selectPattern = $(`<div class="select" id="groupSelect">
-    <div class="selection">Все ${$arrow}</div>
+    <div class="selection">
+        <input type="text" name="search" class="search d-none" placeholder="Найти">
+    </div>
     <div class="variant-list"></div>
 </div>`)
 const $variantPattern = $(`<div class="variant"></div>`)
@@ -19,14 +22,30 @@ const changeSelected = (element, value, prop) => {
 
 class Selector {
     constructor($rootElement, config) {
+        this.config = config;
         this.relatedSelectTag = config.relatedSelectTag;
         this.synchronizeSelectors = config.synchronizeSelectors ?? false; //FIXME: true leads to endless cycle
         this.hideAssociatedLabel = config.hideAssociatedLabel ?? false;
         this.$root = $rootElement;
         this.$selection = $rootElement.find('.selection');
+        this.$searchInput = this.$selection.find('.search');
+        this.$stateIndicator = $(loaderSpinner)
+        this.$selection.append(this.$stateIndicator)
         this.$list = $rootElement.find('.variant-list');
         $(window).on('resize', () => {
             this.adaptSize()
+        })
+        this.$searchInput.on('input', (event) => {
+            console.log('input edit', event.target.value);
+            this.filterVariants(event.target.value.toLowerCase());
+            this.adaptSize();
+            this.showList();
+        })
+        this.$searchInput.on('click', () => {
+            console.log('input click');
+            this.adaptSize();
+            this.showList();
+
         })
         this.$root.on('selectionchange', (event) => {
             event.preventDefault();
@@ -62,12 +81,35 @@ class Selector {
         this.hideList()
     }
 
+    setEnabled() {
+        this.$stateIndicator.removeClass('active')
+        this.$selection.append()
+        this.$searchInput.removeClass('d-none')
+    }
+
     toggleList() {
         this.$list.toggleClass('active')
     }
 
     hideList() {
         this.$list.removeClass('active')
+    }
+
+    filterVariants(substring) {
+        console.log("filtering")
+        this.$list.children().each((index, element) => {
+            if (!element.innerHTML.toLowerCase().includes(substring)) {
+                element.classList.add('d-none')
+            } else {
+                element.classList.remove('d-none')
+            }
+            // return element;
+        })
+    }
+
+    showList() {
+        console.log('showing list', this.$list)
+        this.$list.addClass('active')
     }
 
     setOnItemClicked(fn) {
@@ -148,7 +190,6 @@ class Selector {
         if (selectTag instanceof jQuery) {
             selectTag = selectTag.get();
         }
-        selectTag.style.display = 'none'
         if (config) {
             if (config.hideAssociatedLabel) document.querySelector(`label[for='${selectTag.id}']`).style.display = 'none';
         }
