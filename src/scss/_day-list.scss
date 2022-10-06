@@ -10,6 +10,19 @@
 
     .list-group-item {
       font-weight: 300;
+      @include scroll-bar();
+      @include media-breakpoint-up(xs) {
+        overflow-x: auto;
+        overflow-y: hidden;
+      }
+      @include media-breakpoint-up(sm) {
+        overflow-x: unset;
+        overflow-y: unset;
+      }
+
+      .labels {
+        white-space: nowrap;
+      }
 
       .lesson {
         @include font-size($font-size-sm);
@@ -27,7 +40,7 @@
         font-weight: bold;
         color: $accent;
         background-color: $secondary;
-        padding: 0 0.8em;
+        padding: 0 .5em;
         border-radius: 5px;
         text-transform: uppercase;
       }
