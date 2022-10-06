@@ -206,16 +206,16 @@ function collapseDataHierarchically($timetable): Collection
             'code' => $item['DepartmentCode'],
         ], "Department")->filter(function ($item, $key) {
             return !in_array($key, [
-                "FloorID",
-                "Floor",
-                "Building",
                 "BuildingID",
-                "GroupID",
-                "Room",
+                "FloorID",
                 "RoomID",
-                "GroupCode",
+                "GroupID",
+                "TeacherID",
+                "TeacherFIO",
+                "DepartmentID",
                 "DepartmentName",
-                "DepartmentCode"
+                "DepartmentCode",
+                "GroupCode"
             ]);
         });
 
