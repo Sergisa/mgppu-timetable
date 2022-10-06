@@ -87,10 +87,10 @@ SELECT Дисциплины._Description                                        
        DATENAME(weekday, ДниПроведенияЗанятий._Fld7241)                 AS dayOfWeekName,
        ВидыЗанятий._Fld7440                                             AS TypeShort,
        CASE
-           WHEN ТчРасписаниеЗвонков._Fld7102 IS NULL THEN CONVERT(VARCHAR, РегистрДисциплины._Fld7258, 108)
-           ELSE CONVERT(VARCHAR, ТчРасписаниеЗвонков._Fld7103, 108) END AS TimeStart,
+           WHEN ИтоговыйКонтроль._Description IS NOT NULL THEN CONVERT(VARCHAR, РегистрДисциплины._Fld7258, 108)
+           ELSE CONVERT(VARCHAR, ТчРасписаниеЗвонков._Fld7102, 108) END AS TimeStart,
        CASE
-           WHEN ТчРасписаниеЗвонков._Fld7103 IS NULL THEN CONVERT(VARCHAR, РегистрДисциплины._Fld7259, 108)
+           WHEN ИтоговыйКонтроль._Description IS NOT NULL THEN CONVERT(VARCHAR, РегистрДисциплины._Fld7259, 108)
            ELSE CONVERT(VARCHAR, ТчРасписаниеЗвонков._Fld7103, 108) END AS TimeEnd,
        РегистрДисциплины._Active                                        AS active,
        Здания._IDRRef                                                   AS BuildingID,
@@ -138,7 +138,6 @@ WHERE РегистрДисциплины._Fld7246RRef = :academicYearId
   --AND _Fld7250RRef NOT IN (SELECT _IDRRef FROM _Reference4684)
     /* Осенний (0x80C4000C299AE95511E6FFDE22A08A7E), Весенний(0x80C4000C299AE95511E6FFDE22A08A7D)*/
   --AND ДниПроведенияЗанятий._Fld7241 = CONVERT(DATE, :date)
-  AND РегистрДисциплины._Active = 0x01
   --and Преподаватели._Description LIKE '%Куравский%'
   --and ВидыЗанятий._IDRRef is NULL
   --AND ИтоговыйКонтроль._Description IS NOT NULL
