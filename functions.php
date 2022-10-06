@@ -119,7 +119,7 @@ function getCourseNumber($group, $currentMonth = null, $currentYear = null): str
     $activeYear = $currentYear ?? date('y'); // y: 22 Y: 2022
     $course = $activeYear - getGroupYear($group);
     if ($activeMonth >= 9 && $activeMonth <= 12) $course++;
-    return "{$course} курс";
+    return "$course курс";
 }
 
 function getLessonIndex($lesson): string
