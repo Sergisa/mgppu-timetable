@@ -72,9 +72,6 @@
 .lds-dual-ring {
 
   &.active {
-    //top: 10px;
-    //left: calc(100% - 35px);
-
     display: block;
     width: 26px;
     height: 26px;
@@ -84,15 +81,5 @@
     border-style: solid;
     border-color: $accent transparent $accent transparent;
     animation: lds-dual-ring 1.2s linear infinite;
-  }
-}
-
-
-@keyframes lds-dual-ring {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
   }
 }

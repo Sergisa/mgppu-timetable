@@ -41,6 +41,15 @@ $container-max-widths: (
   }
 }
 
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 @import "../../node_modules/bootstrap/scss/bootstrap";
 @import "day-list";
 @import "calendar";
