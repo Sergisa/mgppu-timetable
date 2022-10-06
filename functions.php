@@ -41,6 +41,7 @@ function getGroupById($id)
 
 function getTeacherById($id)
 {
+    if ($id = "null") $id = null;
     return getTimetable()->pluck("Teacher")->where('id', '=', $id)->unique()->values()[0]['name'];
 }
 
@@ -124,7 +125,7 @@ function getCourseNumber($group, $currentMonth = null, $currentYear = null): str
 function getLessonIndex($lesson): string
 {
     if (is_null($lesson['Number'])) {
-        return mb_substr($lesson['checkStart'], 0, 5);
+        return mb_substr($lesson['TimeStart'], 0, 5);
     } else {
         preg_match_all('/(\d) *пара/ui', $lesson['Number'], $index);
         return $index[1][0];
