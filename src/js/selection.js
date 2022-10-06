@@ -4,7 +4,7 @@ const loaderSpinner = `<div class="lds-dual-ring active"></div>`;
 const $selectPattern = $(`<div class="select" id="groupSelect">
     <div class="selection">
         <div class="leftSide">
-            <input type="text" name="search" class="search d-none" placeholder="Найти">
+            <input type="text" class="search d-none" placeholder="Найти">
         </div>
         <div class="rightSide"></div>
     </div>
