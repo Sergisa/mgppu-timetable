@@ -133,13 +133,16 @@ WHERE РегистрДисциплины._Fld7246RRef = :academicYearId
   --AND РегистрДисциплины._Fld7251RRef = :studentGroupId /* Учебная группа*/
   --AND CONVERT(VARCHAR(10), ДниПроведенияЗанятий._Fld7241, 104) = '29.03.2022'
   AND Семестры._IDRRef = :semesterId
-  --   AND Институты._Fld152 = :departmentCode
-  --AND ВидыЗанятий._Fld7440 is NULL
+
+  --AND Институты._Description = :departmentCode
+  --AND Институты._Fld152 = :departmentCode
+  --AND ВидыЗанятий._Fld7440 IS NULL
   --AND _Fld7250RRef NOT IN (SELECT _IDRRef FROM _Reference4684)
     /* Осенний (0x80C4000C299AE95511E6FFDE22A08A7E), Весенний(0x80C4000C299AE95511E6FFDE22A08A7D)*/
   --AND ДниПроведенияЗанятий._Fld7241 = CONVERT(DATE, :date)
-  --and Преподаватели._Description LIKE '%Куравский%'
-  --and ВидыЗанятий._IDRRef is NULL
+  --AND ПреподавателиДисциплин._Fld7242 IS NULL
+  --AND Дисциплины._Description LIKE '%Общая псих%'
+  --AND ВидыЗанятий._IDRRef IS NULL
   --AND ИтоговыйКонтроль._Description IS NOT NULL
 ORDER BY ДниПроведенияЗанятий._Fld7241
 
