@@ -4,7 +4,7 @@ include '../functions.php';
 
 use PHPUnit\Framework\TestCase;
 
-final class FunctionTesting extends TestCase
+final class ParseTextTesting extends TestCase
 {
     public function testGettingGroupYear(): void
     {
