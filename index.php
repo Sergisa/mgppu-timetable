@@ -24,8 +24,7 @@ include 'functions.php';
 <body class="container">
 <div class="row">
     <form action="calendarView.php" class="col-md-4 col-xs-12 mx-auto">
-        <h4 class="text-primary">Пока только для бакалавров</h4>
-        <h4 class="text-primary">Для магистров не подходит</h4>
+        <h4 class="text-primary">Теперь расписание работает для всех</h4>
         <div class="mb-3 col-12">
             <label for="group-select" class="text-light">Выберите группу</label>
             <select name="group" id="group-select"></select>
