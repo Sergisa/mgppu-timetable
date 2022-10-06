@@ -53,6 +53,10 @@ $_monthsList = getMonths()
             } else {
                 echo "";
             }
+            ?>
+        </p>
+        <p class="lead text-primary d-md-inline m-0 mb-md-3 subtitle">
+            <?php
             echo array_key_exists('group', $_GET) ? getGroupById($_GET['group']) : "";
             ?>
         </p>
