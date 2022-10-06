@@ -3,16 +3,16 @@ const clear = `<i class="bi bi-x-lg"></i>`;
 const loaderSpinner = `<div class="lds-dual-ring active"></div>`;
 const $selectPattern = $(`<div class="select" id="groupSelect">
     <div class="selection">
-        <input type="text" name="search" class="search d-none" placeholder="Найти">
+        <div class="leftSide">
+            <input type="text" name="search" class="search d-none" placeholder="Найти">
+        </div>
+        <div class="rightSide"></div>
     </div>
     <div class="variant-list"></div>
 </div>`)
 const $variantPattern = $(`<div class="variant"></div>`)
 const changeSelectedByContent = (element, value) => {
     changeSelected(element, value, 'text')
-};
-const changeSelectedByValue = (element, value) => {
-    changeSelected(element, value, 'value')
 };
 const changeSelected = (element, value, prop) => {
     const $options = Array.from(element.options);
@@ -29,24 +29,15 @@ class Selector {
         this.$root = $rootElement;
         this.$selection = $rootElement.find('.selection');
         this.$searchInput = this.$selection.find('.search');
+        this.$rightSide = this.$selection.find('.rightSide');
+        this.$leftSide = this.$selection.find('.leftSide');
         this.$stateIndicator = $(loaderSpinner)
-        this.$selection.append(this.$stateIndicator)
+        this.$rightSide.append(this.$stateIndicator)
         this.$list = $rootElement.find('.variant-list');
         $(window).on('resize', () => {
             this.adaptSize()
         })
-        this.$searchInput.on('input', (event) => {
-            console.log('input edit', event.target.value);
-            this.filterVariants(event.target.value.toLowerCase());
-            this.adaptSize();
-            this.showList();
-        })
-        this.$searchInput.on('click', () => {
-            console.log('input click');
-            this.adaptSize();
-            this.showList();
-
-        })
+        this.attachListeners()
         this.$root.on('selectionchange', (event) => {
             event.preventDefault();
             event.stopPropagation()
@@ -74,20 +65,24 @@ class Selector {
         let $clear = $(clear)
         $clear.on('click', () => {
             this.clearSelection()
-            this.$selection.html($selectPattern.find('.selection').clone().html());
+            this.$leftSide.html(this.$searchInput)
+            this.$rightSide.html($arrow)
+            this.attachListeners()
         })
-        this.$selection.html(event.currentTarget.innerHTML).append($clear);
+        this.$leftSide.html(event.currentTarget.innerHTML);
+        this.$rightSide.html($clear)
         changeSelectedByContent(this.relatedSelectTag, event.currentTarget.innerHTML)
         this.hideList()
     }
 
     setEnabled() {
         this.$stateIndicator.removeClass('active')
-        this.$selection.append()
+        this.$stateIndicator.replaceWith($arrow)
         this.$searchInput.removeClass('d-none')
     }
 
     toggleList() {
+        console.log("toggling ", this.$list.get(0))
         this.$list.toggleClass('active')
     }
 
@@ -96,19 +91,24 @@ class Selector {
     }
 
     filterVariants(substring) {
-        console.log("filtering")
         this.$list.children().each((index, element) => {
             if (!element.innerHTML.toLowerCase().includes(substring)) {
                 element.classList.add('d-none')
             } else {
                 element.classList.remove('d-none')
             }
-            // return element;
+        })
+    }
+
+    attachListeners() {
+        this.$searchInput.on('input', (event) => {
+            this.filterVariants(event.target.value.toLowerCase());
+            this.showList();
+            this.adaptSize();
         })
     }
 
     showList() {
-        console.log('showing list', this.$list)
         this.$list.addClass('active')
     }
 
@@ -130,7 +130,6 @@ class Selector {
 
     appendData(lines) {
         if (lines instanceof Array) {
-            console.log('ARRAY', lines)
             for (const line of lines) {
                 this.addLine(line.id ?? "null", line.name ?? "NULL")
             }
@@ -169,12 +168,9 @@ class Selector {
      * @param event {Event}
      */
     static clearMenus(event) {
-        console.log(event)
         document.querySelectorAll('.variant-list.active').forEach(function (listElement) {
             const selectorObject = Selector.getOrCreateInstance(listElement.parentElement)
-            if ((event.target !== selectorObject.$selection.get(0)) &&
-                (event.target !== selectorObject.$selection.find('.bi-chevron-down').get(0))
-            ) {
+            if ((event.target !== selectorObject.$selection.find('.bi-chevron-down').get(0))) {
                 selectorObject.hideList()
             }
         })

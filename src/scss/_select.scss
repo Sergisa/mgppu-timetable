@@ -21,6 +21,10 @@
     cursor: pointer;
     float: right;
   }
+  .leftSide{
+    width: 100%;
+    margin-right: .5rem;
+  }
 }
 
 .search {
@@ -66,17 +70,15 @@
 }
 
 .lds-dual-ring {
-  position: absolute;
-  left: calc(100% - 30px - map-get($spacers, 2));
 
   &.active {
     //top: 10px;
     //left: calc(100% - 35px);
 
     display: block;
-    width: 30px;
-    height: 30px;
-    margin: 0;
+    width: 26px;
+    height: 26px;
+    margin: 0 0 0 auto;
     border-radius: 50%;
     border-width: 2px;
     border-style: solid;
