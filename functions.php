@@ -41,7 +41,7 @@ function getGroupById($id)
 
 function getTeacherById($id)
 {
-    if ($id = "null") $id = null;
+    if ($id == "null") $id = null;
     return getTimetable()->pluck("Teacher")->where('id', '=', $id)->unique()->values()[0]['name'];
 }
 
@@ -234,10 +234,6 @@ function getTimetable(): Collection
  */
 function getData(): Collection
 {
-    $professor = $_GET['professor'];
-    if ($_GET['professor'] == "null") {
-        $professor = null;
-    }
     return joinParallelLessonsByGroup(getTimetable()
         ->filter(function ($lesson) {
             return str_contains($lesson['dayDate'], "." . getActiveMonth() . ".");
@@ -245,9 +241,9 @@ function getData(): Collection
         ->filter(function ($lesson) {
             return !array_key_exists('group', $_GET) || ($lesson['Group']['id'] == $_GET['group']);
         })
-        ->filter(function ($lesson) use ($professor) {
+        ->filter(function ($lesson) {
             if (array_key_exists('professor', $_GET)) {
-                return ($lesson['Teacher']['id'] == $professor);
+                return ($lesson['Teacher']['id'] == (($_GET['professor'] == "null") ? null : $_GET['professor']));
             } elseif (!array_key_exists('group', $_GET)) {
                 return ($lesson['Teacher']['name'] == "Исаков Сергей Сергеевич");
             } else {
