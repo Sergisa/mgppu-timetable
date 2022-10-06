@@ -11,6 +11,22 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
   overflow-x: auto;
   overflow-y: auto;
   position: relative;
+
+  &.loading:after {
+    //top: 10px;
+    //left: calc(100% - 35px);
+    content: "";
+    display: block;
+    width: 40px;
+    height: 40px;
+    margin: .5rem auto;
+    border-radius: 50%;
+    border-width: 2px;
+    border-style: solid;
+    border-color: $accent transparent $accent transparent;
+    animation: lds-dual-ring 1.2s linear infinite;
+  }
+
   @include media-breakpoint-up(md) {
     max-height: 87vh;
   }
@@ -116,11 +132,15 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
             justify-content: center;
             margin: 0;
             border-radius: 0;
-            border-top-width: 0;
-            border-bottom-width: 1px;
+            border-bottom-width: 0;
+            border-top-width: 1px;
             border-left-width: 0;
             border-right-width: 0;
             border-style: dashed;
+
+            &:first-of-type {
+              border-top: none;
+            }
 
             &[data-lesson-index="6"] {
               border-top-style: solid;

@@ -60,7 +60,7 @@ $_monthsList = getMonths()
             echo array_key_exists('group', $_GET) ? getGroupById($_GET['group']) : "";
             ?>
         </p>
-        <div class="calendar p-1" id="monthGrid"></div>
+        <div class="calendar p-1 loading" id="monthGrid"></div>
     </div>
     <div id="listDays" class="col-12 col-md-4">
         <ul class="list-group list-group-flush bg-opacity-100">
@@ -116,7 +116,8 @@ $_monthsList = getMonths()
     $.getJSON('getTimetable.php', rqObject).done(function (data) {
         console.log(data)
         window.lessonsTimetable = data
-        generateGrid(urlParams.has('month') ? parseInt(urlParams.get('month')) - 1 : new Date().getMonth());
+        $('#monthGrid').removeClass('loading')
+        generateGrid($('#monthGrid'), urlParams.has('month') ? parseInt(urlParams.get('month')) - 1 : new Date().getMonth());
         $('#monthGrid .day').on('click', function () {
             console.log(this.dataset.date)
             scrollToDate(this.dataset.date)

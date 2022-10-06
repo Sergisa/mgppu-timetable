@@ -21,6 +21,24 @@
     cursor: pointer;
     float: right;
   }
+  .leftSide{
+    width: 100%;
+    margin-right: .5rem;
+  }
+}
+
+.search {
+  border: 1px none;
+  border-bottom: 1px solid $accent;
+  background-color: transparent;
+  outline: none;
+  color: $primary;
+  width: 100%;
+  //margin-right: map-get($spacers, 3);
+  letter-spacing: 0.07rem;
+  word-spacing: .2rem;
+  padding-right: map-get($spacers, 2);
+  padding-left: map-get($spacers, 2);
 }
 
 .variant-list {
@@ -34,6 +52,7 @@
   width: 100%;
   left: 0;
   overflow-y: auto;
+  @include scroll-bar();
 
   &.active {
     display: block;
@@ -47,5 +66,20 @@
     &.active, &:hover {
       background-color: darken($body-bg, 7%);
     }
+  }
+}
+
+.lds-dual-ring {
+
+  &.active {
+    display: block;
+    width: 26px;
+    height: 26px;
+    margin: 0 0 0 auto;
+    border-radius: 50%;
+    border-width: 2px;
+    border-style: solid;
+    border-color: $accent transparent $accent transparent;
+    animation: lds-dual-ring 1.2s linear infinite;
   }
 }

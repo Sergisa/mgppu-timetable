@@ -75,8 +75,8 @@ function generateDaysLine(currentDate) {
  *
  * @param month{number}
  */
-function generateGrid(month) {
-    const monthGrid = $('#monthGrid').append(generateHeaderLine())
+function generateGrid(container, month) {
+    const monthGrid = container.append(generateHeaderLine())
     let currentDate = new Date(2022, month, 1)
     const $dayGrid = $(`<div class="day-grid"></div>`).appendTo(monthGrid)
     while (true) {
