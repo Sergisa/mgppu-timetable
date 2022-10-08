@@ -24,13 +24,13 @@ include 'functions.php';
 <body class="container">
 <div class="row">
     <form action="calendarView.php" class="col-md-4 col-xs-12 mx-auto">
-        <h4 class="text-primary">Теперь расписание работает для всех</h4>
+        <h4 class="text-primary">Выберите что-нибудь</h4>
         <div class="mb-3 col-12">
-            <label for="group-select" class="text-light">Выберите группу</label>
+            <label for="group-select" class="text-light">Либо группу</label>
             <select name="group" id="group-select" class="d-none"></select>
         </div>
         <div class="mb-3 col-12">
-            <label for="professor-select" class="text-light">Выберите преподавателя</label>
+            <label for="professor-select" class="text-light">Либо преподавателя</label>
             <select name="professor" id="professor-select" class="d-none"></select>
         </div>
         <button class="btn btn-primary">Перейти к расписанию</button>

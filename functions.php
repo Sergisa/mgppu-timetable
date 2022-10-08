@@ -110,14 +110,6 @@ function parseGroupCode($group)
     return $m;
 }
 
-function getGroupsSignature($lesson): string
-{
-    $groupCodeList = collect($lesson['Group'])->pluck('name')->map(function ($group) {
-        return getGroupSpeciality($group);
-    });
-    return "(" . implode(', ', $groupCodeList->toArray()) . ")";
-}
-
 function getGroupSpeciality($group): string
 {
     return parseGroupCode($group)[3][0];
@@ -126,6 +118,29 @@ function getGroupSpeciality($group): string
 function getGroupYear($group): string
 {
     return parseGroupCode($group)[1][0];
+}
+
+function getGroupFaculty($group): string
+{
+    return parseGroupCode($group)[2][0];
+}
+
+function getGroupSpecialization($group): string
+{
+    return parseGroupCode($group)[5][0];
+}
+
+function isSessionPart($lesson): string
+{
+    return !is_null($lesson["finalCheckType"]);
+}
+
+function getGroupsSignature($lesson): string
+{
+    $groupCodeList = collect($lesson['Group'])->pluck('name')->map(function ($group) {
+        return getGroupFaculty($group) . " - " . getGroupSpeciality($group);
+    });
+    return "(" . implode(', ', $groupCodeList->toArray()) . ")";
 }
 
 function getCourseNumber($group, $currentMonth = null, $currentYear = null): string

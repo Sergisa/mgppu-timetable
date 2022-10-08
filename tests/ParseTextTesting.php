@@ -19,6 +19,30 @@ final class ParseTextTesting extends TestCase
         $this->assertEquals(22, getGroupYear('22ЮП-ППД(с/о)Д-1'));
     }
 
+    public function testGettingGroupFaculty(): void
+    {
+        $this->assertEquals('ИТ', getGroupFaculty('20ИТ-ПИ(б/о)ПИП-1'));
+        $this->assertEquals('ИТ', getGroupFaculty('21ИТ-МО(б/о)ИСБД-1'));
+        $this->assertEquals('ИТ', getGroupFaculty('19ИТ-ПИ(б/о)ПИП-1'));
+        $this->assertEquals('ПО', getGroupFaculty('20ПО-ППО(м/з)ППСО-2'));
+        $this->assertEquals('ЭП', getGroupFaculty('21ЭП-П(м/о)ППД-1'));
+        $this->assertEquals('ЮП', getGroupFaculty('22ЮП-П(б/о)П-1'));
+        $this->assertEquals('ИЭП', getGroupFaculty('22ИЭП-П(б/о)ЭкП-1'));
+        $this->assertEquals('ЮП', getGroupFaculty('22ЮП-ППД(с/о)Д-1'));
+    }
+
+    public function testGettingGroupSpecialization(): void
+    {
+        $this->assertEquals('ПИП', getGroupSpecialization('20ИТ-ПИ(б/о)ПИП-1'));
+        $this->assertEquals('ИСБД', getGroupSpecialization('21ИТ-МО(б/о)ИСБД-1'));
+        $this->assertEquals('ПИП', getGroupSpecialization('19ИТ-ПИ(б/о)ПИП-1'));
+        $this->assertEquals('ППСО', getGroupSpecialization('20ПО-ППО(м/з)ППСО-2'));
+        $this->assertEquals('ППД', getGroupSpecialization('21ЭП-П(м/о)ППД-1'));
+        $this->assertEquals('П', getGroupSpecialization('22ЮП-П(б/о)П-1'));
+        $this->assertEquals('ЭкП', getGroupSpecialization('22ИЭП-П(б/о)ЭкП-1'));
+        $this->assertEquals('Д', getGroupSpecialization('22ЮП-ППД(с/о)Д-1'));
+    }
+
     public function testGettingGroupCode(): void
     {
         $this->assertEquals('ПИ', getGroupSpeciality('20ИТ-ПИ(б/о)ПИП-1'));
