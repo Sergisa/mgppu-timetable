@@ -33,7 +33,10 @@ include 'functions.php';
             <label for="professor-select" class="text-light">Либо преподавателя</label>
             <select name="professor" id="professor-select" class="d-none"></select>
         </div>
-        <button class="btn btn-primary">Перейти к расписанию</button>
+        <div class="d-flex justify-content-between align-items-center">
+            <span class="text-primary fs-5">Или и то и другое</span>
+            <button class="btn btn-primary">Перейти к расписанию</button>
+        </div>
     </form>
 </div>
 </body>

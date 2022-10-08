@@ -72,39 +72,42 @@ WHERE УчебныеГруппы._IDRRef IN
       )
 ORDER BY name
 
-SELECT Дисциплины._Description                                          AS Discipline,
-       Институты._Description                                           AS DepartmentName,
-       Институты._Fld152                                                AS DepartmentCode,
-       УчебныеГруппы._Code                                              AS GroupCode,
-       Семестры._Description                                            AS SemesterName,
-       ЭтажиЗданий._Description                                         AS Floor,
-       Здания._Description                                              AS Building,
-       УчебныеПары._Description                                         AS Number,
-       Преподаватели._Description                                       AS TeacherFIO,
-       Помещения._Description                                           AS Room,
-       CONVERT(VARCHAR(10), ДниПроведенияЗанятий._Fld7241, 104)         AS dayDate,
-       DATENAME(weekday, ДниПроведенияЗанятий._Fld7241)                 AS dayOfWeekName,
-       ВидыЗанятий._Fld7440                                             AS TypeShort,
-       ВидыЗанятий._IDRRef                                              AS TypeID,
-       ВидыЗанятий._Description                                         AS Type,
-       CASE
-           WHEN ИтоговыйКонтроль._Description IS NOT NULL THEN CONVERT(VARCHAR, РегистрДисциплины._Fld7258, 108)
-           ELSE CONVERT(VARCHAR, ТчРасписаниеЗвонков._Fld7102, 108) END AS TimeStart,
-       CASE
-           WHEN ИтоговыйКонтроль._Description IS NOT NULL THEN CONVERT(VARCHAR, РегистрДисциплины._Fld7259, 108)
-           ELSE CONVERT(VARCHAR, ТчРасписаниеЗвонков._Fld7103, 108) END AS TimeEnd,
-       РегистрДисциплины._Active                                        AS active,
-       Здания._IDRRef                                                   AS BuildingID,
-       УчебныеГруппы._IDRRef                                            AS GroupID,
-       Дисциплины._IDRRef                                               AS DisciplineID,
-       Преподаватели._IDRRef                                            as TeacherID,
-       Помещения._IDRRef                                                AS RoomID,
-       ЭтажиЗданий._IDRRef                                              AS FloorID,
-       Институты._IDRRef                                                AS DepartmentID,
-       Семестры._IDRRef                                                 AS SemesterID,
+SELECT Дисциплины._Description                                                                             AS Discipline,
+       Институты._Description                                                                              AS DepartmentName,
+       Институты._Fld152                                                                                   AS DepartmentCode,
+       УчебныеГруппы._Code                                                                                 AS GroupCode,
+       Семестры._Description                                                                               AS SemesterName,
+       ЭтажиЗданий._Description                                                                            AS Floor,
+       Здания._Description                                                                                 AS Building,
+       УчебныеПары._Description                                                                            AS Number,
+       Преподаватели._Description                                                                          AS TeacherFIO,
+       Помещения._Description                                                                              AS Room,
+       CONVERT(VARCHAR(10), ДниПроведенияЗанятий._Fld7241, 104)                                            AS dayDate,
+       DATENAME(weekday, ДниПроведенияЗанятий._Fld7241)                                                    AS dayOfWeekName,
+
+       ИтоговыйКонтроль._Description                                                                       as finalCheckType,
+       РегистрДисциплины._Fld7255RRef                                                                      as finalCheckTypeID,
+
+       ВидыЗанятий._Fld7440                                                                                AS TypeShort,
+       IIF(ИтоговыйКонтроль._Description IS NULL, ВидыЗанятий._IDRRef, ИтоговыйКонтроль._IDRRef)           AS TypeID,
+       IIF(ИтоговыйКонтроль._Description IS NULL, ВидыЗанятий._Description, ИтоговыйКонтроль._Description) AS Type,
+       IIF(ИтоговыйКонтроль._Description IS NOT NULL, CONVERT(VARCHAR, РегистрДисциплины._Fld7258, 108),
+           CONVERT(VARCHAR, ТчРасписаниеЗвонков._Fld7102, 108))                                            AS TimeStart,
+       IIF(ИтоговыйКонтроль._Description IS NOT NULL, CONVERT(VARCHAR, РегистрДисциплины._Fld7259, 108),
+           CONVERT(VARCHAR, ТчРасписаниеЗвонков._Fld7103, 108))                                            AS TimeEnd,
+       РегистрДисциплины._Active                                                                           AS active,
+       Здания._IDRRef                                                                                      AS BuildingID,
+       УчебныеГруппы._IDRRef                                                                               AS GroupID,
+       Дисциплины._IDRRef                                                                                  AS DisciplineID,
+       Преподаватели._IDRRef                                                                               as TeacherID,
+       Помещения._IDRRef                                                                                   AS RoomID,
+       ЭтажиЗданий._IDRRef                                                                                 AS FloorID,
+       Институты._IDRRef                                                                                   AS DepartmentID,
+       Семестры._IDRRef                                                                                    AS SemesterID,
        РегистрДисциплины._Fld7256RRef,--очень похоже на зачеты и экзамены
-       ИтоговыйКонтроль._Description                                    as finalCheckType,
-       РегистрДисциплины._Fld7255RRef                                   as finalCheckTypeID
+       ИтоговыйКонтроль._Description                                                                       as finalCheckType,
+       РегистрДисциплины._Fld7255RRef                                                                      as finalCheckTypeID,
+       IIF(ИтоговыйКонтроль._Description IS NULL, 0, 1)                                                    as isSession
 
 FROM _InfoRg7081 AS РегистрДисциплины
          LEFT JOIN _Reference4684 AS ВидыЗанятий
@@ -141,7 +144,7 @@ WHERE РегистрДисциплины._Fld7246RRef = :academicYearId
   --AND _Fld7250RRef NOT IN (SELECT _IDRRef FROM _Reference4684)
     /* Осенний (0x80C4000C299AE95511E6FFDE22A08A7E), Весенний(0x80C4000C299AE95511E6FFDE22A08A7D)*/
   --AND ДниПроведенияЗанятий._Fld7241 = CONVERT(DATE, :date)
-  --AND Преподаватели._Description ='Исаков Сергей Сергеевич'
+  --AND Преподаватели._Description = 'Куравский Лев Семенович'
   --AND Дисциплины._Description LIKE '%Общая псих%'
   --AND ВидыЗанятий._IDRRef IS NULL
   --AND ИтоговыйКонтроль._Description IS NOT NULL
