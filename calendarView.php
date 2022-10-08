@@ -73,19 +73,38 @@ $_monthsList = getMonths()
                 echo "<div class='labels'>
                     <span class='date me-1'>" . convertDate('d.m', $date) . "</span>";
                 foreach (collect($lessons) as $lesson) {
-                    echo "<span class='type me-1'>" . getLessonTypeSignature($lesson["TypeID"] ?? $lesson["finalCheckType"]) . "</span>";
+                    if (isSessionPart($lesson)) {
+                        echo "<span class='type session me-1'>" . getLessonTypeSignature($lesson["finalCheckTypeID"]) . "</span>";
+                    } else {
+                        echo "<span class='type me-1'>" . getLessonTypeSignature($lesson["TypeID"]) . "</span>";
+                    }
                 }
                 echo "</div>";
                 foreach ($lessons as $lesson) {
+                    $lessonAddress = $lesson['Coords']['building']['name'];
+                    $type = getLessonFullType(isSessionPart($lesson) ? $lesson["finalCheckTypeID"] : $lesson["TypeID"]);
                     $lessonSign = getLessonSignature($lesson);
                     $groupsSign = getGroupsSignature($lesson);
                     $courseSign = getCourseNumber($lesson['Group'][0]['name']);
                     $teacherSign = getTeacherSignature($lesson);
                     $lessonIndex = getLessonIndex($lesson);
+                    $lessonClassList = isSessionPart($lesson) ? 'lesson text-decoration-underline' : 'lesson';
                     if (isTeacherTimetable()) {
-                        echo "<div class='lesson' data-time='{$lesson['TimeStart']}'><b class='fw-bold'>$lessonIndex.</b> $lessonSign<span class='groupCode'>$groupsSign $courseSign</span></div>";
+                        echo "<div class='$lessonClassList' data-time='{$lesson['TimeStart']}'>
+                            <div class='lesson-name'>
+                                <b class='fw-bold'>$lessonIndex.</b> 
+                                $lessonSign
+                            </div>
+                            <span class='lesson-description'>$groupsSign $courseSign $lessonAddress $type</span>
+                        </div>";
                     } else if (isGroupTimetable()) {
-                        echo "<div class='lesson' data-time='{$lesson['TimeStart']}'><b class='fw-bold'>$lessonIndex.</b> $lessonSign<span class='groupCode'>$teacherSign ${lesson['Type']}</span></div>";
+                        echo "<div class='$lessonClassList' data-time='{$lesson['TimeStart']}'>
+                            <div class='lesson-name'>
+                                <b class='fw-bold'>$lessonIndex.</b>
+                                $lessonSign
+                             </div>
+                             <span class='lesson-description'>$teacherSign $lessonAddress $type</span>
+                        </div>";
                     }
                 }
                 echo "</li>";

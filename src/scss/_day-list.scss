@@ -26,6 +26,16 @@
 
       .lesson {
         @include font-size($font-size-sm);
+        padding-bottom: map-get($spacers, 1);
+        padding-top: map-get($spacers, 1);
+        border: 2px solid transparentize(lighten($body-bg, 20%), .7);
+        border-left: none;
+        border-right: none;
+        border-top: none;
+
+        &:last-of-type {
+          border-bottom: none;
+        }
       }
 
       span.date {
@@ -43,9 +53,15 @@
         padding: 0 .5em;
         border-radius: 5px;
         text-transform: uppercase;
+
+        &.session {
+          border: 1px solid adjust-color($primary, $hue: 50deg, $lightness: -30%, $saturation: -30%);
+          color: adjust-color($primary, $hue: 50deg);
+          background-color: transparent;
+        }
       }
 
-      span.groupCode {
+      span.lesson-description {
         font-weight: bold;
         color: $accent;
       }

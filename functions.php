@@ -55,15 +55,30 @@ function getLessonSignature($lesson): string
     return $lesson['Discipline'] . ' ';
 }
 
-function getLessonTypeSignature($typeID): ?string
+function getLessonType($typeID): object
 {
     $types = [
-        '0x80C9000C295831B711E8A95D5CD1DE1A' => ['Семинар', 'Сем.'],
-        '0xAD88005056B76B4C11E6B2C498121654' => ['Лекции', 'Лек.'],
-        '0xAD88005056B76B4C11E6B2C49FAB9534' => ['Лабораторные работы', 'Лаб.'],
-        '0xAD88005056B76B4C11E6B2C4A65DCFFA' => ['Практические занятия', 'Пр.']
+        '0x80C9000C295831B711E8A95D5CD1DE1A' => ['full' => 'Семинар', 'shorthand' => 'Сем.'],
+        '0xAD88005056B76B4C11E6B2C498121654' => ['full' => 'Лекции', 'shorthand' => 'Лек.'],
+        '0xAD88005056B76B4C11E6B2C49FAB9534' => ['full' => 'Лабораторные работы', 'shorthand' => 'Лаб.'],
+        '0xAD88005056B76B4C11E6B2C4A65DCFFA' => ['full' => 'Практические занятия', 'shorthand' => 'Пр.'],
+        '0x878C000C292E7CB311E38348920B4846' => ['full' => 'Зачет', 'shorthand' => 'Зач.'],
+        '0x80C7000C295831B711E83288B4B42A35' => ['full' => 'Консультация', 'shorthand' => 'Конс.'],
+        '0x878C000C292E7CB311E38348920B4849' => ['full' => 'Экзамен', 'shorthand' => 'Экз.'],
+        '0x878C000C292E7CB311E38348920B4848' => ['full' => 'Зачет с оценкой', 'shorthand' => 'З/О'],
     ];
-    return $types[$typeID][1] ?? mb_substr($typeID, 0, 3);
+    return (object)$types[$typeID];
+}
+
+function getLessonTypeSignature($typeID): ?string
+{
+
+    return getLessonType($typeID)->shorthand;
+}
+
+function getLessonFullType($typeID): ?string
+{
+    return getLessonType($typeID)->full;
 }
 
 function isTeacherTimetable($get = null): bool
