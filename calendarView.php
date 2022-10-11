@@ -63,54 +63,14 @@ $_monthsList = getMonths()
         <div class="calendar p-1 loading" id="monthGrid"></div>
     </div>
     <div id="listDays" class="col-12 col-md-4">
-        <ul class="list-group list-group-flush bg-opacity-100">
-            <?php
-            if ($timetable->isEmpty()) {
-                echo "<h2 class='text-primary text-center mt-4'>Нет пар</h2>";
-            }
-            foreach ($timetable as $date => $lessons) {
-                echo "<li class='list-group-item' data-date='$date'>";
-                echo "<div class='labels'>
-                    <span class='date me-1'>" . convertDate('d.m', $date) . "</span>";
-                foreach (collect($lessons) as $lesson) {
-                    if (isSessionPart($lesson)) {
-                        echo "<span class='type session me-1'>" . getLessonTypeSignature($lesson["finalCheckTypeID"]) . "</span>";
-                    } else {
-                        echo "<span class='type me-1'>" . getLessonTypeSignature($lesson["TypeID"]) . "</span>";
-                    }
-                }
-                echo "</div>";
-                foreach ($lessons as $lesson) {
-                    $lessonAddress = $lesson['Coords']['building']['name'];
-                    $type = getLessonFullType(isSessionPart($lesson) ? $lesson["finalCheckTypeID"] : $lesson["TypeID"]);
-                    $lessonSign = getLessonSignature($lesson);
-                    $groupsSign = getGroupsSignature($lesson);
-                    $courseSign = getCourseNumber($lesson['Group'][0]['name']);
-                    $teacherSign = getTeacherSignature($lesson);
-                    $lessonIndex = getLessonIndex($lesson);
-                    $lessonClassList = isSessionPart($lesson) ? 'lesson text-decoration-underline' : 'lesson';
-                    if (isTeacherTimetable()) {
-                        echo "<div class='$lessonClassList' data-time='{$lesson['TimeStart']}'>
-                            <div class='lesson-name'>
-                                <b class='fw-bold'>$lessonIndex.</b> 
-                                $lessonSign
-                            </div>
-                            <span class='lesson-description'>$groupsSign $courseSign $lessonAddress $type</span>
-                        </div>";
-                    } else if (isGroupTimetable()) {
-                        echo "<div class='$lessonClassList' data-time='{$lesson['TimeStart']}'>
-                            <div class='lesson-name'>
-                                <b class='fw-bold'>$lessonIndex.</b>
-                                $lessonSign
-                             </div>
-                             <span class='lesson-description'>$teacherSign $lessonAddress $type</span>
-                        </div>";
-                    }
-                }
-                echo "</li>";
-            }
-            ?>
-        </ul>
+        <?php
+
+        try {
+            echo getBlade()->run("dayList", [
+                    "timetable" => getData()->groupBy('dayDate')
+            ]);
+        } catch (Exception $e) {}
+        ?>
     </div>
 </div>
 </body>
@@ -135,8 +95,7 @@ $_monthsList = getMonths()
     $.getJSON('getTimetable.php', rqObject).done(function (data) {
         console.log(data)
         window.lessonsTimetable = data
-        $('#monthGrid').removeClass('loading')
-        generateGrid($('#monthGrid'), urlParams.has('month') ? parseInt(urlParams.get('month')) - 1 : new Date().getMonth());
+        generateGrid($('#monthGrid').removeClass('loading'), urlParams.has('month') ? parseInt(urlParams.get('month')) - 1 : new Date().getMonth());
         $('#monthGrid .day').on('click', function () {
             console.log(this.dataset.date)
             scrollToDate(this.dataset.date)

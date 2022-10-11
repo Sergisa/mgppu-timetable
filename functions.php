@@ -1,5 +1,6 @@
 <?php
 
+use eftec\bladeone\BladeOne;
 use Illuminate\Support\Collection;
 
 Collection::macro('sortByDate', function (string $column = 'created_at', bool $descending = false) {
@@ -282,4 +283,11 @@ function getData(): Collection
         }))
         ->sortBy(['Number'])
         ->sortByDate('dayDate');
+}
+
+function getBlade(): BladeOne
+{
+    $views = __DIR__ . '/views';
+    $cache = __DIR__ . '/cache';
+    return new BladeOne($views, $cache, BladeOne::MODE_DEBUG);
 }
