@@ -99,27 +99,13 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
           min-height: 50px;
           height: 100%;
 
-          &:hover {
-            &:after {
-              content: attr(data-day-number);
-              width: calc(100% - $day-horizontal-margin * 2);
-              height: 100%;
-              position: absolute;
-              top: 0;
-              left: 0 + $day-horizontal-margin;
-              display: flex;
-              text-align: center;
-              justify-content: center;
-              align-items: center;
-              font-size: xx-large;
-              font-weight: 800;
-              color: transparentize($primary, .3);
-              background: linear-gradient(transparentize($accent, .9), transparentize($accent, .7));
-            }
-
-            .lesson {
-              opacity: .3;
-            }
+          &:before {
+            content: attr(data-day-number);
+            height: 100%;
+            display: flex;
+            font-weight: 800;
+            color: transparentize($primary, .6);
+            font-size: x-large;
           }
 
           .lesson {
@@ -166,7 +152,7 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
               align-items: center;
             }
 
-            span {/*lesson label itself*/
+            span { /*lesson label itself*/
               width: 100%;
               background-color: $secondary;
               height: 100%;
