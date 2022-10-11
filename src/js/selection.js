@@ -100,11 +100,24 @@ class Selector {
         })
     }
 
+    selectNext() {
+        if (this.$list.find('.active').length > 0) {
+            this.$list.find('.active').removeClass('active').next(':not(.d-none)').addClass('active')
+        } else {
+            this.$list.children().first().addClass('active');
+        }
+    }
+
     attachListeners() {
         this.$searchInput.on('input', (event) => {
             this.filterVariants(event.target.value.toLowerCase());
             this.showList();
             this.adaptSize();
+        })
+        this.$searchInput.on('keydown', (event) => {
+            if (event.key === 'ArrowDown') {
+                this.selectNext()
+            }
         })
     }
 
@@ -170,7 +183,8 @@ class Selector {
     static clearMenus(event) {
         document.querySelectorAll('.variant-list.active').forEach(function (listElement) {
             const selectorObject = Selector.getOrCreateInstance(listElement.parentElement)
-            if ((event.target !== selectorObject.$selection.find('.bi-chevron-down').get(0))) {
+            if ((event.target !== selectorObject.$selection.find('.bi-chevron-down').get(0)) &&
+                !event.target.classList.contains('search')) {
                 selectorObject.hideList()
             }
         })
