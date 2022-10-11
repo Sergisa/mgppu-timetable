@@ -137,6 +137,13 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
             border-left-width: 0;
             border-right-width: 0;
             border-style: dashed;
+            word-break: break-all;
+            height: 100%;
+            line-height: .9rem;
+
+            &.empty:before {
+              display: none;
+            }
 
             &:first-of-type {
               border-top: none;
@@ -148,9 +155,24 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
               border-top-width: 2px;
             }
 
-            span {
+            &:before {
+              color: $primary;
+              content: attr(data-lesson-index);
+              background: $secondary;
+              @include padding-left(map-get($spacers, 2));
+              @include padding-right(map-get($spacers, 2));
+              height: calc(100%);
+              display: flex;
+              align-items: center;
+            }
+
+            span {/*lesson label itself*/
               width: 100%;
               background-color: $secondary;
+              height: 100%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
             }
           }
         }
