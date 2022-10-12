@@ -25,13 +25,18 @@ function getMonths(): array
     ];
 }
 
-function getFileData($fileName)
+function convertUID($binary): string
+{
+    return "0x" . strtoupper(bin2hex($binary));
+}
+
+function getFileData($fileName): Collection
 {
     ini_set('memory_limit', '-1');
-    $myfile = fopen("data/$fileName", "r") or die("Unable to open file!");
-    $file = fread($myfile, filesize("data/$fileName"));
-    fclose($myfile);
-    return collect(json_decode($file, true));
+    $pdo = new PDO('mysql:dbname=timetable;host=sergisa.ru', 'user15912_sergey', 'isakovs');
+    $pdo->exec('SET CHARACTER SET UTF8');
+    $response = $pdo->query('SELECT * FROM timetable')->fetchAll(PDO::FETCH_ASSOC);
+    return collect($response);
 }
 
 function getGroupById($id)
@@ -213,28 +218,34 @@ function collapseDataHierarchically($timetable): Collection
     return $timetable->map(function ($item) use ($timetable) {
         $newObj = collect($item)->prepend([
             'building' => [
-                "id" => $item['BuildingID'],
+                "id" => convertUID($item['BuildingID']),
                 "name" => $item['Building']
             ],
             'floor' => [
-                "id" => $item['FloorID'],
+                "id" => convertUID($item['FloorID']),
                 "name" => $item['Floor']
             ],
             'room' => [
                 "index" => $item['Room'],
-                "id" => $item['RoomID']
+                "id" => convertUID($item['RoomID'])
             ]
         ], "Coords")->prepend([
-            'id' => $item['TeacherID'],
+            'id' => convertUID($item['TeacherID']),
             'name' => $item['TeacherFIO'],
         ], "Teacher")->prepend([
-            'id' => $item['GroupID'],
+            'id' => convertUID($item['GroupID']),
             'name' => $item['GroupCode'],
         ], "Group")->prepend([
-            'id' => $item['DepartmentID'],
+            'id' => convertUID($item['DepartmentID']),
             'name' => $item['DepartmentName'],
             'code' => $item['DepartmentCode'],
-        ], "Department")->filter(function ($item, $key) {
+        ], "Department")->map(function ($element, $key) {
+            if ($key == 'TypeID') return convertUID($element);
+            if ($key == 'DisciplineID') return convertUID($element);
+            if ($key == 'SemesterID') return convertUID($element);
+            if ($key == 'finalCheckTypeID') return convertUID($element);
+            return $element;
+        })->filter(function ($item, $key) {
             return !in_array($key, [
                 "BuildingID",
                 "FloorID",

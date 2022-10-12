@@ -84,10 +84,6 @@ SELECT Дисциплины._Description                                        
        Помещения._Description                                                                              AS Room,
        CONVERT(VARCHAR(10), ДниПроведенияЗанятий._Fld7241, 104)                                            AS dayDate,
        DATENAME(weekday, ДниПроведенияЗанятий._Fld7241)                                                    AS dayOfWeekName,
-
-       ИтоговыйКонтроль._Description                                                                       as finalCheckType,
-       РегистрДисциплины._Fld7255RRef                                                                      as finalCheckTypeID,
-
        ВидыЗанятий._Fld7440                                                                                AS TypeShort,
        IIF(ИтоговыйКонтроль._Description IS NULL, ВидыЗанятий._IDRRef, ИтоговыйКонтроль._IDRRef)           AS TypeID,
        IIF(ИтоговыйКонтроль._Description IS NULL, ВидыЗанятий._Description, ИтоговыйКонтроль._Description) AS Type,
@@ -104,7 +100,6 @@ SELECT Дисциплины._Description                                        
        ЭтажиЗданий._IDRRef                                                                                 AS FloorID,
        Институты._IDRRef                                                                                   AS DepartmentID,
        Семестры._IDRRef                                                                                    AS SemesterID,
-       РегистрДисциплины._Fld7256RRef,--очень похоже на зачеты и экзамены
        ИтоговыйКонтроль._Description                                                                       as finalCheckType,
        РегистрДисциплины._Fld7255RRef                                                                      as finalCheckTypeID,
        IIF(ИтоговыйКонтроль._Description IS NULL, 0, 1)                                                    as isSession
