@@ -244,6 +244,7 @@ function collapseDataHierarchically($timetable): Collection
             if ($key == 'DisciplineID') return convertUID($element);
             if ($key == 'SemesterID') return convertUID($element);
             if ($key == 'finalCheckTypeID') return convertUID($element);
+            if ($key == 'active') return convertUID($element);
             return $element;
         })->filter(function ($item, $key) {
             return !in_array($key, [
