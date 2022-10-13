@@ -67,9 +67,10 @@ $_monthsList = getMonths()
 
         try {
             echo getBlade()->run("dayList", [
-                    "timetable" => getData()->groupBy('dayDate')
+                "timetable" => getPreparedTimetable()->groupBy('dayDate')
             ]);
-        } catch (Exception $e) {}
+        } catch (Exception $e) {
+        }
         ?>
     </div>
 </div>
