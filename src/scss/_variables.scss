@@ -1,0 +1,76 @@
+$primary: #FCBB6D;
+$secondary: #685D79;
+$accent: #D8737F;
+$body-bg: #475C7A;
+:root {
+  --bs-body-bg: $body-bg;
+}
+
+
+$list-group-bg: $body-bg;
+$list-group-color: $primary;
+$list-group-border-color: $primary;
+$list-group-active-color: $primary;
+$list-group-active-bg: darken($body-bg, 5%);
+$list-group-active-border-color: darken($body-bg, 10%);
+
+$scrollbar-thumb-color: $secondary;
+$scrollbar-background-color: $body-bg;
+
+$form-check-input-bg: shade($body-bg, 10%);
+$form-check-input-border: 2px solid rgba($accent, .5);
+
+$form-check-input-width: 1.3em;
+$form-check-input-focus-border: $accent;
+$form-check-input-focus-box-shadow: none;
+
+$form-check-input-checked-color: $accent;
+$form-check-input-checked-bg-color: transparent;
+$form-check-input-checked-border-color: $accent;
+$form-check-input-active-filter: none;
+
+$container-max-widths: (
+        sm: 540px,
+        md: 720px,
+        lg: 960px,
+        xl: 1140px,
+        xxl: 1420px
+) !default;
+
+$loader-stroke-color: $accent transparent $accent transparent;
+$header-background: transparentize($body-bg, .8);
+$header-color: $primary;
+
+$day-border: 2px solid $accent;
+$day-background: $body-bg;
+$day-text-color: $accent;
+$day-number-text-color: transparentize($primary, .6);
+
+$lesson-border-color: $primary;
+$lesson-number-text-color: $primary;
+$lesson-number-background-color: $secondary;
+$lesson-background-color: $secondary;
+
+$lesson-delimiter-border-color: 2px solid transparentize(lighten($body-bg, 20%), .7);
+$lesson-list-date-text-color: $primary;
+$lesson-list-date-background-color: $secondary;
+$lesson-list-type-text-color: $accent;
+$lesson-list-type-background-color: none;
+$lesson-list-type-border: 2px solid $secondary;
+$lesson-list-session-type-border: 1px solid adjust-color($primary, $hue: 50deg, $lightness: -30%, $saturation: -30%);
+$lesson-list-session-type-text-color: adjust-color($primary, $hue: 50deg);
+$lesson-list-session-type-background-color: transparent;
+$lesson-list-description-text-color: $accent;
+
+
+$select-border: 2px solid $accent;
+$select-text-color: $accent;
+$select-background-color: $body-bg;
+$select-hover-background-color: darken($body-bg, 3%);
+$select-search-border: 1px solid $accent;
+$select-search-text-color: $primary;
+$select-list-border: 2px solid $accent;
+$select-list-text-color: $primary;
+$select-list-background-color: $body-bg;
+$select-list-item-hover-background-color: darken($body-bg, 7%);
+$select-list-loader-stroke-color: $accent transparent $accent transparent;

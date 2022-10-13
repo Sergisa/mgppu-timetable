@@ -13,8 +13,6 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
   position: relative;
 
   &.loading:after {
-    //top: 10px;
-    //left: calc(100% - 35px);
     content: "";
     display: block;
     width: 40px;
@@ -23,7 +21,7 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
     border-radius: 50%;
     border-width: 2px;
     border-style: solid;
-    border-color: $accent transparent $accent transparent;
+    border-color: $loader-stroke-color;
     animation: lds-dual-ring 1.2s linear infinite;
   }
 
@@ -45,7 +43,7 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
     top: 0;
     left: 0;
     z-index: 2;
-    background: transparentize($body-bg, .8);
+    background: $header-background;
     backdrop-filter: blur(2px);
     @include media-breakpoint-up(xs) {
       width: $line-width-sm;
@@ -57,7 +55,7 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
     span {
       text-align: center;
       justify-content: center;
-      color: $primary;
+      color: $header-color;
       display: flex;
       min-width: calc(100% / $days-count);
       word-break: break-all; //TODO: remove wordBreak. Make smaller font-size
@@ -93,9 +91,9 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
 
         .day {
           border-radius: 3px;
-          border: 2px solid $accent;
-          background-color: $body-bg;
-          color: $accent;
+          border: $day-border;
+          background-color: $day-background;
+          color: $day-text-color;
           min-height: 50px;
           height: 100%;
 
@@ -104,7 +102,7 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
             height: 100%;
             display: flex;
             font-weight: 800;
-            color: transparentize($primary, .6);
+            color: $day-number-text-color;
             font-size: x-large;
             margin-left: map-get($spacers, 1);
           }
@@ -138,14 +136,14 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
 
             &[data-lesson-index="6"] {
               border-top-style: solid;
-              border-top-color: $primary;
+              border-top-color: $lesson-border-color;
               border-top-width: 2px;
             }
 
             &:before {
-              color: $primary;
+              color: $lesson-number-text-color;
               content: attr(data-lesson-index);
-              background: $secondary;
+              background: $lesson-number-background-color;
               @include padding-left(map-get($spacers, 2));
               @include padding-right(map-get($spacers, 2));
               height: calc(100%);
@@ -155,7 +153,7 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
 
             span { /*lesson label itself*/
               width: 100%;
-              background-color: $secondary;
+              background-color: $lesson-background-color;
               height: 100%;
               display: flex;
               align-items: center;

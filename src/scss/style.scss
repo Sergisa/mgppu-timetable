@@ -1,60 +1,12 @@
-$primary: #FCBB6D;
-$secondary: #685D79;
-$accent: #D8737F;
-$body-bg: #475C7A;
-
-$list-group-bg: $body-bg;
-$list-group-color: $primary;
-$list-group-border-color: $primary;
-$list-group-active-color: $primary;
-$list-group-active-bg: darken($body-bg, 5%);
-$list-group-active-border-color: darken($body-bg, 10%);
-
-$scrollbar-thumb-color: $secondary;
-$scrollbar-background-color: $body-bg;
-
-$container-max-widths: (
-        sm: 540px,
-        md: 720px,
-        lg: 960px,
-        xl: 1140px,
-        xxl: 1420px
-) !default;
-@mixin scroll-bar() {
-  scrollbar-width: thin;
-  scrollbar-color: $scrollbar-thumb-color $scrollbar-background-color;
-
-  &::-webkit-scrollbar {
-    background-color: $scrollbar-background-color;
-    width: 7px;
-  }
-
-  &::-webkit-scrollbar-track {
-    width: 7px;
-    background-color: $scrollbar-background-color;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    width: 7px;
-    border-radius: 4px;
-    background-color: $scrollbar-thumb-color;
-  }
-}
-
-@keyframes lds-dual-ring {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
+@import "variables";
 @import "../../node_modules/bootstrap/scss/bootstrap";
+@import "functions";
+@import "mixins";
 @import "day-list";
 @import "calendar";
 @import "select";
 @import "week-lines";
+$form-check-input-width: $line-height-base;
 a {
   text-decoration: none;
 
@@ -69,6 +21,7 @@ a {
       color: darken($accent, 5%);
     }
   }
+
 }
 
 .subtitle {

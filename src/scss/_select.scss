@@ -3,9 +3,9 @@
 }
 
 .selection {
-  border: 2px solid $accent;
-  color: $accent;
-  background: $body-bg;
+  border: $select-border;
+  color: $select-text-color;
+  background: $select-background-color;
   padding: .7rem;
   border-radius: 5px;
   justify-content: space-between;
@@ -14,7 +14,7 @@
   cursor: pointer;
 
   &:hover {
-    background-color: darken($body-bg, 3%);
+    background-color: $select-hover-background-color;
   }
 
   i.bi {
@@ -30,10 +30,10 @@
 
 .search {
   border: 1px none;
-  border-bottom: 1px solid $accent;
+  border-bottom: $select-search-border;
   background-color: transparent;
   outline: none;
-  color: $primary;
+  color: $select-search-text-color;
   width: 100%;
   //margin-right: map-get($spacers, 3);
   letter-spacing: 0.07rem;
@@ -44,9 +44,9 @@
 
 .variant-list {
   position: absolute;
-  background: $body-bg;
-  border: 2px solid $accent;
-  color: $primary;
+  background: $select-list-background-color;
+  border: $select-list-border;
+  color: $select-list-text-color;
   border-radius: 5px;
   display: none;
   top: 112%;
@@ -65,7 +65,7 @@
     padding: .2rem .8rem;
 
     &.active, &:hover {
-      background-color: darken($body-bg, 7%);
+      background-color: $select-list-item-hover-background-color;
     }
   }
 }
@@ -80,7 +80,7 @@
     border-radius: 50%;
     border-width: 2px;
     border-style: solid;
-    border-color: $accent transparent $accent transparent;
+    border-color: $select-list-loader-stroke-color;
     animation: lds-dual-ring 1.2s linear infinite;
   }
 }
