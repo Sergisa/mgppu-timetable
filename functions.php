@@ -193,27 +193,6 @@ function getLessonIndex($lesson): string
     }
 }
 
-function joinParallelLessonsByGroup(Collection $timetable): Collection
-{
-    return $timetable->map(function ($lesson) use ($timetable) {
-        $similarities = $timetable->filter(function ($tmt) use ($lesson) {
-            return $tmt['dayDate'] == $lesson['dayDate']
-                && $tmt['Group']['id'] != $lesson['Group']['id']
-                && $tmt['DisciplineID'] == $lesson['DisciplineID']
-                && $tmt['Coords']['room']['id'] == $lesson['Coords']['room']['id']
-                && $tmt['Number'] == $lesson['Number'];
-        });
-        if ($similarities->count() > 0) {
-            $lesson['Group'] = array_merge([$lesson['Group']], $similarities->pluck('Group')->unique()->toArray());
-        } else {
-            $lesson['Group'] = [$lesson['Group']];
-        }
-        return $lesson;
-    })->unique(function ($item) {
-        return $item['dayDate'] . $item['Number'];
-    });
-}
-
 function getActiveMonth()
 {
     return array_key_exists('month', $_GET) ? $_GET['month'] : date('m');
@@ -239,7 +218,36 @@ function getPreviousMonth()
     return (getActiveMonth() - 1) >= 10 ? (getActiveMonth() - 1) : '0' . (getActiveMonth() - 1);
 }
 
-function collapseDataHierarchically($timetable): Collection
+/**
+ * @param Collection $timetable
+ * @return Collection возвращает раписание с объеденёнными парами
+ */
+function joinParallelLessonsByGroup(Collection $timetable): Collection
+{
+    return $timetable->map(function ($lesson) use ($timetable) {
+        $similarities = $timetable->filter(function ($tmt) use ($lesson) {
+            return $tmt['dayDate'] == $lesson['dayDate']
+                && $tmt['Group']['id'] != $lesson['Group']['id']
+                && $tmt['DisciplineID'] == $lesson['DisciplineID']
+                && $tmt['Coords']['room']['id'] == $lesson['Coords']['room']['id']
+                && $tmt['Number'] == $lesson['Number'];
+        });
+        if ($similarities->count() > 0) {
+            $lesson['Group'] = array_merge([$lesson['Group']], $similarities->pluck('Group')->unique()->toArray());
+        } else {
+            $lesson['Group'] = [$lesson['Group']];
+        }
+        return $lesson;
+    })->unique(function ($item) {
+        return $item['dayDate'] . $item['Number'];
+    });
+}
+
+/**
+ * @param $timetable Collection чистые данные рапсисания
+ * @return Collection возвращает иерархическую свертку расписания
+ */
+function collapseDataHierarchically(Collection $timetable): Collection
 {
     return $timetable->map(function ($item) use ($timetable) {
         $newObj = collect($item)->prepend([
@@ -291,14 +299,18 @@ function collapseDataHierarchically($timetable): Collection
     });
 }
 
-function getTimetable($forMonth = false): Collection
+/**
+ * @param bool $forMonth Вернуть данные на конкретный месяц
+ * @return Collection возвращает распиание полное или на месяц
+ */
+function getTimetable(bool $forMonth = false): Collection
 {
     $timetable = getDatabaseData($forMonth);
     return collapseDataHierarchically($timetable); //FIXME: Общая психология пропала для препода
 }
 
 /**
- * @return Collection
+ * @return Collection возвращает блок расписания на месяц
  */
 function getPreparedTimetable(): Collection
 {
