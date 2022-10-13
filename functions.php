@@ -25,24 +25,54 @@ function getMonths(): array
     ];
 }
 
-function getFileData($fileName)
+function getPDO(): PDO
 {
-    ini_set('memory_limit', '-1');
-    $myfile = fopen("data/$fileName", "r") or die("Unable to open file!");
-    $file = fread($myfile, filesize("data/$fileName"));
-    fclose($myfile);
-    return collect(json_decode($file, true));
+    $pdo = new PDO('mysql:dbname=timetable;host=sergisa.ru', 'user15912_sergey', 'isakovs');
+    $pdo->exec('SET CHARACTER SET UTF8');
+    return $pdo;
+}
+
+function getDatabaseData($forMonth = false): Collection
+{
+    $month = "." . getActiveMonth() . ".";
+    if ($forMonth) {
+        return collect(getPDO()->query("SELECT * FROM timetable WHERE dayDate LIKE '%$month%'")->fetchAll(PDO::FETCH_ASSOC));
+    } else {
+        return collect(getPDO()->query("SELECT * FROM timetable")->fetchAll(PDO::FETCH_ASSOC));
+    }
+}
+
+function getGroups($id = null): Collection
+{
+    return collect(getPDO()
+        ->query("SELECT DISTINCT GroupCode AS name, CONCAT('0x', HEX(GroupID)) AS id FROM timetable ORDER BY GroupCode")
+        ->fetchAll(PDO::FETCH_ASSOC)
+    );
+}
+
+function getProfessors($id = null): Collection
+{
+    return collect(getPDO()
+        ->query("SELECT DISTINCT TeacherFIO AS name, CONCAT('0x', HEX(TeacherID)) AS id FROM timetable ORDER BY TeacherFIO")
+        ->fetchAll(PDO::FETCH_ASSOC)
+    );
+}
+
+function convertUID($binary): string
+{
+    if ($binary == null) return '';
+    return "0x" . strtoupper(bin2hex($binary));
 }
 
 function getGroupById($id)
 {
-    return getTimetable()->pluck("Group")->unique()->values()->where('id', '=', $id)->unique()->values()[0]['name'];
+    return getGroups($id)->where('id', '=', $id)->values()[0]['name'];
 }
 
 function getTeacherById($id)
 {
     if ($id == "null") $id = null;
-    return getTimetable()->pluck("Teacher")->where('id', '=', $id)->unique()->values()[0]['name'];
+    return getProfessors($id)->where('id', '=', $id)->values()[0]['name'];
 }
 
 function convertDate($pattern, $date): string
@@ -213,28 +243,35 @@ function collapseDataHierarchically($timetable): Collection
     return $timetable->map(function ($item) use ($timetable) {
         $newObj = collect($item)->prepend([
             'building' => [
-                "id" => $item['BuildingID'],
+                "id" => convertUID($item['BuildingID']),
                 "name" => $item['Building']
             ],
             'floor' => [
-                "id" => $item['FloorID'],
+                "id" => convertUID($item['FloorID']),
                 "name" => $item['Floor']
             ],
             'room' => [
                 "index" => $item['Room'],
-                "id" => $item['RoomID']
+                "id" => convertUID($item['RoomID'])
             ]
         ], "Coords")->prepend([
-            'id' => $item['TeacherID'],
+            'id' => convertUID($item['TeacherID']),
             'name' => $item['TeacherFIO'],
         ], "Teacher")->prepend([
-            'id' => $item['GroupID'],
+            'id' => convertUID($item['GroupID']),
             'name' => $item['GroupCode'],
         ], "Group")->prepend([
-            'id' => $item['DepartmentID'],
+            'id' => convertUID($item['DepartmentID']),
             'name' => $item['DepartmentName'],
             'code' => $item['DepartmentCode'],
-        ], "Department")->filter(function ($item, $key) {
+        ], "Department")->map(function ($element, $key) {
+            if ($key == 'TypeID') return convertUID($element);
+            if ($key == 'DisciplineID') return convertUID($element);
+            if ($key == 'SemesterID') return convertUID($element);
+            if ($key == 'finalCheckTypeID') return convertUID($element);
+            if ($key == 'active') return convertUID($element);
+            return $element;
+        })->filter(function ($item, $key) {
             return !in_array($key, [
                 "BuildingID",
                 "FloorID",
@@ -253,21 +290,18 @@ function collapseDataHierarchically($timetable): Collection
     });
 }
 
-function getTimetable(): Collection
+function getTimetable($forMonth = false): Collection
 {
-    $timetable = getFileData("tmtFull.json");
+    $timetable = getDatabaseData($forMonth);
     return collapseDataHierarchically($timetable); //FIXME: Общая психология пропала для препода
 }
 
 /**
  * @return Collection
  */
-function getData(): Collection
+function getPreparedTimetable(): Collection
 {
-    return joinParallelLessonsByGroup(getTimetable()
-        ->filter(function ($lesson) {
-            return str_contains($lesson['dayDate'], "." . getActiveMonth() . ".");
-        })
+    return joinParallelLessonsByGroup(getTimetable(true)
         ->filter(function ($lesson) {
             return !array_key_exists('group', $_GET) || ($lesson['Group']['id'] == $_GET['group']);
         })

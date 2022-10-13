@@ -2,16 +2,9 @@
 include 'vendor/autoload.php';
 include 'functions.php';
 ini_set('memory_limit', '-1');
-$myfile = fopen("data/Timetable2022.json", "r") or die("Unable to open file!");
-$file = fread($myfile, filesize("data/Timetable2022.json"));
-fclose($myfile);
-$timetable = collect(json_decode($file, true));
-$timetable = groupCollapsing($timetable);
-$currentDate = date("d.m.Y");
-//$currentDate = date("d.m.Y", strtotime("+1 day", strtotime(date("d.m.Y"))));
-$timetable = $timetable->pluck("Group")->unique()->values();
-//$timetable = collapseSimilarities($timetable)->groupBy('dayDate')->sortBy('TimeStart');
-echo json_encode($timetable->toArray(), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+$pdo = new PDO('mysql:dbname=timetable;host=sergisa.ru', 'user15912_sergey', 'isakovs');
+$response = $pdo->query('SELECT * FROM timetable')->fetch(PDO::FETCH_OBJ)
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -23,13 +16,15 @@ echo json_encode($timetable->toArray(), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICO
     <title>Document</title>
     <link rel="stylesheet" href="dist/css/style.css">
     <style>
-        .debug {
-            color: #FCBB6D;
+        :root {
+            --bs-body-color: #FCBB6D;
         }
     </style>
 </head>
-<body>
-<pre class="debug"><code></code></pre>
+<body class="container">
+<?php
+echo getLessonType("0x" . strtoupper(bin2hex($response->TypeID)))->full;
+?>
 
 </body>
 </html>

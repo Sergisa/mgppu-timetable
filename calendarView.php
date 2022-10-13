@@ -1,7 +1,7 @@
 <?php
 include 'vendor/autoload.php';
 include 'functions.php';
-$timetable = getData()->groupBy('dayDate');
+$timetable = getPreparedTimetable()->groupBy('dayDate');
 $_monthsList = getMonths()
 ?>
 <!DOCTYPE html>
@@ -135,8 +135,7 @@ $_monthsList = getMonths()
     $.getJSON('getTimetable.php', rqObject).done(function (data) {
         console.log(data)
         window.lessonsTimetable = data
-        $('#monthGrid').removeClass('loading')
-        generateGrid($('#monthGrid'), urlParams.has('month') ? parseInt(urlParams.get('month')) - 1 : new Date().getMonth());
+        generateGrid($('#monthGrid').removeClass('loading'), urlParams.has('month') ? parseInt(urlParams.get('month')) - 1 : new Date().getMonth());
         $('#monthGrid .day').on('click', function () {
             console.log(this.dataset.date)
             scrollToDate(this.dataset.date)
