@@ -1,7 +1,7 @@
 <?php
 include 'vendor/autoload.php';
 include 'functions.php';
-$route = explode('/', $_SERVER['REQUEST_URI']);
+$route = explode('/', $_SERVER['PATH_INFO']);
 $response = null;
 if (end($route) === 'getProfessors') {
     echo getProfessors()->toJson(JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_INVALID_UTF8_IGNORE);
