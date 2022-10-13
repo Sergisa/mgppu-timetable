@@ -129,6 +129,7 @@ FROM _InfoRg7081 AS РегистрДисциплины
 
 
 WHERE РегистрДисциплины._Fld7246RRef = :academicYearId
+    /*0x80EC000C295831C111ECF777467EF0FF 2022/2023*/
   --AND РегистрДисциплины._Fld7251RRef = :studentGroupId /* Учебная группа*/
   --AND CONVERT(VARCHAR(10), ДниПроведенияЗанятий._Fld7241, 104) = '29.03.2022'
   AND Семестры._IDRRef = :semesterId
