@@ -78,15 +78,19 @@ function generateDaysLine(currentDate) {
  * @param month{number}
  */
 function generateGrid(container, month) {
-    const monthGrid = container.append(generateHeaderLine())
-    let currentDate = new Date(2022, month, 1)
-    const $dayGrid = $(`<div class="day-grid"></div>`).appendTo(monthGrid)
-    while (true) {
-        $dayGrid.append(generateDaysLine(currentDate))
-        if (currentDate.hasNextInMonth()) {
-            currentDate.next()
-        } else {
-            break
+    if (lessonsTimetable.length === 0) {
+        container.append(`<h2 class="text-primary text-center mt-4">Нет пар</h2>`)
+    } else {
+        const monthGrid = container.append(generateHeaderLine())
+        let currentDate = new Date(2022, month, 1)
+        const $dayGrid = $(`<div class="day-grid"></div>`).appendTo(monthGrid)
+        while (true) {
+            $dayGrid.append(generateDaysLine(currentDate))
+            if (currentDate.hasNextInMonth()) {
+                currentDate.next()
+            } else {
+                break
+            }
         }
     }
 }
