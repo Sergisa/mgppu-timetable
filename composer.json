@@ -14,6 +14,7 @@
   "require": {
     "illuminate/collections": "^9.5",
     "ext-json": "*",
+    "eftec/bladeone": "^4.6",
     "ext-mbstring": "*",
     "ext-pdo": "*"
   },

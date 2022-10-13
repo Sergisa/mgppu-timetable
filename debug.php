@@ -1,9 +1,17 @@
 <?php
+
+use eftec\bladeone\BladeOne;
+
 include 'vendor/autoload.php';
 include 'functions.php';
 ini_set('memory_limit', '-1');
-$pdo = new PDO('mysql:dbname=timetable;host=sergisa.ru', 'user15912_sergey', 'isakovs');
-$response = $pdo->query('SELECT * FROM timetable')->fetch(PDO::FETCH_OBJ)
+$myfile = fopen("data/Timetable2022.json", "r") or die("Unable to open file!");
+$file = fread($myfile, filesize("data/Timetable2022.json"));
+fclose($myfile);
+
+$views = __DIR__ . '/views';
+$cache = __DIR__ . '/cache';
+$blade = new BladeOne($views, $cache, BladeOne::MODE_DEBUG); // MODE_DEBUG allows to pinpoint troubles.
 
 ?>
 <!doctype html>
@@ -16,15 +24,18 @@ $response = $pdo->query('SELECT * FROM timetable')->fetch(PDO::FETCH_OBJ)
     <title>Document</title>
     <link rel="stylesheet" href="dist/css/style.css">
     <style>
-        :root {
-            --bs-body-color: #FCBB6D;
-        }
     </style>
 </head>
-<body class="container">
-<?php
-echo getLessonType("0x" . strtoupper(bin2hex($response->TypeID)))->full;
-?>
-
+<body>
+<div id="listDays" class="col-12 col-md-4">
+    <?php
+    try {
+        echo $blade->run("dayList", [
+            "timetable" => getData()->groupBy('dayDate')
+        ]);
+    } catch (Exception $e) {
+    }
+    ?>
+</div>
 </body>
 </html>
