@@ -9,3 +9,4 @@ timetable.iml
 .phpunit.result.cache
 data/tmtFull.json
 cache
+debug.php

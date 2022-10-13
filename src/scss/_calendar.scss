@@ -106,6 +106,7 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
             font-weight: 800;
             color: transparentize($primary, .6);
             font-size: x-large;
+            margin-left: map-get($spacers, 1);
           }
 
           .lesson {

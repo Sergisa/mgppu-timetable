@@ -2,9 +2,9 @@
     <div class='lesson-name'>
         <b class='fw-bold'>{{$lessonIndex}}. </b>{{$lessonSign}}
     </div>
-    @if (isTeacherTimetable())
+    @if (isTeacherDefined())
         <span class='lesson-description'>{{$groupsSign}} {{$courseSign}} {{$lessonAddress}} {{$type}}</span>
-    @elseif(isGroupTimetable())
+    @elseif(isGroupDefined())
         <span class='lesson-description'>{{$teacherSign}} {{$lessonAddress}} {{$type}}</span>
     @endif
 </div>

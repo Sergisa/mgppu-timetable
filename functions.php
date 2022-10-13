@@ -112,20 +112,20 @@ function getLessonFullType($typeID): ?string
     return getLessonType($typeID)->full;
 }
 
-function isTeacherTimetable($get = null): bool
+function isTeacherDefined($get = null): bool
 {
     if ($get == null) {
         $get = $_GET;
     }
-    return array_key_exists('professor', $get) || (!array_key_exists('group', $get));
+    return array_key_exists('professor', $get);
 }
 
-function isGroupTimetable($get = null): bool
+function isGroupDefined($get = null): bool
 {
     if ($get == null) {
         $get = $_GET;
     }
-    return array_key_exists('group', $get) && !array_key_exists('professor', $get);
+    return array_key_exists('group', $get);
 }
 
 function getTeacherSignature($lesson): string

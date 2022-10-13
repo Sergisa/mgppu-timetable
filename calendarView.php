@@ -1,8 +1,6 @@
 <?php
 include 'vendor/autoload.php';
 include 'functions.php';
-$timetable = getPreparedTimetable()->groupBy('dayDate');
-$_monthsList = getMonths()
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,40 +24,15 @@ $_monthsList = getMonths()
 </head>
 <body class="container py-2">
 <div class="row">
-
     <div class="col-12 col-md-8">
-        <h1 class="fw-bolder month-title text-primary d-md-inline">
-            <a href="/">
-                <i class="bi bi-backspace"></i>
-            </a>
-            <?= $_monthsList[(int)getActiveMonth()] ?>
-            <a href="?<?= getNextMonthLink() ?>" class="<?= getActiveMonth() < 12 ? "d-inline" : 'invisible' ?>">
-                <i class="bi bi-arrow-right-square fs-1 float-end"></i>
-            </a>
-            <a href="?<?= getPreviousMonthLink() ?>" class="<?= getActiveMonth() > 1 ? "d-inline" : 'invisible' ?>">
-                <i class="bi bi-arrow-left-square fs-1 float-end"></i>
-            </a>
-        </h1>
-        <p class="lead text-primary d-md-inline m-0 mb-md-3 subtitle">
-            <?php
-            if (isTeacherTimetable()) {
-                if (!array_key_exists('professor', $_GET)) {
-                    echo "Исаков Сергей Сергеевич ";
-                } else {
-                    echo getTeacherById($_GET['professor']) . " ";
-                }
-            } elseif (!array_key_exists('group', $_GET)) {
-                echo "Исаков Сергей Сергеевич ";
-            } else {
-                echo "";
-            }
-            ?>
-        </p>
-        <p class="lead text-primary d-md-inline m-0 mb-md-3 subtitle">
-            <?php
-            echo array_key_exists('group', $_GET) ? getGroupById($_GET['group']) : "";
-            ?>
-        </p>
+        <?php
+        try {
+            echo getBlade()->run("header", [
+                "timetable" => getPreparedTimetable()->groupBy('dayDate')
+            ]);
+        } catch (Exception $e) {
+        }
+        ?>
         <div class="calendar p-1 loading" id="monthGrid"></div>
     </div>
     <div id="listDays" class="col-12 col-md-4">

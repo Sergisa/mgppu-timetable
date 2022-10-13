@@ -1,1 +1,4 @@
 DirectoryIndex index.php
+Redirect /getProfessors.php /api.php/getProfessors
+Redirect /getGroups.php /api.php/getGroups
+Redirect /getTimetable.php /api.php/getTimetable
