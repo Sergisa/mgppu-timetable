@@ -9,7 +9,8 @@
     @include scroll-bar();
 
     .list-group-item {
-      font-weight: 300;
+      color: unset;
+      font-weight: $lesson-name-text-weight;
       @include scroll-bar();
       @include media-breakpoint-up(xs) {
         overflow-x: auto;
@@ -25,7 +26,6 @@
       }
 
       .lesson {
-        @include font-size($font-size-sm);
         padding-bottom: map-get($spacers, 1);
         padding-top: map-get($spacers, 1);
         border: $lesson-delimiter-border-color;
@@ -40,7 +40,6 @@
 
       span.date {
         font-weight: bold;
-        color: $lesson-list-date-text-color;
         background-color: $lesson-list-date-background-color;
         padding: 0 0.8em;
         border-radius: 5px;
@@ -63,8 +62,8 @@
       }
 
       span.lesson-description {
-        font-weight: bold;
-        color: $lesson-list-description-text-color;
+        font-weight: $lesson-description-text-weight;
+        color: $lesson-description-text-color;
       }
     }
   }

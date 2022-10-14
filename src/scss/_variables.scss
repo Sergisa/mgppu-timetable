@@ -2,13 +2,15 @@ $primary: #FCBB6D;
 $secondary: #685D79;
 $accent: #D8737F;
 $body-bg: #475C7A;
+$body-color: $primary;
 :root {
   --bs-body-bg: $body-bg;
+  --bs-body-color: $primary;
 }
 
 
 $list-group-bg: transparent;
-$list-group-color: $primary;
+$list-group-color: unset;
 $list-group-border-color: $primary;
 $list-group-active-color: $primary;
 $list-group-active-bg: darken($body-bg, 5%);
@@ -54,16 +56,19 @@ $lesson-number-text-color: $primary;
 $lesson-number-background-color: $secondary;
 $lesson-background-color: $secondary;
 
+/* RIGHT LESSON LIST */
 $lesson-delimiter-border-color: 2px solid transparentize(lighten($body-bg, 20%), .7);
 $lesson-list-date-text-color: $primary;
-$lesson-list-date-background-color: $secondary;
-$lesson-list-type-text-color: $accent;
+$lesson-list-date-background-color: shade($secondary, 10%);
+$lesson-list-type-text-color: #d3d4db;
 $lesson-list-type-background-color: none;
-$lesson-list-type-border: 2px solid $secondary;
+$lesson-list-type-border: 2px solid #416FC8;
 $lesson-list-session-type-border: 1px solid adjust-color($primary, $hue: 50deg, $lightness: -30%, $saturation: -30%);
 $lesson-list-session-type-text-color: adjust-color($primary, $hue: 50deg);
 $lesson-list-session-type-background-color: transparent;
-$lesson-list-description-text-color: $accent;
+$lesson-description-text-color: #DFEBFA;
+$lesson-description-text-weight: 300;
+$lesson-name-text-weight: bold;
 
 
 $select-border: 2px solid $accent;
