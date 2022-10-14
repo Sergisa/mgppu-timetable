@@ -36,6 +36,14 @@
         &:last-of-type {
           border-bottom: none;
         }
+
+        &.session {
+          .lesson-description, .lesson-name {
+            text-decoration: underline dashed currentColor;
+            text-underline-offset: 3px;
+            text-underline-position: from-font;
+          }
+        }
       }
 
       span.date {
@@ -61,7 +69,16 @@
         }
       }
 
-      span.lesson-description {
+      .lesson-name {
+        line-height: 1.3rem;
+        @include media-breakpoint-up(md) {
+          margin-bottom: .6rem;
+        }
+        margin-bottom: 1rem;
+      }
+
+      .lesson-description {
+        line-height: 1.3rem;
         font-weight: $lesson-description-text-weight;
         color: $lesson-description-text-color;
       }

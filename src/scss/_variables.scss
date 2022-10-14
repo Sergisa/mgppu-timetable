@@ -51,10 +51,10 @@ $day-background: transparent;
 $day-text-color: $accent;
 $day-number-text-color: transparentize($primary, .6);
 
-$lesson-border-color: $primary;
+$lesson-calendar-delimiter-color: $primary;
 $lesson-number-text-color: $primary;
-$lesson-number-background-color: $secondary;
-$lesson-background-color: $secondary;
+$lesson-number-background-color: tint($secondary, 10%);
+$lesson-background-color: transparentize($secondary, .4);
 
 /* RIGHT LESSON LIST */
 $lesson-delimiter-border-color: 2px solid transparentize(lighten($body-bg, 20%), .7);

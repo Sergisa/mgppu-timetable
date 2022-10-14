@@ -19,7 +19,7 @@
         'courseSign' => getCourseNumber($lesson['Group'][0]['name']),
         'teacherSign' => getTeacherSignature($lesson),
         'lessonIndex' => getLessonIndex($lesson),
-        'lessonClassList' => isSessionPart($lesson) ? 'lesson text-decoration-underline' : 'lesson'
+        'lessonClassList' => isSessionPart($lesson) ? 'session' : ''
         ])
     @endforeach
 

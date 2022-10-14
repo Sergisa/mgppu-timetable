@@ -134,7 +134,7 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
 
             &[data-lesson-index="6"] {
               border-top-style: solid;
-              border-top-color: $lesson-border-color;
+              border-top-color: $lesson-calendar-delimiter-color;
               border-top-width: 2px;
             }
 
