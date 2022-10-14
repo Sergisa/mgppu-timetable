@@ -55,21 +55,24 @@ include 'functions.php';
     $(document).on('ready', function () {
         //scrollToCurrentDate();
     })
-    const urlParams = new URLSearchParams(window.location.search);
-    const rqObject = {}
-    if (urlParams.has('professor')) {
-        rqObject.professor = urlParams.get('professor');
+
+    function getUrlParamsObject() {
+        const rqObject = {};
+        let URLParams = new URLSearchParams(window.location.search);
+        URLParams.forEach((value, key) => {
+            rqObject[key] = value;
+        })
+        return rqObject;
     }
-    if (urlParams.has('group')) {
-        rqObject.group = urlParams.get('group');
-    }
-    if (urlParams.has('month')) {
-        rqObject.month = urlParams.get('month');
-    }
-    $.getJSON('getTimetable.php', rqObject).done(function (data) {
+
+    const urlParams = getUrlParamsObject();
+    $.getJSON('getTimetable.php', urlParams).done(function (data) {
         console.log(data)
         window.lessonsTimetable = data
-        generateGrid($('#monthGrid').removeClass('loading'), urlParams.has('month') ? parseInt(urlParams.get('month')) - 1 : new Date().getMonth());
+        generateGrid(
+            $('#monthGrid').removeClass('loading'),
+            (urlParams.month !== undefined) ? parseInt(urlParams.month) - 1 : new Date().getMonth()
+        );
         $('#monthGrid .day').on('click', function () {
             console.log(this.dataset.date)
             scrollToDate(this.dataset.date)
