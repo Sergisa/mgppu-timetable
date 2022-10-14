@@ -46,7 +46,7 @@ $loader-stroke-color: $accent transparent $accent transparent;
 $header-background: transparentize($body-bg, .8);
 $header-color: $primary;
 
-$day-border: 2px solid $accent;
+$day-border: 1px solid $accent;
 $day-background: transparent;
 $day-text-color: $accent;
 $day-number-text-color: transparentize($primary, .6);
