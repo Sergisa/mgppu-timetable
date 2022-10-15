@@ -26,8 +26,8 @@
       }
 
       .lesson {
-        padding-bottom: map-get($spacers, 1);
-        padding-top: map-get($spacers, 1);
+        padding-bottom: $lesson-list-lesson-padding-y;
+        padding-top: $lesson-list-lesson-padding-y;
         border: $lesson-delimiter-border-color;
         border-left: none;
         border-right: none;
@@ -39,7 +39,7 @@
 
         &.session {
           .lesson-description, .lesson-name {
-            text-decoration: underline dashed currentColor;
+            text-decoration: underline dotted currentColor 1px;
             text-underline-offset: 3px;
             text-underline-position: from-font;
           }
@@ -70,17 +70,17 @@
       }
 
       .lesson-name {
-        line-height: 1.3rem;
+        line-height: $lesson-list-line-threshold;
         @include media-breakpoint-up(md) {
-          margin-bottom: .6rem;
+          margin-bottom: $lesson-list-lesson-inside-threshold - .1;
         }
-        margin-bottom: 1rem;
+        margin-bottom: $lesson-list-lesson-inside-threshold;
       }
 
       .lesson-description {
-        line-height: 1.3rem;
+        line-height: $lesson-list-line-threshold;
         font-weight: $lesson-description-text-weight;
-        color: $lesson-description-text-color;
+        color: var(--bs-light);
       }
     }
   }

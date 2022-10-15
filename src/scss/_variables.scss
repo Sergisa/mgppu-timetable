@@ -3,20 +3,24 @@ $secondary: #685D79;
 $accent: #D8737F;
 $body-bg: #475C7A;
 $body-color: $primary;
-:root {
-  --bs-body-bg: $body-bg;
-  --bs-body-color: $primary;
-}
+/*
+$body-bg: lighten(#C6CBD1, 15%);
+$primary: saturate(#6A453B, 30%);
+$secondary: darken(#7399BD, 10%);
+$body-color: #1C477F;
+ */
+
+
 
 
 $list-group-bg: transparent;
 $list-group-color: unset;
-$list-group-border-color: $primary;
-$list-group-active-color: $primary;
+$list-group-border-color: var(--bs-primary);
+$list-group-active-color: var(--bs-primary);
 $list-group-active-bg: darken($body-bg, 5%);
 $list-group-active-border-color: darken($body-bg, 10%);
 
-$scrollbar-thumb-color: $secondary;
+$scrollbar-thumb-color: var(--bs-secondary);
 $scrollbar-background-color: $body-bg;
 
 $form-check-input-bg: shade($body-bg, 10%);
@@ -42,43 +46,47 @@ $container-max-widths: (
         xxl: 1420px
 ) !default;
 
-$loader-stroke-color: $accent transparent $accent transparent;
+$loader-stroke-color: var(--bs-accent) transparent var(--bs-accent) transparent;
 $header-background: transparentize($body-bg, .8);
-$header-color: $primary;
+$header-color: var(--bs-primary);
 
-$day-border: 1px solid $accent;
+$day-border: 1px solid var(--bs-accent);
 $day-background: transparent;
-$day-text-color: $accent;
+$day-text-color: var(--bs-accent);
 $day-number-text-color: transparentize($primary, .6);
 
-$lesson-calendar-delimiter-color: $primary;
-$lesson-number-text-color: $primary;
+$lesson-calendar-delimiter-color: var(--bs-primary);
+$lesson-number-text-color: var(--bs-primary);
 $lesson-number-background-color: tint($secondary, 10%);
 $lesson-background-color: transparentize($secondary, .4);
 
 /* RIGHT LESSON LIST */
 $lesson-delimiter-border-color: 2px solid transparentize(lighten($body-bg, 20%), .7);
-$lesson-list-date-text-color: $primary;
+$lesson-list-line-threshold: 1.1rem;
+$lesson-list-lesson-inside-threshold: .6rem;
+$lesson-list-lesson-padding-y: .8rem;
+
+$lesson-list-date-text-color: var(--bs-primary);
 $lesson-list-date-background-color: shade($secondary, 10%);
-$lesson-list-type-text-color: #d3d4db;
+$lesson-list-type-text-color: var(--bs-light);
 $lesson-list-type-background-color: none;
 $lesson-list-type-border: 2px solid #416FC8;
 $lesson-list-session-type-border: 1px solid adjust-color($primary, $hue: 50deg, $lightness: -30%, $saturation: -30%);
 $lesson-list-session-type-text-color: adjust-color($primary, $hue: 50deg);
 $lesson-list-session-type-background-color: transparent;
-$lesson-description-text-color: #DFEBFA;
+$lesson-description-text-color: var(--bs-light);
 $lesson-description-text-weight: 300;
 $lesson-name-text-weight: bold;
 
 
-$select-border: 2px solid $accent;
-$select-text-color: $accent;
+$select-border: 2px solid var(--bs-accent);
+$select-text-color: var(--bs-accent);
 $select-background-color: $body-bg;
 $select-hover-background-color: darken($body-bg, 3%);
-$select-search-border: 1px solid $accent;
-$select-search-text-color: $primary;
-$select-list-border: 2px solid $accent;
-$select-list-text-color: $primary;
+$select-search-border: 1px solid var(--bs-accent);
+$select-search-text-color: var(--bs-primary);
+$select-list-border: 2px solid var(--bs-accent);
+$select-list-text-color: var(--bs-primary);
 $select-list-background-color: $body-bg;
 $select-list-item-hover-background-color: darken($body-bg, 7%);
 $select-list-loader-stroke-color: $accent transparent $accent transparent;

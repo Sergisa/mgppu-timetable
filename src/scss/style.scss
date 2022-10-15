@@ -7,19 +7,30 @@
 @import "select";
 @import "week-lines";
 
+:root {
+  --bs-body-bg: #{$body-bg};
+  --bs-body-color: #{$primary};
+  --bs-primary: #{$primary};
+  --bs-secondary: #{$secondary};
+  --bs-accent: #{$accent};
+  --bs-dark:#1C477F;
+  --bs-light:#DFEBFA;
+
+}
 $form-check-input-width: $line-height-base;
 a {
   text-decoration: none;
 
   .bi-backspace, .bi-arrow-right-square, .bi-arrow-left-square {
-    color: $accent;
+    color: var(--bs-accent);
     cursor: pointer;
     border-radius: 3px;
     padding: 0 .3rem;
     display: inline-flex;
 
     &:hover {
-      color: darken($accent, 5%);
+      filter: brightness(90%);
+      //color: darken($accent, 5%);
     }
   }
 

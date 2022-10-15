@@ -11,7 +11,7 @@
     </a>
 </div>
 @if (isTeacherDefined())
-    <p class="lead text-primary d-md-inline m-0 mb-md-3 subtitle">
+    <p class="lead d-md-inline m-0 mb-md-3 subtitle">
         {{getTeacherById($_GET['professor'])}}
     </p>
 @endif
