@@ -7,16 +7,32 @@
 @import "select";
 @import "week-lines";
 
-:root {
-  --bs-body-bg: #{$body-bg};
-  --bs-body-color: #{$primary};
-  --bs-primary: #{$primary};
-  --bs-secondary: #{$secondary};
-  --bs-accent: #{$accent};
-  --bs-dark:#1C477F;
-  --bs-light:#DFEBFA;
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bs-body-bg: #{$body-bg};
+    --bs-body-color: #{$primary};
+    --bs-primary: #{$primary};
+    --bs-secondary: #{$secondary};
+    --bs-accent: #{$accent};
+    --bs-dark:#1C477F;
+    --bs-light:#DFEBFA;
 
+  }
 }
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bs-secondary: #{darken(#7399BD, 10%)};
+    --bs-primary: #{saturate(#6A453B, 30%)};
+    --bs-body-bg: #{lighten(#C6CBD1, 15%)};
+    --bs-body-color: #{saturate(#6A453B, 30%)};
+    --bs-accent: #{darken(#7399BD, 10%)};
+    --bs-light:#DFEBFA;
+    --bs-dark:#1C477F;
+
+  }
+}
+
 $form-check-input-width: $line-height-base;
 a {
   text-decoration: none;

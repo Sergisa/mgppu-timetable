@@ -80,7 +80,12 @@
       .lesson-description {
         line-height: $lesson-list-line-threshold;
         font-weight: $lesson-description-text-weight;
-        color: var(--bs-light);
+        @media (prefers-color-scheme: dark) {
+          color: var(--bs-light);
+        }
+        @media (prefers-color-scheme: light) {
+          color: var(--bs-dark);
+        }
       }
     }
   }
