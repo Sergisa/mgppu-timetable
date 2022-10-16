@@ -1,7 +1,21 @@
+@use 'sass:math';
+
 @function tint($color, $percentage) {
   @return mix(#FFF, $color, $percentage);
 }
 
 @function shade($color, $percentage) {
   @return mix(#000, $color, $percentage);
+}
+
+@function whiteness($color) {
+  @return math.div(math.min(math.min(red($color), green($color)), blue($color)), 255) * 100;
+}
+
+@function blackness($color) {
+  @return 100 - math.div(math.max(math.max(red($color), green($color)), blue($color)), 255) * 100;
+}
+
+@function toHwb($value) {
+  @return hue($value) '#{whiteness($value)}%' '#{blackness($value)}%';
 }

@@ -13,15 +13,15 @@
   --bs-primary: #{$primary};
   --bs-secondary: #{$secondary};
   --bs-accent: #{$accent};
-  --bs-dark:#1C477F;
-  --bs-light:#DFEBFA;
-
+  --bs-dark: #1C477F;
+  --bs-light: #DFEBFA;
 }
+
 $form-check-input-width: $line-height-base;
 a {
   text-decoration: none;
 
-  .bi-backspace, .bi-arrow-right-square, .bi-arrow-left-square {
+  .bi {
     color: var(--bs-accent);
     cursor: pointer;
     border-radius: 3px;
