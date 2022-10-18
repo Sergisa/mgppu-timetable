@@ -1,0 +1,114 @@
+### GET
+GET {{host}}/getProfessors
+
+> {%
+client.test("Request executed successfully", function() {
+  var type = response.contentType.mimeType;
+  client.assert(type === "application/json", "Expected 'application/json' but received '" + type + "'");
+  client.assert(response.status === 200, "Response status is not 200");
+});
+%}
+
+### GET request with environment variables
+GET {{host}}/getGroups
+
+> {%
+client.test("Request executed successfully", function() {
+  var type = response.contentType.mimeType;
+  client.assert(type === "application/json", "Expected 'application/json' but received '" + type + "'");
+  client.assert(response.status === 200, "Response status is not 200");
+});
+%}
+
+### GET request with environment variables
+GET {{host}}/getTimetable
+
+> {%
+client.test("Request executed successfully", function() {
+  var type = response.contentType.mimeType;
+  client.assert(type === "application/json", "Expected 'application/json' but received '" + type + "'");
+  client.assert(response.status === 200, "Response status is not 200");
+});
+%}
+
+### GET request with environment variables
+GET {{host}}/getTimetable
+
+> {%
+client.test("Request executed successfully", function() {
+  var type = response.contentType.mimeType;
+  client.assert(type === "application/json", "Expected 'application/json' but received '" + type + "'");
+  client.assert(response.status === 200, "Response status is not 200");
+});
+%}
+
+### GET request with environment variables
+GET {{host}}/getTimetable?professor=0x80EC000C295831C111ED292993338C90
+
+> {%
+client.test("Request executed successfully", function() {
+  var type = response.contentType.mimeType;
+  client.assert(type === "application/json", "Expected 'application/json' but received '" + type + "'");
+  client.assert(response.status === 200, "Response status is not 200");
+});
+%}
+
+### GET request with environment variables
+GET {{host}}/getTimetable?group=0x80C3000C295831B711E7F77FAF8F411E
+
+> {%
+client.test("Request executed successfully", function() {
+  var type = response.contentType.mimeType;
+  client.assert(type === "application/json", "Expected 'application/json' but received '" + type + "'");
+  client.assert(response.status === 200, "Response status is not 200");
+});
+%}
+
+### GET request with environment variables
+GET {{host}}/getTimetable?group=0x80C3000C295831B711E7F77FAF8F411E&professor=0x80EC000C295831C111ED292993338C90
+
+> {%
+client.test("Request executed successfully", function() {
+  var type = response.contentType.mimeType;
+  client.assert(type === "application/json", "Expected 'application/json' but received '" + type + "'");
+  client.assert(response.status === 200, "Response status is not 200");
+});
+%}
+
+### GET request with environment variables
+GET {{main}}/index.php
+
+> {%
+client.test("Request executed successfully", function() {
+  client.assert(response.status === 200, "Response status is not 200");
+});
+%}
+
+### GET request with environment variables
+GET {{main}}/index.php
+
+> {%
+client.test("Request executed successfully", function() {
+  client.assert(response.status === 200, "Response status is not 200");
+});
+%}
+
+### GET request with environment variables
+GET {{main}}/
+
+> {%
+client.test("Request executed successfully", function() {
+  client.assert(response.status === 200, "Response status is not 200");
+});
+%}
+
+### GET request with environment variables
+GET {{main}}/calendarView.php
+
+> {%
+client.test("Request executed successfully", function() {
+  client.assert(response.status === 200, "Response status is not 200");
+});
+%}
+
+
