@@ -16,24 +16,24 @@ $list-group-bg: transparent;
 $list-group-color: unset;
 $list-group-border-color: var(--bs-primary);
 $list-group-active-color: var(--bs-primary);
-$list-group-active-bg: darken($body-bg, 5%);
-$list-group-active-border-color: darken($body-bg, 10%);
+$list-group-active-bg: darken($body-bg, 5%);//TODO: transform to var usage
+$list-group-active-border-color: darken($body-bg, 10%);//TODO: transform to var usage
 
 $scrollbar-thumb-color: var(--bs-secondary);
-$scrollbar-background-color: $body-bg;
+$scrollbar-background-color: var(--bs-body-bg);
 
-$form-check-input-bg: shade($body-bg, 10%);
-$form-check-input-border: 2px solid rgba($accent, .5);
+$form-check-input-bg: shade($body-bg, 10%);//TODO: transform to var usage
+$form-check-input-border: 2px solid rgba(var(--bs-accent-rgba), .5);
 
 $form-check-input-width: 1.3em;
 $form-check-input-focus-border: $form-check-input-border;
 $form-check-input-focus-box-shadow: none;
 
-$form-check-input-checked-color: $accent;
+$form-check-input-checked-color: var(--bs-accent);
 $form-check-input-checked-bg-color: transparent;
-$form-check-input-checked-border-color: $accent;
+$form-check-input-checked-border-color: var(--bs-accent);
 $form-check-input-active-filter: none;
-$form-check-input-checked-border-color: $accent;
+$form-check-input-checked-border-color: var(--bs-accent);
 
 $text-muted: #D3D4DB;
 
@@ -56,11 +56,11 @@ $day-number-text-color: rgba(var(--bs-primary-rgb), .6);
 
 $lesson-calendar-delimiter-color: var(--bs-primary);
 $lesson-number-text-color: var(--bs-primary);
-$lesson-number-background-color: tint($secondary, 10%);
+$lesson-number-background-color: tint($secondary, 10%);//TODO: transform to var usage
 $lesson-background-color: rgba(var(--bs-secondary-rgb), .4);
 
 /* RIGHT LESSON LIST */
-$lesson-delimiter-border-color: 2px solid transparentize(lighten($body-bg, 20%), .7);
+$lesson-delimiter-border-color: 2px solid transparentize(lighten($body-bg, 20%), .7);//TODO: transform to var usage
 $lesson-list-line-threshold: 1.1rem;
 $lesson-list-lesson-inside-threshold: .6rem;
 $lesson-list-lesson-padding-y: .8rem;
@@ -81,12 +81,12 @@ $lesson-name-text-weight: bold;
 
 $select-border: 2px solid var(--bs-accent);
 $select-text-color: var(--bs-accent);
-$select-background-color: $body-bg;
-$select-hover-background-color: darken($body-bg, 3%);
+$select-background-color: var(--bs-body-bg);
+$select-hover-background-color: darken($body-bg, 3%);//TODO: transform to var usage
 $select-search-border: 1px solid var(--bs-accent);
 $select-search-text-color: var(--bs-primary);
 $select-list-border: 2px solid var(--bs-accent);
 $select-list-text-color: var(--bs-primary);
-$select-list-background-color: $body-bg;
-$select-list-item-hover-background-color: darken($body-bg, 7%);
-$select-list-loader-stroke-color: $accent transparent $accent transparent;
+$select-list-background-color: var(--bs-body-bg);
+$select-list-item-hover-background-color: darken($body-bg, 7%);//TODO: transform to var usage
+$select-list-loader-stroke-color: var(--bs-accent) transparent var(--bs-accent) transparent;
