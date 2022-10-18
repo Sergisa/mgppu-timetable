@@ -1,6 +1,7 @@
 <div class='lesson {{$lessonClassList}}' data-index='{{$lessonIndex}}' data-time='{{$lesson['TimeStart']}}'>
     <div class='lesson-name'>
         <b class='fw-bold'>{{$lessonIndex}}. </b>{{$lessonSign}}
+        ({{$lesson['Coords']['room']['index']}} каб.)
         @if (isSessionPart($lesson))
             ({{ $type }})
         @endif
