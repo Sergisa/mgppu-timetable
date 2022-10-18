@@ -76,6 +76,28 @@ client.test("Request executed successfully", function() {
 %}
 
 ### GET request with environment variables
+GET {{host}}/getTimetable?group=0x80C3000C295831B711E7F77FAF8F411E&professor=0x80EC000C295831C111ED292993338C90&month=04&year=2022
+
+> {%
+client.test("Request executed successfully", function() {
+  var type = response.contentType.mimeType;
+  client.assert(type === "application/json", "Expected 'application/json' but received '" + type + "'");
+  client.assert(response.status === 200, "Response status is not 200");
+});
+%}
+
+### GET request with environment variables
+GET {{host}}/getTimetable?group=0x80C3000C295831B711E7F77FAF8F411E&professor=0x80EC000C295831C111ED292993338C90&month=04&year=2022
+
+> {%
+client.test("Request executed successfully", function() {
+  var type = response.contentType.mimeType;
+  client.assert(type === "application/json", "Expected 'application/json' but received '" + type + "'");
+  client.assert(response.status === 200, "Response status is not 200");
+});
+%}
+
+### GET request with environment variables
 GET {{main}}/index.php
 
 > {%
