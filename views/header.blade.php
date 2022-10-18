@@ -3,10 +3,10 @@
         <i class="bi bi-backspace fs-1"></i>
     </a>
     <h1 class="fw-bolder d-inline">{{getMonths()[(int)getActiveMonth()]}}</h1>
-    <a href="?{{getNextMonthLink()}}" class="{{hasNextMonth() ? " d-inline" : 'invisible'}}">
+    <a href="?{{getNextMonthLink()}}" class="d-inline">
         <i class="bi bi-arrow-right-square fs-1 float-end"></i>
     </a>
-    <a href="?{{getPreviousMonthLink()}}" class="{{hasPreviousMonth() ? " d-inline" : 'invisible'}}">
+    <a href="?{{getPreviousMonthLink()}}" class="d-inline">
         <i class="bi bi-arrow-left-square fs-1 float-end"></i>
     </a>
 </div>

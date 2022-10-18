@@ -139,8 +139,9 @@ WHERE РегистрДисциплины._Fld7246RRef = :academicYearId
   --AND ВидыЗанятий._Fld7440 IS NULL
   --AND _Fld7250RRef NOT IN (SELECT _IDRRef FROM _Reference4684)
     /* Осенний (0x80C4000C299AE95511E6FFDE22A08A7E), Весенний(0x80C4000C299AE95511E6FFDE22A08A7D)*/
-  --AND ДниПроведенияЗанятий._Fld7241 = CONVERT(DATE, :date)
-  --AND Преподаватели._Description = 'Куравский Лев Семенович'
+
+  --AND CONVERT(VARCHAR(10), ДниПроведенияЗанятий._Fld7241, 104) LIKE '%.01.2023%'
+  --AND Преподаватели._Description = 'Исаков Сергей Сергеевич'
   --AND Дисциплины._Description LIKE '%Общая псих%'
   --AND ВидыЗанятий._IDRRef IS NULL
   --AND ИтоговыйКонтроль._Description IS NOT NULL

@@ -71,7 +71,8 @@ include 'functions.php';
         window.lessonsTimetable = data
         generateGrid(
             $('#monthGrid').removeClass('loading'),
-            (urlParams.month !== undefined) ? parseInt(urlParams.month) - 1 : new Date().getMonth()
+            (urlParams.month !== undefined) ? parseInt(urlParams.month) - 1 : new Date().getMonth(),
+            urlParams.year
         );
         $('#monthGrid .day').on('click', function () {
             console.log(this.dataset.date)
