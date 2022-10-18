@@ -1,4 +1,5 @@
 <?php
+include 'date.php';
 
 use eftec\bladeone\BladeOne;
 use Illuminate\Support\Collection;
@@ -35,7 +36,7 @@ function getPDO(): PDO
 
 function getDatabaseData($forMonth = false): Collection
 {
-    $month = "." . getActiveMonth() . ".";
+    $month = "." . getActiveMonth() . "." . getActiveYear();
     if ($forMonth) {
         return collect(getPDO()->query("SELECT * FROM timetable WHERE dayDate LIKE '%$month%'")->fetchAll(PDO::FETCH_ASSOC));
     } else {
@@ -43,7 +44,7 @@ function getDatabaseData($forMonth = false): Collection
     }
 }
 
-function getGroups($id = null): Collection
+function getGroups(): Collection
 {
     return collect(getPDO()
         ->query("SELECT DISTINCT GroupCode AS name, CONCAT('0x', HEX(GroupID)) AS id FROM timetable ORDER BY GroupCode")
@@ -51,7 +52,7 @@ function getGroups($id = null): Collection
     );
 }
 
-function getProfessors($id = null): Collection
+function getProfessors(): Collection
 {
     return collect(getPDO()
         ->query("SELECT DISTINCT TeacherFIO AS name, CONCAT('0x', HEX(TeacherID)) AS id FROM timetable ORDER BY TeacherFIO")
@@ -67,13 +68,13 @@ function convertUID($binary): string
 
 function getGroupById($id)
 {
-    return getGroups($id)->where('id', '=', $id)->values()[0]['name'];
+    return getGroups()->where('id', '=', $id)->values()[0]['name'];
 }
 
 function getTeacherById($id)
 {
     if ($id == "null") $id = null;
-    return getProfessors($id)->where('id', '=', $id)->values()[0]['name'];
+    return getProfessors()->where('id', '=', $id)->values()[0]['name'];
 }
 
 function convertDate($pattern, $date): string
@@ -191,31 +192,6 @@ function getLessonIndex($lesson): string
         preg_match_all('/(\d) *пара/ui', $lesson['Number'], $index);
         return $index[1][0];
     }
-}
-
-function getActiveMonth()
-{
-    return array_key_exists('month', $_GET) ? $_GET['month'] : date('m');
-}
-
-function getNextMonthLink(): string
-{
-    return http_build_query(array_merge($_GET, ['month' => getNextMonth()]));
-}
-
-function getNextMonth()
-{
-    return (getActiveMonth() + 1) >= 10 ? (getActiveMonth() + 1) : '0' . (getActiveMonth() + 1);
-}
-
-function getPreviousMonthLink(): string
-{
-    return http_build_query(array_merge($_GET, ['month' => getPreviousMonth()]));
-}
-
-function getPreviousMonth()
-{
-    return (getActiveMonth() - 1) >= 10 ? (getActiveMonth() - 1) : '0' . (getActiveMonth() - 1);
 }
 
 /**
