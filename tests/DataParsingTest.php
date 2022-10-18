@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-include 'functions.php';
+include_once __DIR__ . '/../functions.php';
 
 use PHPUnit\Framework\TestCase;
 
@@ -16,7 +16,7 @@ final class DataParsingTest extends TestCase
 
     public function testJsonFileSyntax(): void
     {
-        $fileName = "data/tmtFull.json";
+        $fileName = __DIR__ . "/../data/tmtFull.json";
         ini_set('memory_limit', '-1');
         $myfile = fopen($fileName, "r") or die("Unable to open file!");
         $file = fread($myfile, filesize($fileName));

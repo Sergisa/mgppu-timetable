@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
-include '../functions.php';
+include_once __DIR__ . '/../functions.php';
 
 use PHPUnit\Framework\TestCase;
 
-final class ParseTextTesting extends TestCase
+final class ParseTextTest extends TestCase
 {
     public function testGettingGroupYear(): void
     {
