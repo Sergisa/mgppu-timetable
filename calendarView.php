@@ -66,7 +66,7 @@ include 'functions.php';
     }
 
     const urlParams = getUrlParamsObject();
-    $.getJSON('getTimetable.php', urlParams).done(function (data) {
+    $.getJSON('api.php/getTimetable', urlParams).done(function (data) {
         console.log(data)
         window.lessonsTimetable = data
         generateGrid(

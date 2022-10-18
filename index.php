@@ -55,11 +55,11 @@
         return false;
     })
 
-    $.getJSON('getProfessors.php', function (data) {
+    $.getJSON('api.php/getProfessors', function (data) {
         professorSelector.fillData(data)
         professorSelector.setEnabled()
     })
-    $.getJSON('getGroups.php', function (data) {
+    $.getJSON('api.php/getGroups', function (data) {
         groupSelector.fillData(data)
         groupSelector.setEnabled()
     })

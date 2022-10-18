@@ -1,4 +1,4 @@
-DirectoryIndex index.php
-Redirect /getProfessors.php /api.php/getProfessors
-Redirect /getGroups.php /api.php/getGroups
-Redirect /getTimetable.php /api.php/getTimetable
+<IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin https://timetable.smrtp.ru
+    Header set Access-Control-Allow-Headers *
+</IfModule>
