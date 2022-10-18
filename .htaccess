@@ -2,3 +2,5 @@
     Header set Access-Control-Allow-Origin https://timetable.smrtp.ru
     Header set Access-Control-Allow-Headers *
 </IfModule>
+ErrorDocument 404 /404.html
+ErrorDocument 500 /500.html
