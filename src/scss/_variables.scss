@@ -56,13 +56,13 @@ $day-number-text-color: rgba(var(--bs-primary-rgb), .6);
 
 $lesson-calendar-delimiter-color: var(--bs-primary);
 $lesson-number-text-color: var(--bs-primary);
-$lesson-number-background-color: tint($secondary, 10%);//TODO: transform to var usage
+$lesson-number-background-color: tint($secondary, 10%); //TODO: transform to var usage
 $lesson-background-color: rgba(var(--bs-secondary-rgb), .4);
 
 /* RIGHT LESSON LIST */
-$lesson-delimiter-border-color: 2px solid transparentize(lighten($body-bg, 20%), .7);//TODO: transform to var usage
+$lesson-delimiter-border-color: 2px solid transparentize(lighten($body-bg, 20%), .7); //TODO: transform to var usage
 $lesson-list-line-threshold: 1.1rem;
-$lesson-list-lesson-inside-threshold: .6rem;
+$lesson-list-lesson-inside-threshold: 1rem;
 $lesson-list-lesson-padding-y: .8rem;
 
 $lesson-list-date-text-color: var(--bs-primary);

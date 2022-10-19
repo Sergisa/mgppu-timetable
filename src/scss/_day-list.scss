@@ -71,9 +71,6 @@
 
       .lesson-name {
         line-height: $lesson-list-line-threshold;
-        @include media-breakpoint-up(md) {
-          margin-bottom: $lesson-list-lesson-inside-threshold - .1;
-        }
         margin-bottom: $lesson-list-lesson-inside-threshold;
       }
 
