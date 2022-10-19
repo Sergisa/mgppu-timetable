@@ -56,3 +56,8 @@ function getActiveYear(): int
 {
     return array_key_exists('year', $_GET) ? (int)$_GET['year'] : (int)date('Y');
 }
+
+function convertDate($pattern, $date): string
+{
+    return date($pattern, strtotime($date));
+}

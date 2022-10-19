@@ -36,3 +36,17 @@ test("Переход на следующий день", () => {
     today = new Date(2022, 3, 30);
     expect(today.next()).toBe(null)
 })
+test("Выбор последнего дня", () => {
+    today = new Date(2022, 9, 19);
+    expect(today.lastDay()).toBe(31)
+    today = new Date(2022, 1, 1);
+    expect(today.lastDay()).toBe(28)
+    today = new Date(2020, 1, 1);
+    expect(today.lastDay()).toBe(29)
+})
+test("Название дня", () => {
+    today = new Date(2022, 9, 19);
+    expect(today.getDayName()).toBe('Среда')
+    today = new Date(2022, 9, 31);
+    expect(today.getDayName()).toBe('Понедельник')
+})

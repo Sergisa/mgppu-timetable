@@ -77,11 +77,6 @@ function getTeacherById($id)
     return getProfessors()->where('id', '=', $id)->values()[0]['name'];
 }
 
-function convertDate($pattern, $date): string
-{
-    return date($pattern, strtotime($date));
-}
-
 function getLessonSignature($lesson): string
 {
     return $lesson['Discipline'] . ' ';

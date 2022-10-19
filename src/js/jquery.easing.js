@@ -24,7 +24,7 @@
         $.easing['jswing'] = $.easing['swing'];
     }
 
-    var pow = Math.pow,
+    const pow = Math.pow,
         sqrt = Math.sqrt,
         sin = Math.sin,
         cos = Math.cos,
@@ -37,7 +37,7 @@
 
     // x is the fraction of animation progress, in the range 0..1
     function bounceOut(x) {
-        var n1 = 7.5625,
+        const n1 = 7.5625,
             d1 = 2.75;
         if (x < 1 / d1) {
             return n1 * x * x;
