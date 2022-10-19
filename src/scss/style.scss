@@ -19,21 +19,28 @@
 
 $form-check-input-width: $line-height-base;
 a {
-  text-decoration: none;
-
-  .bi {
-    color: var(--bs-accent);
-    cursor: pointer;
-    border-radius: 3px;
-    display: inline-flex;
-
-    &:hover {
-      filter: brightness(90%);
-    }
-  }
-
+  text-decoration: underline solid currentColor 1px;
+  text-underline-offset: 3px;
 }
 
-.subtitle {
-  white-space: nowrap;
+.month-title {
+  a {
+    text-decoration: none;
+
+    .bi {
+      color: var(--bs-accent);
+      cursor: pointer;
+      border-radius: 3px;
+      display: inline-flex;
+
+      &:hover {
+        filter: brightness(90%);
+      }
+    }
+
+  }
+
+  .subtitle {
+    white-space: nowrap;
+  }
 }
