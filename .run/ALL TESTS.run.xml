@@ -1,0 +1,7 @@
+<component name="ProjectRunConfigurationManager">
+    <configuration default="false" name="ALL TESTS" type="CompoundRunConfigurationType">
+        <toRun name="js-test" type="JavaScriptTestRunnerJest"/>
+        <toRun name="tests" type="PHPUnitRunConfigurationType"/>
+        <method v="2"/>
+    </configuration>
+</component>

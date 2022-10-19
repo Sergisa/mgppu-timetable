@@ -14,7 +14,9 @@
     "node-sass": "^7.0.1",
     "sass": "^1.51.0",
     "stylelint": "^14.8.1",
-    "stylelint-config-twbs-bootstrap": "^3.0.1"
+    "stylelint-config-twbs-bootstrap": "^3.0.1",
+    "@jest/globals": "^29.0.3",
+    "jest": "^28.1.0"
   },
   "scripts": {
     "compile": "npm run css-compile && npm run js-compile-bundle && npm run js-compile-separate",
@@ -22,9 +24,8 @@
     "css-watch": "sass src/scss/style.scss:dist/css/style.css --watch",
     "js-compile-bundle": "babel src/js/jquery.easing.js src/js/dateDriver.js src/js/bsBreakPointDriver.js src/js/dayList.js src/js/selection.js src/js/dayList.js src/js/calendar.js -o dist/js/bundle.js --minified",
     "js-compile-bundle-watch": "babel src/js/jquery.easing.js src/js/dateDriver.js src/js/bsBreakPointDriver.js src/js/dayList.js src/js/selection.js src/js/dayList.js src/js/calendar.js -o dist/js/bundle.js --watch",
-    "js-compile-separate": "babel src/js -d dist/js --minified",
-    "js-compile-separate-watch": "babel src/js -d dist/js --watch",
-    "sass-help": "sass --help"
+    "sass-help": "sass --help",
+    "test-js": "jest"
   },
   "repository": {
     "type": "git",
