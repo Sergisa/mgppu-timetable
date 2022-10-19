@@ -25,12 +25,10 @@ a {
     color: var(--bs-accent);
     cursor: pointer;
     border-radius: 3px;
-    padding: 0 .3rem;
     display: inline-flex;
 
     &:hover {
       filter: brightness(90%);
-      //color: darken($accent, 5%);
     }
   }
 
