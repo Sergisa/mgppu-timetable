@@ -11,18 +11,23 @@ $secondary: darken(#7399BD, 10%);
 $body-color: #1C477F;
  */
 
-
+$dropdown-bg: var(--bs-body-bg);
+$dropdown-border-color: $accent;
+$dropdown-link-color: $primary;
+$dropdown-link-hover-bg: darken($body-bg, 5%);
+$dropdown-link-active-bg: darken($body-bg, 5%);
+//$dropdown-link-hover-color:
 $list-group-bg: transparent;
 $list-group-color: unset;
 $list-group-border-color: var(--bs-primary);
 $list-group-active-color: var(--bs-primary);
-$list-group-active-bg: darken($body-bg, 5%);//TODO: transform to var usage
-$list-group-active-border-color: darken($body-bg, 10%);//TODO: transform to var usage
+$list-group-active-bg: darken($body-bg, 5%); //TODO: transform to var usage
+$list-group-active-border-color: darken($body-bg, 10%); //TODO: transform to var usage
 
 $scrollbar-thumb-color: var(--bs-secondary);
 $scrollbar-background-color: var(--bs-body-bg);
 
-$form-check-input-bg: shade($body-bg, 10%);//TODO: transform to var usage
+$form-check-input-bg: shade($body-bg, 10%); //TODO: transform to var usage
 $form-check-input-border: 2px solid rgba(var(--bs-accent-rgba), .5);
 
 $form-check-input-width: 1.3em;

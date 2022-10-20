@@ -15,10 +15,16 @@
   --bs-accent: #{$accent};
   --bs-dark: #1C477F;
   --bs-light: #DFEBFA;
+  --bs-font-sans-serif: 'Nunito'
 }
 
 $form-check-input-width: $line-height-base;
 a {
+  text-decoration: underline solid currentColor 1px;
+  text-underline-offset: 3px;
+}
+
+.btn-link {
   text-decoration: underline solid currentColor 1px;
   text-underline-offset: 3px;
 }
