@@ -76,6 +76,21 @@ include 'functions.php';
     }).fail(function (data) {
         console.info(data.responseText)
     })
+
+    function toggleLessonName(nameTag) {
+        const indexTag = $(nameTag).find('b');
+        if (indexTag.html() === nameTag.parentNode.dataset.index + ".") {
+            indexTag.html(nameTag.parentNode.dataset.range)
+        } else if (indexTag.html() === nameTag.parentNode.dataset.range) {
+            indexTag.html(nameTag.parentNode.dataset.index + ".")
+        }
+    }
+
+    $(document).ready(function () {
+        $('.lesson-name').click(function () {
+            toggleLessonName(this)
+        })
+    })
 </script>
 </html>
 

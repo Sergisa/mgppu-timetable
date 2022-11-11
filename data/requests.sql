@@ -91,6 +91,8 @@ SELECT Дисциплины._Description                                        
            CONVERT(VARCHAR, ТчРасписаниеЗвонков._Fld7102, 108))                                            AS TimeStart,
        IIF(ИтоговыйКонтроль._Description IS NOT NULL, CONVERT(VARCHAR, РегистрДисциплины._Fld7259, 108),
            CONVERT(VARCHAR, ТчРасписаниеЗвонков._Fld7103, 108))                                            AS TimeEnd,
+       SUBSTRING(CONVERT(VARCHAR, ТчРасписаниеЗвонков._Fld7102, 108), 0, 6) + '-' +
+       SUBSTRING(CONVERT(VARCHAR, ТчРасписаниеЗвонков._Fld7103, 108), 0, 6)                                AS TimeRange,
        РегистрДисциплины._Active                                                                           AS active,
        Здания._IDRRef                                                                                      AS BuildingID,
        УчебныеГруппы._IDRRef                                                                               AS GroupID,
@@ -128,12 +130,12 @@ FROM _InfoRg7081 AS РегистрДисциплины
          LEFT JOIN _Document7087 AS ДокРасписание ON РегистрДисциплины._RecorderRRef = ДокРасписание._IDRRef
 
 
-WHERE РегистрДисциплины._Fld7246RRef = :academicYearId
+WHERE РегистрДисциплины._Fld7246RRef = 0x80EC000C295831C111ECF777467EF0FF
     /*0x80EC000C295831C111ECF777467EF0FF 2022/2023*/
   --AND РегистрДисциплины._Fld7251RRef = :studentGroupId /* Учебная группа*/
   --AND CONVERT(VARCHAR(10), ДниПроведенияЗанятий._Fld7241, 104) = '29.03.2022'
-  AND Семестры._IDRRef = :semesterId
-
+  AND Семестры._IDRRef = 0x80C4000C299AE95511E6FFDE22A08A7E
+  AND CONVERT(VARCHAR(10), ДниПроведенияЗанятий._Fld7241, 104) LIKE '%.01.2023%'
   --AND Институты._Description = :departmentCode
   --AND Институты._Fld152 = :departmentCode
   --AND ВидыЗанятий._Fld7440 IS NULL

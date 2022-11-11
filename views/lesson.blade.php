@@ -1,6 +1,9 @@
-<div class='lesson {{$lessonClassList}}' data-index='{{$lessonIndex}}' data-time='{{$lesson['TimeStart']}}'>
+<div class='lesson {{$lessonClassList}}'
+     data-index='{{$lessonIndex}}'
+     data-time='{{$lesson['TimeStart']}}'
+     data-range='{{substr($lesson['TimeStart'],0,-3)}} - {{substr($lesson['TimeEnd'],0,-3)}}'>
     <div class='lesson-name'>
-        <b class='fw-bold'>{{$lessonIndex}}. </b>{{$lessonSign}}
+        <b class='fw-bold'>{{$lessonIndex}}.</b> {{$lessonSign}}
         ({{$lesson['Coords']['room']['index']}} каб.)
         @if (isSessionPart($lesson))
             ({{ $type }})
