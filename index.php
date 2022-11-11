@@ -28,9 +28,6 @@
             <span class="text-primary fs-5">Или и то и другое</span>
             <button class="btn btn-primary">Перейти к расписанию</button>
         </div>
-        <h5 class="mt-3 fw-lighter">Если у вас случились проблемы при использовании данного сайта можно написать
-            <a class="btn-link" href="https://github.com/Sergisa/mgppu-timetable/issues">сюда</a>
-        </h5>
     </form>
 </div>
 </body>
