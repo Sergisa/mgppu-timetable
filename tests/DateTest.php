@@ -42,7 +42,7 @@ final class DateTest extends TestCase
     /*******************MONTH**************************/
     function testActiveMonth()
     {
-        $this->assertEquals(10, getActiveMonth(), 'Активный месяц неверен');
+        $this->assertEquals((int)date('m'), getActiveMonth(), 'Активный месяц неверен');
         $_GET['month'] = 12;
         $this->assertEquals(12, getActiveMonth(), 'Активный месяц неверен');
         $_GET['month'] = 1;
@@ -55,7 +55,7 @@ final class DateTest extends TestCase
 
     function testNextMonth()
     {
-        $this->assertEquals(11, getNextMonth(), 'Следующий месяц неверен');
+        $this->assertEquals((int)date('m') + 1, getNextMonth(), 'Следующий месяц неверен');
         $_GET['month'] = 12;
         $this->assertSame('01', getNextMonth(), 'Следующий месяц неверен');
         $_GET['month'] = 10;
