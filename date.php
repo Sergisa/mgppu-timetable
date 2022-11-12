@@ -61,3 +61,17 @@ function convertDate($pattern, $date): string
 {
     return date($pattern, strtotime($date));
 }
+
+function getDayName($date): string
+{
+    $days = [
+        'Воскресенье',
+        'Понедельник',
+        'Вторник',
+        'Среда',
+        'Четверг',
+        'Пятница',
+        'Суббота'
+    ];
+    return date($days[(int)date('N', strtotime($date))]);
+}

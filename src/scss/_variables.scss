@@ -20,6 +20,7 @@ $dropdown-link-active-bg: darken($body-bg, 5%);
 $list-group-bg: transparent;
 $list-group-color: unset;
 $list-group-border-color: var(--bs-primary);
+$list-group-item-padding-y: 0.125rem;
 $list-group-active-color: var(--bs-primary);
 $list-group-active-bg: darken($body-bg, 5%); //TODO: transform to var usage
 $list-group-active-border-color: darken($body-bg, 10%); //TODO: transform to var usage
@@ -34,8 +35,10 @@ $form-check-input-width: 1.3em;
 $form-check-input-focus-border: $form-check-input-border;
 $form-check-input-focus-box-shadow: none;
 
-$form-check-input-checked-color: var(--bs-accent);
-$form-check-input-checked-bg-color: transparent;
+//$form-check-input-checked-bg-image:       url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><path fill='none' stroke='#{$form-check-input-checked-color}' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/></svg>") !default;
+$form-check-input-checked-color: $accent;
+$form-check-input-checked-bg-color: $form-check-input-bg;
+//$form-check-input-bg:$body-bg;
 $form-check-input-checked-border-color: var(--bs-accent);
 $form-check-input-active-filter: none;
 $form-check-input-checked-border-color: var(--bs-accent);
@@ -71,7 +74,7 @@ $lesson-list-lesson-inside-threshold: 1rem;
 $lesson-list-lesson-padding-y: .8rem;
 
 $lesson-list-date-text-color: var(--bs-primary);
-$lesson-list-date-background-color: rgba(var(--bs-secondary-rgb), .7);
+$lesson-list-date-background-color: var(--bs-secondary);
 $lesson-list-type-text-color: var(--bs-light);
 $lesson-list-type-background-color: none;
 $lesson-list-type-border: 2px solid #416FC8;
@@ -87,11 +90,11 @@ $lesson-name-text-weight: bold;
 $select-border: 2px solid var(--bs-accent);
 $select-text-color: var(--bs-accent);
 $select-background-color: var(--bs-body-bg);
-$select-hover-background-color: darken($body-bg, 3%);//TODO: transform to var usage
+$select-hover-background-color: darken($body-bg, 3%); //TODO: transform to var usage
 $select-search-border: 1px solid var(--bs-accent);
 $select-search-text-color: var(--bs-primary);
 $select-list-border: 2px solid var(--bs-accent);
 $select-list-text-color: var(--bs-primary);
 $select-list-background-color: var(--bs-body-bg);
-$select-list-item-hover-background-color: darken($body-bg, 7%);//TODO: transform to var usage
+$select-list-item-hover-background-color: darken($body-bg, 7%); //TODO: transform to var usage
 $select-list-loader-stroke-color: var(--bs-accent) transparent var(--bs-accent) transparent;

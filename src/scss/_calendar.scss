@@ -29,10 +29,10 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
     max-height: 87vh;
   }
   @include media-breakpoint-up(lg) {
-    max-height: 90vh;
+    max-height: 92vh;
   }
   @include media-breakpoint-up(xl) {
-    max-height: 90vh;
+    max-height: calc(100vh - 4.7rem);
   }
   @include scroll-bar();
 

@@ -9,9 +9,17 @@
             ({{ $type }})
         @endif
     </div>
-    @if (isTeacherDefined())
-        <div class='lesson-description'>{{$groupsSign}} {{$courseSign}} {{$type}} <br> {{$lessonAddress}}</div>
-    @elseif(isGroupDefined())
-        <div class='lesson-description'>{{$teacherSign}} {{$lessonAddress}} {{$type}}</div>
-    @endif
+    <div class='lesson-description'>
+        @if (isTeacherDefined())
+            {{$groupsSign}} {{$courseSign}} <br> {{$type}} <br> {{$lessonAddress}}
+        @elseif(isGroupDefined())
+            {{$teacherSign}} {{$lessonAddress}} {{$type}}
+        @endif
+        @if (isSessionPart($lesson))
+            <span class='type session me-1'>{{getLessonTypeSignature($lesson["finalCheckTypeID"])}}</span>
+        @else
+            <span class='type me-1'>{{getLessonTypeSignature($lesson["TypeID"])}}</span>
+        @endif
+    </div>
+
 </div>

@@ -1,14 +1,32 @@
 #listDays {
-  .list-group {
-    @include media-breakpoint-up(md) {
-      height: calc(100vh - (map-get($spacers, 2) * 2));
-    }
-
+  @include media-breakpoint-up(lg) {
     overflow-y: scroll;
     overflow-x: hidden;
+    height: calc(100vh - map-get($spacers, 2) * 2);
     @include scroll-bar();
+  }
 
+  .menu {
+    background-color: var(--bs-body-bg);
+    z-index: 10;
+    position: sticky;
+    top: 0;
+    @include padding(map-get($spacers, 2));
+  }
+
+  span.date {
+    font-weight: bold;
+    background-color: $lesson-list-date-background-color;
+    padding: 0 0.8em;
+    border-radius: 5px;
+    display: block;
+    word-spacing: map-get($spacers, 2);
+  }
+
+  .list-group {
     .list-group-item {
+      --bs-list-group-border-width: 0;
+      --bs-list-group-item-padding-y: 0rem;
       color: unset;
       font-weight: $lesson-name-text-weight;
       @include scroll-bar();
@@ -27,11 +45,11 @@
 
       .lesson {
         padding-bottom: $lesson-list-lesson-padding-y;
-        padding-top:    $lesson-list-lesson-padding-y;
-        border:         $lesson-delimiter-border-color;
-        border-left:    none;
-        border-right:   none;
-        border-top:     none;
+        padding-top: $lesson-list-lesson-padding-y;
+        border: $lesson-delimiter-border-color;
+        border-left: none;
+        border-right: none;
+        border-top: none;
 
         &:last-of-type {
           border-bottom: none;
@@ -39,39 +57,33 @@
 
         &.session {
           .lesson-description, .lesson-name {
-            text-decoration:         underline dotted currentColor 1px;
-            text-underline-offset:   3px;
+            text-decoration: underline dotted currentColor 1px;
+            text-underline-offset: 3px;
             text-underline-position: from-font;
           }
         }
       }
 
-      span.date {
-        font-weight:      bold;
-        background-color: $lesson-list-date-background-color;
-        padding:          0 0.8em;
-        border-radius:    5px;
-      }
-
       span.type {
-        font-weight:      bold;
-        color:            $lesson-list-type-text-color;
+        font-weight: bold;
+        color: $lesson-list-type-text-color;
         background-color: $lesson-list-type-background-color;
-        border:           $lesson-list-type-border;
-        padding:          0 .5em;
-        border-radius:    5px;
-        text-transform:   uppercase;
+        border: $lesson-list-type-border;
+        padding: .25em 0.5em;
+        border-radius: 5px;
+        text-transform: uppercase;
 
         &.session {
-          border:           $lesson-list-session-type-border;
-          color:            $lesson-list-session-type-text-color;
+          border: $lesson-list-session-type-border;
+          color: $lesson-list-session-type-text-color;
           background-color: $lesson-list-session-type-background-color;
         }
       }
 
       .lesson-name {
-        line-height:   $lesson-list-line-threshold;
+        line-height: $lesson-list-line-threshold;
         margin-bottom: $lesson-list-lesson-inside-threshold;
+        cursor: help;
       }
 
       .room {
@@ -80,13 +92,16 @@
 
       .lesson-index {
         font-weight: bold;
-        color:       var(--bs-light);
+        color: var(--bs-light);
       }
 
       .lesson-description {
         line-height: $lesson-list-line-threshold;
         font-weight: $lesson-description-text-weight;
-        color:       var(--bs-light);
+        color: var(--bs-light);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
       }
     }
   }
