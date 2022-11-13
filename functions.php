@@ -190,6 +190,12 @@ function getLessonIndex($lesson): string
 }
 
 /**
+ * Критерии слияния
+ *      dayDate
+ *      Group.id
+ *      DisciplineID
+ *      Coords.room.id
+ *      Number
  * @param Collection $timetable
  * @return Collection Возвращает расписание с объединёнными парами
  */
@@ -212,6 +218,16 @@ function joinParallelLessonsByGroup(Collection $timetable): Collection
     })->unique(function ($item) {
         return $item['dayDate'] . $item['Number'];
     });
+}
+
+/**
+ * @param bool $forMonth Вернуть данные на конкретный месяц
+ * @return Collection Возвращает расписание полное или на месяц, с иерархической свёрткой
+ */
+function getTimetable(bool $forMonth = false): Collection
+{
+    $timetable = getDatabaseData($forMonth);
+    return collapseDataHierarchically($timetable); //FIXME: Общая психология пропала для преподавателя
 }
 
 /**
@@ -293,35 +309,31 @@ function collapseDataHierarchically(Collection $timetable): Collection
 }
 
 /**
- * @param bool $forMonth Вернуть данные на конкретный месяц
- * @return Collection Возвращает расписание полное или на месяц, с иерархической свёрткой
- */
-function getTimetable(bool $forMonth = false): Collection
-{
-    $timetable = getDatabaseData($forMonth);
-    return collapseDataHierarchically($timetable); //FIXME: Общая психология пропала для преподавателя
-}
-
-/**
  * @return Collection Возвращает блок расписания на месяц с объединёнными одновременными парами
  */
-function getPreparedTimetable(): Collection
+function getPreparedTimetable($joining = true): Collection
 {
-    return joinParallelLessonsByGroup(getTimetable(true)
-        ->filter(function ($lesson) {
-            return !array_key_exists('group', $_GET) || ($lesson['Group']['id'] == $_GET['group']);
-        })
-        ->filter(function ($lesson) {
-            if (array_key_exists('professor', $_GET)) {
-                return ($lesson['Teacher']['id'] == (($_GET['professor'] == "null") ? null : $_GET['professor']));
-            } elseif (array_key_exists('building', $_GET)) {
-                return ($lesson['Coords']['building']['id'] == $_GET['building']);
-            } else {
-                return true;
-            }
-        }))
-        ->sortBy(['Number'])
-        ->sortByDate('dayDate');
+    $requestFiltratedTimeTable = getTimetable(true)->filter(function ($lesson) {
+        return !array_key_exists('group', $_GET) || ($lesson['Group']['id'] == $_GET['group']);
+    })->filter(function ($lesson) {
+        if (array_key_exists('professor', $_GET)) {
+            return ($lesson['Teacher']['id'] == (($_GET['professor'] == "null") ? null : $_GET['professor']));
+        } elseif (array_key_exists('building', $_GET)) {
+            return ($lesson['Coords']['building']['id'] == $_GET['building']);
+        } else {
+            return true;
+        }
+    });
+    if ($joining) {
+        return joinParallelLessonsByGroup($requestFiltratedTimeTable)
+            ->sortBy(['Number'])
+            ->sortByDate('dayDate');
+    } else {
+        return $requestFiltratedTimeTable
+            ->sortBy(['Number'])
+            ->sortByDate('dayDate');
+    }
+
 }
 
 function getBlade(): BladeOne

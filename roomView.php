@@ -21,7 +21,7 @@ include 'functions.php';
 <?php
 try {
     echo getBlade()->run("calendarRoomsPage", [
-        "timetable" => getPreparedTimetable()->groupBy('dayDate')->map(function ($item, $key) {
+        "timetable" => getPreparedTimetable(false)->groupBy('dayDate')->map(function ($item, $key) {
             //TODO: отменить слияние одновременных пар для этой выборки
             return collect($item)->groupBy('Number');
         }),
