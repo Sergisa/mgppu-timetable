@@ -292,8 +292,8 @@ function getPreparedTimetable(): Collection
         ->filter(function ($lesson) {
             if (array_key_exists('professor', $_GET)) {
                 return ($lesson['Teacher']['id'] == (($_GET['professor'] == "null") ? null : $_GET['professor']));
-            } elseif (!array_key_exists('group', $_GET)) {
-                return ($lesson['Teacher']['name'] == "Исаков Сергей Сергеевич");
+            } elseif (array_key_exists('building', $_GET)) {
+                return ($lesson['Coords']['building']['id'] == $_GET['building']);
             } else {
                 return true;
             }
