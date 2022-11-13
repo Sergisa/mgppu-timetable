@@ -191,7 +191,7 @@ function getLessonIndex($lesson): string
 
 /**
  * @param Collection $timetable
- * @return Collection возвращает раписание с объеденёнными парами
+ * @return Collection Возвращает расписание с объединёнными парами
  */
 function joinParallelLessonsByGroup(Collection $timetable): Collection
 {
@@ -215,8 +215,30 @@ function joinParallelLessonsByGroup(Collection $timetable): Collection
 }
 
 /**
- * @param $timetable Collection чистые данные рапсисания
- * @return Collection возвращает иерархическую свертку расписания
+ * Иерархия следующая: <br>
+ *      Coords
+ *           ----building
+ *               ----id
+ *               ----name
+ *           ----floor
+ *               ----id
+ *               ----name
+ *           ----room
+ *               ----id
+ *               ----index
+ *      Teacher
+ *           ----id
+ *           ----name
+ *      Group
+ *           ----id
+ *           ----name
+ *      Department
+ *           ----id
+ *           ----name
+ *           ----code
+ *
+ * @param $timetable Collection Чистые данные расписания
+ * @return Collection Возвращает иерархическую свертку расписания
  */
 function collapseDataHierarchically(Collection $timetable): Collection
 {
@@ -272,16 +294,16 @@ function collapseDataHierarchically(Collection $timetable): Collection
 
 /**
  * @param bool $forMonth Вернуть данные на конкретный месяц
- * @return Collection возвращает распиание полное или на месяц
+ * @return Collection Возвращает расписание полное или на месяц, с иерархической свёрткой
  */
 function getTimetable(bool $forMonth = false): Collection
 {
     $timetable = getDatabaseData($forMonth);
-    return collapseDataHierarchically($timetable); //FIXME: Общая психология пропала для препода
+    return collapseDataHierarchically($timetable); //FIXME: Общая психология пропала для преподавателя
 }
 
 /**
- * @return Collection возвращает блок расписания на месяц
+ * @return Collection Возвращает блок расписания на месяц с объединёнными одновременными парами
  */
 function getPreparedTimetable(): Collection
 {

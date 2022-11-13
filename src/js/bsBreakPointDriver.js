@@ -13,7 +13,7 @@ const breakpointsDown = {
     xl: 1199.98,
     xxl: 1399.98
 }
-
+const breakPointsSequence = ['sm', 'md', 'lg', 'xl', 'xxl']
 
 function changedBreakPoint(x) {
     if (x.matches) {
@@ -34,3 +34,33 @@ function breakPointEnabledDown(breakPoint) {
 const x = window.matchMedia(`(max-width: ${breakpointsUp.md}px)`)
 x.addEventListener('change', changedBreakPoint)
 changedBreakPoint(x)
+
+function getBreakPoint() {
+    for (const key of Object.keys(breakpointsUp).reverse()) {
+        if (breakPointEnabledDown(breakpointsUp[key])) {
+            return key
+        }
+    }
+}
+
+function reportBreakPointDOWN() {
+    return {
+        xs: breakPointEnabledDown(breakpointsUp.xs),
+        sm: breakPointEnabledDown(breakpointsUp.sm),
+        md: breakPointEnabledDown(breakpointsUp.md),
+        lg: breakPointEnabledDown(breakpointsUp.lg),
+        xl: breakPointEnabledDown(breakpointsUp.xl),
+        xxl: breakPointEnabledDown(breakpointsUp.xxl)
+    }
+}
+
+function reportBreakPointUP() {
+    return {
+        xs: breakPointEnabledUp(breakpointsUp.xs),
+        sm: breakPointEnabledUp(breakpointsUp.sm),
+        md: breakPointEnabledUp(breakpointsUp.md),
+        lg: breakPointEnabledUp(breakpointsUp.lg),
+        xl: breakPointEnabledUp(breakpointsUp.xl),
+        xxl: breakPointEnabledUp(breakpointsUp.xxl)
+    }
+}

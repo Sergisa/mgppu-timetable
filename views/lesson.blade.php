@@ -13,7 +13,7 @@
         @if (isTeacherDefined())
             {{$groupsSign}} {{$courseSign}} <br> {{$type}} <br> {{$lessonAddress}}
         @elseif(isGroupDefined())
-            {{$teacherSign}} {{$lessonAddress}} {{$type}}
+            {{$teacherSign}} {{$type}}<br>{{$lessonAddress}}
         @endif
         @if (isSessionPart($lesson))
             <span class='type session me-1'>{{getLessonTypeSignature($lesson["finalCheckTypeID"])}}</span>
