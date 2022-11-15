@@ -12,7 +12,7 @@ function scrollToDate(accentDate) {
     const animateFn = 'easeOutCubic';
     const animateTime = 1000;
     if ($dayLiBlock.length > 0) {
-        if (breakPointEnabledUp(breakpointsUp.sm)) {
+        if (breakPointEnabledUp(breakpointsUp.md)) {
             $('html,body').animate({
                 scrollTop: $dayLiBlock.parent().prev('.date').position().top - $('.menu').outerHeight()
             }, animateTime, animateFn);
