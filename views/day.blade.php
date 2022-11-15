@@ -1,4 +1,4 @@
-<span class='date me-1'>{{ convertDate('d.m', $date) }} {{ getDayName($date) }}</span>
+<span class='date'>{{ convertDate('d.m', $date) }} {{ getDayName($date) }}</span>
 <ul class="list-group list-group-flush bg-opacity-100">
     <li class='list-group-item' data-date='{{$date}}'>
         @foreach ($lessons as $lesson)
