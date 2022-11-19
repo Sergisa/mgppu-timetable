@@ -16,9 +16,9 @@
             {{$teacherSign}} {{$type}}<br>{{$lessonAddress}}
         @endif
         @if (isSessionPart($lesson))
-            <span class='type session me-1'>{{getLessonTypeSignature($lesson["finalCheckTypeID"])}}</span>
+            <span class='type-label session' title="{{$type}}">{{getLessonTypeSignature($lesson["finalCheckTypeID"])}}</span>
         @else
-            <span class='type me-1'>{{getLessonTypeSignature($lesson["TypeID"])}}</span>
+            <span class='type-label' title="{{$type}}">{{getLessonTypeSignature($lesson["TypeID"])}}</span>
         @endif
     </div>
 
