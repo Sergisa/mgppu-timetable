@@ -76,14 +76,15 @@ function generateDaysLine(currentDate) {
  *
  * @param container
  * @param month{number}
- * @param year
+ * @param defaultYear
  */
-function generateGrid(container, month, year = undefined) {
+function generateGrid(container, month, defaultYear = undefined) {
+    const currentYear = (new Date()).getFullYear()
     if (lessonsTimetable.length === 0) {
         container.append(`<h2 class="text-primary text-center mt-4">Нет пар</h2>`)
     } else {
         const monthGrid = container.append(generateHeaderLine())
-        let currentDate = new Date(year ?? 2022, month, 1)
+        let currentDate = new Date(defaultYear ?? currentYear, month, 1)
         const $dayGrid = $(`<div class="day-grid"></div>`).appendTo(monthGrid)
         while (true) {
             $dayGrid.append(generateDaysLine(currentDate))

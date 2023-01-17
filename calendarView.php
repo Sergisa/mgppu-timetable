@@ -46,7 +46,7 @@ try {
 
     const urlParams = getUrlParamsObject();
     $.getJSON('api.php/getTimetable', urlParams).done(function (data) {
-        console.log(data)
+        console.log("Расписание", data)
         window.lessonsTimetable = data
         generateGrid(
             $('#monthGrid').removeClass('loading'),

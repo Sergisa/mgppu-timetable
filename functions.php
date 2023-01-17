@@ -93,6 +93,7 @@ function getLessonType($typeID): object
         '0x80C7000C295831B711E83288B4B42A35' => ['full' => 'Консультация', 'shorthand' => 'Конс.'],
         '0x878C000C292E7CB311E38348920B4849' => ['full' => 'Экзамен', 'shorthand' => 'Экз.'],
         '0x878C000C292E7CB311E38348920B4848' => ['full' => 'Зачет с оценкой', 'shorthand' => 'З/О'],
+        '0x80C7000C295831B711E825C13399551C' => ['full' => 'Контрольная работа', 'shorthand' => 'Кр.'],
     ];
     return (object)$types[$typeID];
 }
