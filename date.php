@@ -13,6 +13,16 @@ function getActiveMonth(): int|string
     return convertNum(array_key_exists('month', $_GET) ? (int)$_GET['month'] : (int)date('m'));
 }
 
+function getActiveDayMonth(): int|string
+{
+    return convertNum(array_key_exists('day', $_GET) ? (int)$_GET['day'] : (int)date('d.M'));
+}
+
+function getActiveDay(): int|string
+{
+    return convertNum(array_key_exists('day', $_GET) ? (int)$_GET['day'] : (int)date('d'));
+}
+
 function getNextMonthLink(): string
 {
     return http_build_query(array_merge(
