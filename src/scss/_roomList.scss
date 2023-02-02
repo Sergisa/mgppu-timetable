@@ -1,0 +1,163 @@
+$days-count: 6;
+$col-per-screen-sm: 3.5;
+$col-per-screen-lg: 6;
+$day-horizontal-margin: 3px;
+$line-width-sm: calc(100% * ($days-count / $col-per-screen-sm));
+$line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
+.room-list {
+  align-items: flex-start;
+  justify-content: space-between;
+  overflow-wrap: break-word;
+  overflow-x: auto;
+  overflow-y: auto;
+  position: relative;
+
+  &.loading:after {
+    content: "";
+    display: block;
+    width: 40px;
+    height: 40px;
+    margin: .5rem auto;
+    border-radius: 50%;
+    border-width: 2px;
+    border-style: solid;
+    border-color: $loader-stroke-color;
+    animation: lds-dual-ring 1.2s linear infinite;
+  }
+
+  @include media-breakpoint-up(md) {
+    max-height: 87vh;
+  }
+  @include media-breakpoint-up(lg) {
+    max-height: 91vh;
+  }
+  @include media-breakpoint-up(xl) {
+    max-height: calc(100vh - 4.7rem);
+  }
+  @include scroll-bar();
+
+  .header {
+    padding: map-get($spacers, 2) 0;
+    display: flex;
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    background: $header-background;
+    backdrop-filter: blur(2px);
+    @include media-breakpoint-up(xs) {
+      width: $line-width-sm;
+    }
+    @include media-breakpoint-up(md) {
+      width: $line-width-lg;
+    }
+
+    span {
+      text-align: center;
+      justify-content: center;
+      display: flex;
+      min-width: calc(100% / $days-count);
+      word-break: break-all;
+    }
+  }
+
+  .day-lines-container {
+    flex-wrap: nowrap;
+    flex-direction: column;
+    @include media-breakpoint-up(xs) {
+      width: $line-width-sm;
+    }
+    @include media-breakpoint-up(md) {
+      width: $line-width-lg
+    }
+
+    display: flex;
+
+    &:first-of-type {
+      justify-content: end;
+    }
+
+    &:last-child {
+      justify-content: start;
+    }
+
+    .day-wrapper {
+      margin-bottom: map-get($spacers, 2);
+      position: relative;
+      cursor: pointer;
+      padding: 0 $day-horizontal-margin;
+
+      .day {
+        border-radius: 3px;
+        border: $day-border;
+        background-color: $day-background;
+        min-height: 50px;
+        height: 100%;
+
+        &:before {
+          content: attr(data-day-number);
+          height: 100%;
+          display: flex;
+          font-weight: 800;
+          color: $day-number-text-color;
+          font-size: x-large;
+          margin-left: map-get($spacers, 1);
+        }
+
+        .lesson {
+          width: 100%;
+          min-height: 28px;
+          padding: 3px 0;
+          text-align: center;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin: 0;
+          border-radius: 0;
+          border-bottom-width: 0;
+          border-top-width: 1px;
+          border-left-width: 0;
+          border-right-width: 0;
+          border-style: dashed;
+          word-break: break-all;
+          height: 100%;
+          line-height: .9rem;
+
+          &.empty:before {
+            display: none;
+          }
+
+          &:first-of-type {
+            border-top: none;
+          }
+
+          &[data-lesson-index="6"] {
+            border-top-style: solid;
+            border-top-color: $lesson-calendar-delimiter-color;
+            border-top-width: 2px;
+          }
+
+          &:before {
+            color: $lesson-number-text-color;
+            content: attr(data-lesson-index);
+            background: $lesson-number-background-color;
+            @include padding-left(map-get($spacers, 2));
+            @include padding-right(map-get($spacers, 2));
+            height: calc(100%);
+            display: flex;
+            align-items: center;
+          }
+
+          span { /*lesson label itself*/
+            width: 100%;
+            background-color: $lesson-background-color;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+        }
+      }
+    }
+  }
+}

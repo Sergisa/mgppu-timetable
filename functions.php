@@ -49,9 +49,9 @@ function getPDO(): PDO
 
 function getDatabaseData($forMonth = false): Collection
 {
-    $month = "." . getActiveMonth() . "." . getActiveYear();
+    $monthYear = "." . getActiveMonth() . "." . getActiveYear();
     if ($forMonth) {
-        return collect(getPDO()->query("SELECT * FROM timetable WHERE dayDate LIKE '%$month%'")->fetchAll(PDO::FETCH_ASSOC));
+        return collect(getPDO()->query("SELECT * FROM timetable WHERE dayDate LIKE '%$monthYear%'")->fetchAll(PDO::FETCH_ASSOC));
     } else {
         return collect(getPDO()->query("SELECT * FROM timetable")->fetchAll(PDO::FETCH_ASSOC));
     }
@@ -324,17 +324,15 @@ function getPreparedTimetable(): Collection
     return joinParallelLessonsByGroup(getTimetable(true)
         ->filter(function ($lesson) {
             return !array_key_exists('group', $_GET) || ($lesson['Group']['id'] == $_GET['group']);
-        })
-        ->filter(function ($lesson) {
+        })->filter(function ($lesson) {
+            return !array_key_exists('building', $_GET) || ($lesson['Coords']['building']['id'] == $_GET['building']);
+        })->filter(function ($lesson) {
             if (array_key_exists('professor', $_GET)) {
                 return ($lesson['Teacher']['id'] == (($_GET['professor'] == "null") ? null : $_GET['professor']));
-            } elseif (!array_key_exists('group', $_GET)) {
-                return ($lesson['Teacher']['name'] == "Исаков Сергей Сергеевич");
             } else {
                 return true;
             }
-        }))
-        ->sortBy(['Number'])
+        }))->sortBy(['Number'])
         ->sortByDate('dayDate');
 }
 

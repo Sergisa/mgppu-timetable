@@ -27,8 +27,8 @@ try {
 }
 ?>
 </body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="dist/js/jquery.min.js"></script>
+<script src="dist/js/bootstrap.bundle.min.js"></script>
 <script src="dist/js/bundle.js"></script>
 <script>
     $(document).on('ready', function () {
@@ -47,13 +47,14 @@ try {
     const urlParams = getUrlParamsObject();
     $.getJSON('api.php/getRoomDistribute', urlParams).done(function (data) {
         console.log("Расписание", data)
+        console.log("Дата", parseInt(urlParams.year))
         window.lessonsTimetable = data
-        generateGrid(
-            $('#monthGrid').removeClass('loading'),
+        generateLines(
+            $('#roomsGrid').removeClass('loading'),
             (urlParams.month !== undefined) ? parseInt(urlParams.month) - 1 : new Date().getMonth(),
-            urlParams.year
+            (urlParams.year !== undefined) ? parseInt(urlParams.year) : new Date().getFullYear(),
         );
-        $('#monthGrid .day').on('click', function () {
+        $('#roomsGrid .day').on('click', function () {
             console.log(this.dataset.date)
             scrollToDate(this.dataset.date)
         })

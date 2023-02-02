@@ -2,6 +2,13 @@ const dayLinePattern = $(`<div class="dayLine"></div>`);
 const dayPattern = $(`<div class="day list-group"></div>`)
 const headerPattern = $(`<div class="header"></div>`);
 
+Array.prototype.unique = function(key){
+    return [ ...new Map(this.map(item => [ item[key], item ])).values() ]
+}
+function getUniqueListBy(arr, key) {
+
+}
+
 /**
  *
  * @param date {Date}
@@ -9,7 +16,7 @@ const headerPattern = $(`<div class="header"></div>`);
  * @param isMagistracy
  * @returns {*|jQuery|HTMLElement}
  */
-function generateDay(date, lessons, isMagistracy = false) {
+function generateDayRooms(date, lessons, isMagistracy = false) {
     const $lessonPattern = $(`<div class="lesson list-group-item"></div>`)
     const dayView = dayPattern.clone()
     dayView.attr({
@@ -20,10 +27,22 @@ function generateDay(date, lessons, isMagistracy = false) {
     })
     if (lessons !== undefined) {
         for (let i = 1; i <= (isMagistracy ? 7 : 5); i++) {
-            const lesson = lessons.find((lesson) => lesson.Number === `${i} пара`);
-            if (lesson) {
-                if (lesson.Coords.room.index.toLowerCase() === "спортивный зал") lesson.Coords.room.index = 'спорт. зал'
-                $lessonPattern.clone().html(`<span>${lesson.Coords.room.index}</span>`).attr("data-lesson-index", i).appendTo(dayView)
+            const disciplinesForCurrentLessonNum = lessons
+                .filter((lesson) => lesson.Number === `${i} пара`)
+                .sort(function (lesson1, lesson2) {
+                    return (lesson1.Coords.room.index > lesson2.Coords.room.index) ? 1 : -1
+                })
+            if (disciplinesForCurrentLessonNum) {
+                const currentLesson = $lessonPattern.clone().attr("data-lesson-index", i)
+                if (Array.isArray(disciplinesForCurrentLessonNum)) {
+                    for (const lesson of disciplinesForCurrentLessonNum) {
+                        if (lesson.Coords.room.index.toLowerCase() === "спортивный зал") lesson.Coords.room.index = 'спорт. зал'
+                        currentLesson.append(`<span>${lesson.Coords.room.index}</span>`).appendTo(dayView)
+                    }
+                } else {
+                    if (disciplinesForCurrentLessonNum.Coords.room.index.toLowerCase() === "спортивный зал") disciplinesForCurrentLessonNum.Coords.room.index = 'спорт. зал'
+                    currentLesson.append(`<span>${disciplinesForCurrentLessonNum.Coords.room.index}</span>`).appendTo(dayView)
+                }
             } else {
                 dayView.append($lessonPattern.clone().attr("data-lesson-index", i).addClass('empty'))
             }
@@ -35,26 +54,13 @@ function generateDay(date, lessons, isMagistracy = false) {
 /**
  *
  * @returns {*|jQuery|HTMLElement}
- */
-function generateHeaderLine() {
-    let headerVew = headerPattern.clone()
-    for (let day of calendarWeekDays) {
-        headerVew.append(`<span>${day}</span>`)
-    }
-    return headerVew
-}
-
-/**
- *
- * @returns {*|jQuery|HTMLElement}
  * @param currentDate
  */
-function generateDaysLine(currentDate) {
-    const monthLineView = dayLinePattern.clone()
-
+function generateDayLines(currentDate) {
+    const dayLines = $(`<div class="day-lines-container"></div>`)
     while (true) {
         if (currentDate.getDayName() !== 'Воскресенье') {
-            monthLineView.append(generateDay(
+            dayLines.append(generateDayRooms(
                 currentDate,
                 lessonsTimetable.filter((lesson) => lesson.dayDate === currentDate.toLocaleDateString()),
                 lessonsTimetable.filter((lesson) => {
@@ -63,30 +69,25 @@ function generateDaysLine(currentDate) {
             ))
         }
         if (currentDate.hasNextInMonth()) {
-            if (currentDate.hasNextInWeek()) currentDate.next()
-            else break
+            currentDate.next()
         } else {
             break
         }
     }
-    return monthLineView
+    return dayLines
 }
 
 /**
  *
  * @param container
  * @param month{number}
- * @param defaultYear
+ * @param year
  */
-function generateGrid(container, month, defaultYear = undefined) {
-    const currentYear = (new Date()).getFullYear()
+function generateLines(container, month, year) {
     if (lessonsTimetable.length === 0) {
         container.append(`<h2 class="text-primary text-center mt-4">Нет пар</h2>`)
     } else {
-        const monthGrid = container.append(generateHeaderLine())
-        let currentDate = new Date(defaultYear ?? currentYear, month, 1)
-        const $dayGrid = $(`<div class="day-grid"></div>`).appendTo(monthGrid)
-
-
+        let currentDate = new Date(year, month, 1)
+        container.append(generateDayLines(currentDate))
     }
 }

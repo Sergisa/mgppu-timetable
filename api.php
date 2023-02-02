@@ -12,7 +12,9 @@ try {
     } else if (end($route) === 'getTimetable') {
         echo getPreparedTimetable()->values()->toJson(JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_INVALID_UTF8_IGNORE);
     } else if (end($route) === 'getRoomDistribute') {
-        echo getPreparedTimetable()->values()->toJson(JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_INVALID_UTF8_IGNORE);
+        echo getPreparedTimetable()
+            ->values()
+            ->toJson(JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_INVALID_UTF8_IGNORE);
     }
 } catch (PDOException $e) {
     die($e->getMessage());
