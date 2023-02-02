@@ -224,7 +224,7 @@ function joinParallelLessonsByGroup(Collection $timetable): Collection
         }
         return $lesson;
     })->unique(function ($item) {
-        return $item['dayDate'] . $item['Number'];
+        return $item['dayDate'] . $item['Number'] . $item['Coords']['room']['id'] . $item['DisciplineID'];
     });
 }
 
