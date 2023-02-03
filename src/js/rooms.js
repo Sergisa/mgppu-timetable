@@ -2,13 +2,6 @@ const dayLinePattern = $(`<div class="dayLine"></div>`);
 const dayPattern = $(`<div class="day list-group"></div>`)
 const headerPattern = $(`<div class="header"></div>`);
 
-Array.prototype.unique = function(key){
-    return [ ...new Map(this.map(item => [ item[key], item ])).values() ]
-}
-function getUniqueListBy(arr, key) {
-
-}
-
 /**
  *
  * @param date {Date}
@@ -32,16 +25,13 @@ function generateDayRooms(date, lessons, isMagistracy = false) {
                 .sort(function (lesson1, lesson2) {
                     return (lesson1.Coords.room.index > lesson2.Coords.room.index) ? 1 : -1
                 })
+            // console.log(`FILTERED ${i} ${date.toLocaleDateString()}`, disciplinesForCurrentLessonNum)
             if (disciplinesForCurrentLessonNum) {
                 const currentLesson = $lessonPattern.clone().attr("data-lesson-index", i)
-                if (Array.isArray(disciplinesForCurrentLessonNum)) {
-                    for (const lesson of disciplinesForCurrentLessonNum) {
-                        if (lesson.Coords.room.index.toLowerCase() === "спортивный зал") lesson.Coords.room.index = 'спорт. зал'
-                        currentLesson.append(`<span>${lesson.Coords.room.index}</span>`).appendTo(dayView)
-                    }
-                } else {
-                    if (disciplinesForCurrentLessonNum.Coords.room.index.toLowerCase() === "спортивный зал") disciplinesForCurrentLessonNum.Coords.room.index = 'спорт. зал'
-                    currentLesson.append(`<span>${disciplinesForCurrentLessonNum.Coords.room.index}</span>`).appendTo(dayView)
+
+                for (const lesson of _(disciplinesForCurrentLessonNum).uniqBy('Coords.room.index')) {
+                    if (lesson.Coords.room.index.toLowerCase() === "спортивный зал") lesson.Coords.room.index = 'спорт. зал'
+                    currentLesson.append(`<span>${lesson.Coords.room.index}</span>`).appendTo(dayView)
                 }
             } else {
                 dayView.append($lessonPattern.clone().attr("data-lesson-index", i).addClass('empty'))

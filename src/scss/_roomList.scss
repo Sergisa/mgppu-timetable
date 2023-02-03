@@ -64,12 +64,6 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
   .day-lines-container {
     flex-wrap: nowrap;
     flex-direction: column;
-    @include media-breakpoint-up(xs) {
-      width: $line-width-sm;
-    }
-    @include media-breakpoint-up(md) {
-      width: $line-width-lg
-    }
 
     display: flex;
 
@@ -111,7 +105,7 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
           text-align: center;
           display: flex;
           align-items: center;
-          justify-content: center;
+          justify-content: start;
           margin: 0;
           border-radius: 0;
           border-bottom-width: 0;
@@ -122,6 +116,7 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
           word-break: break-all;
           height: 100%;
           line-height: .9rem;
+          flex-wrap: wrap;
 
           &.empty:before {
             display: none;
@@ -143,13 +138,14 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
             background: $lesson-number-background-color;
             @include padding-left(map-get($spacers, 2));
             @include padding-right(map-get($spacers, 2));
-            height: calc(100%);
             display: flex;
             align-items: center;
+            align-self: stretch;
           }
 
           span { /*lesson label itself*/
-            width: 100%;
+            margin: auto .8rem;
+            white-space: nowrap;
             background-color: $lesson-background-color;
             height: 100%;
             display: flex;

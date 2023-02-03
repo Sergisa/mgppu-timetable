@@ -73,6 +73,14 @@ function getProfessors(): Collection
     );
 }
 
+function getBuildings(): Collection
+{
+    return collect(getPDO()
+        ->query("SELECT DISTINCT Building AS name, CONCAT('0x', HEX(BuildingID)) AS id FROM timetable ORDER BY Building")
+        ->fetchAll(PDO::FETCH_ASSOC)
+    );
+}
+
 function convertUID($binary): string
 {
     if ($binary == null) return '';

@@ -30,6 +30,19 @@
         </div>
     </form>
 </div>
+<div class="row mt-5">
+    <form action="rooms.php" class="col-md-4 col-xs-12 mx-auto">
+        <h4 class="text-primary">Выберите строение</h4>
+        <div class="mb-3 col-12">
+            <label for="building-select" class="text-light">Строение</label>
+            <select name="building" id="building-select" class="d-none"></select>
+        </div>
+        <div class="d-flex justify-content-between align-items-center">
+            <span class="text-primary fs-5">Или и то и другое</span>
+            <button class="btn btn-primary">Перейти к списку комнат</button>
+        </div>
+    </form>
+</div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -41,6 +54,7 @@
     }
     const groupSelector = Selector.generate(document.getElementById('group-select'), config)
     const professorSelector = Selector.generate(document.getElementById('professor-select'), config)
+    const buildingSelector = Selector.generate(document.getElementById('building-select'), config)
     groupSelector.setOnItemClicked(function (data, object) {
         console.log("GROUP ON ITEM CLICKED", data, groupSelector.getSelection(), object)
         return false;
@@ -53,6 +67,10 @@
     $.getJSON('api.php/getProfessors', function (data) {
         professorSelector.fillData(data)
         professorSelector.setEnabled()
+    })
+    $.getJSON('api.php/getBuildings', function (data) {
+        buildingSelector.fillData(data)
+        buildingSelector.setEnabled()
     })
     $.getJSON('api.php/getGroups', function (data) {
         groupSelector.fillData(data)
