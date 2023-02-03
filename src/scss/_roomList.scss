@@ -11,6 +11,7 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
   overflow-x: auto;
   overflow-y: auto;
   position: relative;
+  height: calc(100vh - 57px - 1.5rem);
 
   &.loading:after {
     content: "";
@@ -116,7 +117,6 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
           word-break: break-all;
           height: 100%;
           line-height: .9rem;
-          flex-wrap: wrap;
 
           &.empty:before {
             display: none;
@@ -143,14 +143,22 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
             align-self: stretch;
           }
 
-          span { /*lesson label itself*/
-            margin: auto .8rem;
-            white-space: nowrap;
-            background-color: $lesson-background-color;
-            height: 100%;
+          .lesson-rooms-wrapper {
             display: flex;
-            align-items: center;
-            justify-content: center;
+            align-items: start;
+            justify-content: start;
+            flex-wrap: wrap;
+
+            span { /*lesson label itself*/
+              margin: auto .8rem;
+              white-space: nowrap;
+              background-color: $lesson-background-color;
+              height: 100%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              line-height: 1.2rem;
+            }
           }
         }
       }

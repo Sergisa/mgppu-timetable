@@ -1,6 +1,22 @@
 const dayLinePattern = $(`<div class="dayLine"></div>`);
 const dayPattern = $(`<div class="day list-group"></div>`)
 const headerPattern = $(`<div class="header"></div>`);
+const $lessonPattern = $(`<div class="lesson list-group-item"></div>`)
+const $lessonRoomsWrapper = $(`<div class="lesson-rooms-wrapper"></div>`)
+
+function generateLesson(lessons, index) {
+    const lessonView = $lessonPattern.clone().attr("data-lesson-index", index)
+    lessonView.append($lessonRoomsWrapper.clone())
+    if (lessons.length > 0) {
+        for (const lesson of _(lessons).uniqBy('Coords.room.index')) {
+            if (lesson.Coords.room.index.toLowerCase() === "спортивный зал") lesson.Coords.room.index = 'спорт. зал'
+            lessonView.find('.lesson-rooms-wrapper').append(`<span>${lesson.Coords.room.index}</span>`)
+        }
+    } else {
+        lessonView.attr("data-lesson-index", index).addClass('empty')
+    }
+    return lessonView
+}
 
 /**
  *
@@ -10,7 +26,7 @@ const headerPattern = $(`<div class="header"></div>`);
  * @returns {*|jQuery|HTMLElement}
  */
 function generateDayRooms(date, lessons, isMagistracy = false) {
-    const $lessonPattern = $(`<div class="lesson list-group-item"></div>`)
+    console.log(isMagistracy ? "MAGISTRACY" : "NOT MAGISTRACY")
     const dayView = dayPattern.clone()
     dayView.attr({
         "data-day": date.getDayName(),
@@ -19,22 +35,14 @@ function generateDayRooms(date, lessons, isMagistracy = false) {
         "title": date.toLocaleDateString()
     })
     if (lessons !== undefined) {
-        for (let i = 1; i <= (isMagistracy ? 7 : 5); i++) {
-            const disciplinesForCurrentLessonNum = lessons
-                .filter((lesson) => lesson.Number === `${i} пара`)
-                .sort(function (lesson1, lesson2) {
-                    return (lesson1.Coords.room.index > lesson2.Coords.room.index) ? 1 : -1
-                })
-            // console.log(`FILTERED ${i} ${date.toLocaleDateString()}`, disciplinesForCurrentLessonNum)
-            if (disciplinesForCurrentLessonNum) {
-                const currentLesson = $lessonPattern.clone().attr("data-lesson-index", i)
-
-                for (const lesson of _(disciplinesForCurrentLessonNum).uniqBy('Coords.room.index')) {
-                    if (lesson.Coords.room.index.toLowerCase() === "спортивный зал") lesson.Coords.room.index = 'спорт. зал'
-                    currentLesson.append(`<span>${lesson.Coords.room.index}</span>`).appendTo(dayView)
-                }
-            } else {
-                dayView.append($lessonPattern.clone().attr("data-lesson-index", i).addClass('empty'))
+        if (lessons.length > 0) {
+            for (let i = 1; i <= (isMagistracy ? 7 : 5); i++) {
+                const disciplinesForCurrentLessonNum = lessons
+                    .filter((lesson) => lesson.Number === `${i} пара`)
+                    .sort(function (lesson1, lesson2) {
+                        return (lesson1.Coords.room.index > lesson2.Coords.room.index) ? 1 : -1
+                    })
+                dayView.append(generateLesson(disciplinesForCurrentLessonNum, i));
             }
         }
     }
@@ -53,9 +61,9 @@ function generateDayLines(currentDate) {
             dayLines.append(generateDayRooms(
                 currentDate,
                 lessonsTimetable.filter((lesson) => lesson.dayDate === currentDate.toLocaleDateString()),
-                lessonsTimetable.filter((lesson) => {
+                lessonsTimetable.some((lesson) => {
                     return (lesson.Number === "6 пара") || (lesson.Number === "7 пара")
-                }).length > 0,
+                }),
             ))
         }
         if (currentDate.hasNextInMonth()) {
