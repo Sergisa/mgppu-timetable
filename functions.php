@@ -97,6 +97,11 @@ function getTeacherById($id)
     if ($id == "null") $id = null;
     return getProfessors()->where('id', '=', $id)->values()[0]['name'];
 }
+function getBuildingById($id)
+{
+    if ($id == "null") $id = null;
+    return getBuildings()->where('id', '=', $id)->values()[0]['name'];
+}
 
 function getLessonSignature($lesson): string
 {

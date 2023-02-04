@@ -38,7 +38,6 @@
             <select name="building" id="building-select" class="d-none"></select>
         </div>
         <div class="d-flex justify-content-between align-items-center">
-            <span class="text-primary fs-5">Или и то и другое</span>
             <button class="btn btn-primary">Перейти к списку комнат</button>
         </div>
     </form>

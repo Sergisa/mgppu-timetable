@@ -6,7 +6,9 @@
             </a>
             <div>
                 <h1 class="fw-bolder d-inline m-0 ms-2">{{getMonths()[(int)getActiveMonth()]}}</h1>
-                <p class="lead"></p>
+                <p class="lead d-md-inline m-0 subtitle ms-2">
+                    {{getBuildingById($_GET['building'])}}
+                </p>
             </div>
         </div>
         <div class="room-list p-1 loading" id="roomsGrid"></div>
