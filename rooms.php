@@ -1,6 +1,6 @@
 <?php
 include 'vendor/autoload.php';
-include 'functions.php';
+include 'DataHandler.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,7 +21,7 @@ include 'functions.php';
 <?php
 try {
     echo getBlade()->run("roomsPage", [
-        "timetable" => getPreparedTimetable()->groupBy('dayDate')
+        "timetable" => DataHandler::getInstance()->getPreparedTimetable()->groupBy('dayDate')
     ]);
 } catch (Exception $e) {
 }

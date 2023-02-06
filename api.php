@@ -1,20 +1,20 @@
 <?php
 header('Content-Type: application/json');
 include 'vendor/autoload.php';
-include 'functions.php';
+include 'DataHandler.php';
 $route = explode('/', $_SERVER['PATH_INFO']);
 $response = null;
 try {
     if (end($route) === 'getProfessors') {
-        echo getProfessors()->toJson(JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_INVALID_UTF8_IGNORE);
+        echo DataHandler::getInstance()->getProfessors()->toJson(JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_INVALID_UTF8_IGNORE);
     } else if (end($route) === 'getBuildings') {
-        echo getBuildings()->toJson(JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_INVALID_UTF8_IGNORE);
+        echo DataHandler::getInstance()->getBuildings()->toJson(JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_INVALID_UTF8_IGNORE);
     } else if (end($route) === 'getGroups') {
-        echo getGroups()->toJson(JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_INVALID_UTF8_IGNORE);
+        echo DataHandler::getInstance()->getGroups()->toJson(JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_INVALID_UTF8_IGNORE);
     } else if (end($route) === 'getTimetable') {
-        echo getPreparedTimetable()->values()->toJson(JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_INVALID_UTF8_IGNORE);
+        echo DataHandler::getInstance()->getPreparedTimetable()->values()->toJson(JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_INVALID_UTF8_IGNORE);
     } else if (end($route) === 'getRoomDistribute') {
-        echo getPreparedTimetable()
+        echo DataHandler::getInstance()->getPreparedTimetable()
             ->values()
             ->toJson(JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_INVALID_UTF8_IGNORE);
     }
