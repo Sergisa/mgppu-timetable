@@ -33,7 +33,7 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
     max-height: 91vh;
   }
   @include media-breakpoint-up(xl) {
-    max-height: calc(100vh - 4.7rem);
+    max-height: calc(100vh - 7.6rem);
   }
   @include scroll-bar();
 
@@ -76,92 +76,140 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
       justify-content: start;
     }
 
-    .day-wrapper {
+    .day {
       margin-bottom: map-get($spacers, 2);
       position: relative;
       cursor: pointer;
       padding: 0 $day-horizontal-margin;
 
-      .day {
-        border-radius: 3px;
-        border: $day-border;
-        background-color: $day-background;
-        min-height: 50px;
-        height: 100%;
+      border-radius: 3px;
+      border: $day-border;
+      background-color: $day-background;
+      min-height: 50px;
+      height: 100%;
 
-        &:before {
-          content: attr(data-day-number);
-          height: 100%;
-          display: flex;
-          font-weight: 800;
-          color: $day-number-text-color;
-          font-size: x-large;
-          margin-left: map-get($spacers, 1);
+      &:before {
+        content: attr(data-day-number);
+        height: 100%;
+        display: flex;
+        font-weight: 800;
+        color: $day-number-text-color;
+        font-size: x-large;
+        margin-left: map-get($spacers, 1);
+      }
+
+      &.nearest {
+        background-color: #ff000026 !important;
+      }
+
+      .lesson {
+        width: 100%;
+        min-height: 28px;
+        padding: 3px 0;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        margin: 0;
+        border-radius: 0;
+        border-bottom-width: 0;
+        border-top-width: 1px;
+        border-left-width: 0;
+        border-right-width: 0;
+        border-style: dashed;
+        word-break: break-all;
+        height: 100%;
+        line-height: .9rem;
+
+        &.empty:before {
+          display: none;
         }
 
-        .lesson {
-          width: 100%;
-          min-height: 28px;
-          padding: 3px 0;
-          text-align: center;
+        &:first-of-type {
+          border-top: none;
+        }
+
+        &[data-lesson-index="6"] {
+          border-top-style: solid;
+          border-top-color: $lesson-calendar-delimiter-color;
+          border-top-width: 2px;
+        }
+
+        &:before {
+          color: $lesson-number-text-color;
+          content: attr(data-lesson-index);
+          background: $lesson-number-background-color;
+          @include padding-left(map-get($spacers, 2));
+          @include padding-right(map-get($spacers, 2));
           display: flex;
           align-items: center;
+          align-self: stretch;
+        }
+
+        .lesson-rooms-wrapper {
+          display: flex;
+          align-items: start;
           justify-content: start;
-          margin: 0;
-          border-radius: 0;
-          border-bottom-width: 0;
-          border-top-width: 1px;
-          border-left-width: 0;
-          border-right-width: 0;
-          border-style: dashed;
-          word-break: break-all;
-          height: 100%;
-          line-height: .9rem;
+          flex-wrap: wrap;
 
-          &.empty:before {
-            display: none;
-          }
-
-          &:first-of-type {
-            border-top: none;
-          }
-
-          &[data-lesson-index="6"] {
-            border-top-style: solid;
-            border-top-color: $lesson-calendar-delimiter-color;
-            border-top-width: 2px;
-          }
-
-          &:before {
-            color: $lesson-number-text-color;
-            content: attr(data-lesson-index);
-            background: $lesson-number-background-color;
-            @include padding-left(map-get($spacers, 2));
-            @include padding-right(map-get($spacers, 2));
+          span { /*lesson label itself*/
+            margin: auto 0.3rem;
+            padding: 0 .3rem;
+            white-space: nowrap;
+            background-color: $lesson-background-color;
+            height: 100%;
             display: flex;
             align-items: center;
-            align-self: stretch;
+            justify-content: center;
+            line-height: 1.2rem;
+            position: relative;
+
+            &.hovered {
+              background-color: #3e3849;
+
+              div.info {
+                text-align: left;
+                display: flex;
+                flex-wrap: wrap;
+                position: absolute;
+                left: 0;
+                top: 1.5rem;
+                background-color: $body-bg;
+                z-index: 100;
+                border-radius: 3px;
+                padding: 0.7rem;
+                border: 2px solid var(--bs-accent);
+
+                .teacher-name {
+                  font-size: 1.5rem;
+                  font-weight: 500;
+                }
+
+                .department-name {
+                  color: var(--bs-light);
+                }
+
+                .teacher-name, .department-name, .discipline-name {
+                  display: block;
+                  width: 100%;
+                  margin-bottom: .5rem;
+                  @include media-breakpoint-down(xs) {
+                    /*white-space: break-spaces;
+                    word-break: break-word;*/
+                  }
+
+                }
+              }
+            }
           }
 
-          .lesson-rooms-wrapper {
-            display: flex;
-            align-items: start;
-            justify-content: start;
-            flex-wrap: wrap;
 
-            span { /*lesson label itself*/
-              margin: auto .8rem;
-              white-space: nowrap;
-              background-color: $lesson-background-color;
-              height: 100%;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              line-height: 1.2rem;
-            }
+          div.info {
+            display: none;
           }
         }
       }
     }
+
   }
 }

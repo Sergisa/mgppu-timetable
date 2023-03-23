@@ -8,9 +8,16 @@ function generateLesson(lessons, index) {
     const lessonView = $lessonPattern.clone().attr("data-lesson-index", index)
     lessonView.append($lessonRoomsWrapper.clone())
     if (lessons.length > 0) {
-        for (const lesson of _(lessons).uniqBy('Coords.room.index')) {
+        for (const lesson of lessons) {
             if (lesson.Coords.room.index.toLowerCase() === "спортивный зал") lesson.Coords.room.index = 'спорт. зал'
-            lessonView.find('.lesson-rooms-wrapper').append(`<span>${lesson.Coords.room.index}</span>`)
+            lessonView.find('.lesson-rooms-wrapper')
+                .append(`<span class="room">${lesson.Coords.room.index}
+<div class="info">
+    <p class="teacher-name">${lesson.Teacher.name}</p>
+    <p class="department-name"><b>Факультет:</b> ${lesson.Department.name}</p>
+    <p class="discipline-name lead">${lesson.Discipline}</p>
+</div>
+</span>`);
         }
     } else {
         lessonView.attr("data-lesson-index", index).addClass('empty')
@@ -46,7 +53,7 @@ function generateDayRooms(date, lessons, isMagistracy = false) {
             }
         }
     }
-    return $(`<div class="day-wrapper"></div>`).append(dayView);
+    return dayView
 }
 
 /**

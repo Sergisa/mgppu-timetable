@@ -30,6 +30,7 @@ try {
 <script src="dist/js/jquery.min.js"></script>
 <script src="dist/js/bootstrap.bundle.min.js"></script>
 <script src="dist/js/lodash.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js"></script>
 <script src="dist/js/bundle.js"></script>
 <script>
     $(document).on('ready', function () {
@@ -55,31 +56,36 @@ try {
             (urlParams.month !== undefined) ? parseInt(urlParams.month) - 1 : new Date().getMonth(),
             (urlParams.year !== undefined) ? parseInt(urlParams.year) : new Date().getFullYear(),
         );
-        $('#roomsGrid .day').on('click', function () {
-            console.log(this.dataset.date)
-            scrollToDate(this.dataset.date)
+        $('.room').on("mouseleave", function (event) {
+            $(this).removeClass('hovered');
+        }).on("click mouseenter", function (event) {
+            const currentRoom = this;
+            $(this).removeClass('hovered');
+            currentRoom.classList.toggle('hovered');
+            let css = {};
+            if (getBreakPoint() === "xs") {
+                css = {
+                    'width': $('.day-lines-container').width() - 18,
+                    left: 0 - currentRoom.offsetLeft + 5
+                }
+            } else {
+                css = {
+                    'max-width': $('.day-lines-container').width() - 18,
+                    left: 0 - currentRoom.offsetLeft + 5
+                }
+            }
+            $(currentRoom).find('.info').css(css)
         })
     }).fail(function (data) {
         console.info(data.responseText)
     })
 
-    function toggleLessonName(nameTag) {
-        const indexTag = $(nameTag).find('b');
-        if (indexTag.html() === nameTag.parentNode.dataset.index + ".") {
-            indexTag.html(nameTag.parentNode.dataset.range)
-        } else if (indexTag.html() === nameTag.parentNode.dataset.range) {
-            indexTag.html(nameTag.parentNode.dataset.index + ".")
-        }
-    }
-
-    $('.lesson-name').on('click', function () {
-        toggleLessonName(this)
-    })
-    $('#timeRangeCheckbox').on('change', function () {
-        $('.lesson-name').each(function (index, element) {
-            toggleLessonName(element)
-        })
-        //return false;
+    $('#mark_nearest').on('click', function () {
+        const nearestDayBlock = $('#roomsGrid .day').filter(function (index, element) {
+            return moment().isSameOrBefore(moment(element.dataset.date, 'DD.MM.YYYY'), 'day')
+        }).get(0)
+        nearestDayBlock.classList.add('nearest')
+        scrollToDate($("#roomsGrid"), nearestDayBlock.dataset.date, false)
     })
 </script>
 </html>

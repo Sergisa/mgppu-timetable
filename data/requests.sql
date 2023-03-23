@@ -149,16 +149,3 @@ WHERE РегистрДисциплины._Fld7246RRef = 0x80EC000C295831C111ECF7
   --AND ВидыЗанятий._IDRRef IS NULL
   --AND ИтоговыйКонтроль._Description IS NOT NULL
 ORDER BY ДниПроведенияЗанятий._Fld7241;
-
-
-SELECT *
-from _InfoRg7081
-WHERE _Fld7250RRef not in (select _IDRRef from _Reference4684)
-
-select *
-from _Document7087
-
-select *
-from _Reference2658 AS ФормыИтоговогоКонтроля
-SELECT *
-FROM _Reference4684 AS ВидыЗанятий

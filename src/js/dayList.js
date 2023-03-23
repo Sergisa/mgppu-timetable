@@ -1,35 +1,43 @@
-const $dayListUl = $("#listDays")
+const dateHeaderSelector = '.date-header'
+$.fn.exists = function () {
+    return this.length > 0;
+}
+$.fn.hasInside = function (selector) {
+    return this.find(selector).exists()
+}
 
 /**
  *
+ * @param daysList
  * @param accentDate {string|Date}
+ * @param adaptive
  */
-function scrollToDate(accentDate) {
+function scrollToDate(daysList, accentDate = new Date().toLocaleDateString(), adaptive = true) {
     if (accentDate instanceof Date) {
         accentDate = accentDate.toLocaleDateString();
     }
-    let $dayLiBlock = $dayListUl.find(`li[data-date='${accentDate}']`)
-    const animateFn = 'easeOutCubic';
+    console.log("I'm scrolling up to ", accentDate)
+    const firstDayBlockInList = daysList.find('div.day:first')
+    const dateHeaderHeight = 24;
+    let anchorDayElement = daysList.find(`div.day[data-date='${accentDate}']`)
+    const listAnchorElement = (anchorDayElement.prev().is(dateHeaderSelector)) ? anchorDayElement.prev(dateHeaderSelector) : anchorDayElement
+    const animateFn = 'linear';
     const animateTime = 1000;
-    if ($dayLiBlock.length > 0) {
-        if (breakPointEnabledUp(breakpointsUp.md)) {
+    if (anchorDayElement.exists()) {
+        if (breakPointEnabledUp(breakpointsUp.md) && adaptive) {
             $('html,body').animate({
-                scrollTop: $dayLiBlock.parent().prev('.date').position().top - $('.menu').outerHeight()
+                scrollTop: listAnchorElement.position().top - $('.menu').outerHeight()
             }, animateTime, animateFn);
         } else {
-            $dayListUl.animate({
+            daysList.animate({
                 scrollTop:
-                    $dayLiBlock.parent().prev('.date').position().top -
-                    $dayListUl.find('li:first').position().top +
-                    $('.menu').outerHeight() -
-                    $('.date').outerHeight()
+                    listAnchorElement.position().top -
+                    firstDayBlockInList.position().top +
+                    ((daysList.hasInside('.menu')) ? $('.menu').outerHeight() : 0) -
+                    (($(dateHeaderSelector).exists()) ? dateHeaderHeight : 0)
             }, animateTime, animateFn);
         }
-        $dayListUl.find('.active').removeClass('active')
-        $dayLiBlock.addClass('active')
+        daysList.find('.active').removeClass('active')
+        anchorDayElement.addClass('active')
     }
-}
-
-function scrollToCurrentDate() {
-    scrollToDate(new Date().toLocaleDateString())
 }

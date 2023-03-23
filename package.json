@@ -23,7 +23,7 @@
     "compile": "npm run css-compile && npm run js-compile-bundle",
     "css-compile": "sass src/scss/style.scss:dist/css/style.css",
     "css-watch": "sass src/scss/style.scss:dist/css/style.css --watch",
-    "js-compile-bundle": "babel src/js/jquery.easing.js src/js/dateDriver.js src/js/bsBreakPointDriver.js src/js/dayList.js src/js/selection.js src/js/dayList.js src/js/calendar.js src/js/bsDropdownExtension.js -o dist/js/bundle.js --minified",
+    "js-compile-bundle": "babel src/js/jquery.easing.js src/js/dateDriver.js src/js/bsBreakPointDriver.js src/js/dayList.js src/js/selection.js src/js/dayList.js src/js/calendar.js src/js/rooms.js src/js/bsDropdownExtension.js -o dist/js/bundle.js --minified",
     "js-compile-bundle-watch": "babel src/js/jquery.easing.js src/js/dateDriver.js src/js/bsBreakPointDriver.js src/js/dayList.js src/js/selection.js src/js/dayList.js src/js/calendar.js src/js/rooms.js src/js/bsDropdownExtension.js -o dist/js/bundle.js --watch",
     "sass-help": "sass --help",
     "test-js": "jest"

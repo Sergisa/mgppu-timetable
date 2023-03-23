@@ -6,15 +6,7 @@
     @include scroll-bar();
   }
 
-  .menu {
-    background-color: var(--bs-body-bg);
-    z-index: 10;
-    position: sticky;
-    top: 0;
-    @include padding(map-get($spacers, 2));
-  }
-
-  span.date {
+  span.date-header {
     font-weight: bold;
     background-color: $lesson-list-date-background-color;
     padding: 0 0.8em;
@@ -23,92 +15,92 @@
     word-spacing: map-get($spacers, 2);
   }
 
-  .list-group {
-    .list-group-item {
-      --bs-list-group-border-width: 0;
-      --bs-list-group-item-padding-y: 0rem;
-      color: unset;
-      font-weight: $lesson-name-text-weight;
-      @include scroll-bar();
-      @include media-breakpoint-up(xs) {
-        overflow-x: auto;
-        overflow-y: hidden;
-      }
-      @include media-breakpoint-up(sm) {
-        overflow-x: unset;
-        overflow-y: unset;
+  .day {
+    --bs-list-group-border-width: 0;
+    --bs-list-group-item-padding-y: 0rem;
+    --bs-list-group-item-padding-x: 1rem;
+    padding: var(--bs-list-group-item-padding-y) var(--bs-list-group-item-padding-x);
+    color: unset;
+    font-weight: $lesson-name-text-weight;
+    @include scroll-bar();
+    @include media-breakpoint-up(xs) {
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
+    @include media-breakpoint-up(sm) {
+      overflow-x: unset;
+      overflow-y: unset;
+    }
+
+    .labels {
+      white-space: nowrap;
+    }
+
+    .lesson {
+      padding-bottom: $lesson-list-lesson-padding-y;
+      padding-top: $lesson-list-lesson-padding-y;
+      border: $lesson-delimiter-border-color;
+      border-left: none;
+      border-right: none;
+      border-top: none;
+
+      &:last-of-type {
+        border-bottom: none;
       }
 
-      .labels {
-        white-space: nowrap;
-      }
-
-      .lesson {
-        padding-bottom: $lesson-list-lesson-padding-y;
-        padding-top: $lesson-list-lesson-padding-y;
-        border: $lesson-delimiter-border-color;
-        border-left: none;
-        border-right: none;
-        border-top: none;
-
-        &:last-of-type {
-          border-bottom: none;
+      &.session {
+        .lesson-description, .lesson-name {
+          text-decoration: underline dotted currentColor 1px;
+          text-underline-offset: 3px;
+          text-underline-position: from-font;
         }
-
-        &.session {
-          .lesson-description, .lesson-name {
-            text-decoration: underline dotted currentColor 1px;
-            text-underline-offset: 3px;
-            text-underline-position: from-font;
-          }
-        }
       }
+    }
 
-      .lesson-name {
-        line-height: $lesson-list-line-threshold;
-        margin-bottom: $lesson-list-lesson-inside-threshold;
+    .lesson-name {
+      line-height: $lesson-list-line-threshold;
+      margin-bottom: $lesson-list-lesson-inside-threshold;
+      cursor: help;
+    }
+
+    .room {
+      /*font-weight: bold;
+      color: $lesson-list-type-text-color;
+      border: $lesson-list-type-border;
+      padding: .125rem;
+      border-radius: 5px;
+      text-transform: uppercase;
+      white-space: nowrap;
+      font-size: .8rem;*/
+    }
+
+    .lesson-index {
+      font-weight: bold;
+      color: var(--bs-light);
+    }
+
+    .lesson-description {
+      line-height: $lesson-list-line-threshold;
+      font-weight: $lesson-description-text-weight;
+      color: var(--bs-light);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      span.type-label {
         cursor: help;
-      }
-
-      .room {
-        /*font-weight: bold;
+        font-weight: bold;
         color: $lesson-list-type-text-color;
+        background-color: $lesson-list-type-background-color;
         border: $lesson-list-type-border;
-        padding: .125rem;
+        padding: .25em 0.5em;
         border-radius: 5px;
         text-transform: uppercase;
-        white-space: nowrap;
-        font-size: .8rem;*/
-      }
 
-      .lesson-index {
-        font-weight: bold;
-        color: var(--bs-light);
-      }
-
-      .lesson-description {
-        line-height: $lesson-list-line-threshold;
-        font-weight: $lesson-description-text-weight;
-        color: var(--bs-light);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-
-        span.type-label {
-          cursor: help;
-          font-weight: bold;
-          color: $lesson-list-type-text-color;
-          background-color: $lesson-list-type-background-color;
-          border: $lesson-list-type-border;
-          padding: .25em 0.5em;
-          border-radius: 5px;
-          text-transform: uppercase;
-
-          &.session {
-            border: $lesson-list-session-type-border;
-            color: $lesson-list-session-type-text-color;
-            background-color: $lesson-list-session-type-background-color;
-          }
+        &.session {
+          border: $lesson-list-session-type-border;
+          color: $lesson-list-session-type-text-color;
+          background-color: $lesson-list-session-type-background-color;
         }
       }
     }

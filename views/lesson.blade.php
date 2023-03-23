@@ -1,4 +1,4 @@
-<div class='lesson {{$lessonClassList}}'
+<div class='lesson{{$lessonClassList}}'
      data-index='{{$lessonIndex}}'
      data-time='{{$lesson['TimeStart']}}'
      data-range='{{substr($lesson['TimeStart'],0,-3)}} - {{substr($lesson['TimeEnd'],0,-3)}}'>
@@ -16,10 +16,11 @@
             {{$teacherSign}} {{$type}}<br>{{$lessonAddress}}
         @endif
         @if (isSessionPart($lesson))
-            <span class='type-label session' title="{{$type}}">{{getLessonTypeSignature($lesson["finalCheckTypeID"])}}</span>
+            <span class='type-label session' title="{{$type}}">
+                {{getLessonTypeSignature($lesson["finalCheckTypeID"])}}
+            </span>
         @else
             <span class='type-label' title="{{$type}}">{{getLessonTypeSignature($lesson["TypeID"])}}</span>
         @endif
     </div>
-
 </div>

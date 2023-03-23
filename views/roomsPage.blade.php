@@ -17,6 +17,12 @@
                 <i class="bi bi-arrow-right-square fs-1"></i>
             </a>
         </div>
-        <div class="room-list p-1 loading" id="roomsGrid"></div>
+        @include('menu',[
+                'timeShow'=>false,
+                'current' => true
+            ])
+        <div class="room-list p-1 loading" id="roomsGrid">
+
+        </div>
     </div>
 </div>

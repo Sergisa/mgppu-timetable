@@ -15,6 +15,11 @@ include 'functions.php';
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900"
           rel="stylesheet">
     <link rel="stylesheet" href="dist/css/style.css">
+    <style>
+        .day.nearest {
+            background-color: #ff000026 !important;
+        }
+    </style>
     <title>Календарь</title>
 </head>
 <body class="container py-2">
@@ -29,6 +34,7 @@ try {
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js"></script>
 <script src="dist/js/bundle.js"></script>
 <script>
     $(document).on('ready', function () {
@@ -55,7 +61,7 @@ try {
         );
         $('#monthGrid .day').on('click', function () {
             console.log(this.dataset.date)
-            scrollToDate(this.dataset.date)
+            scrollToDate($("#listDays"), this.dataset.date)
         })
     }).fail(function (data) {
         console.info(data.responseText)
@@ -73,11 +79,17 @@ try {
     $('.lesson-name').on('click', function () {
         toggleLessonName(this)
     })
+    $('#mark_nearest').on('click', function () {
+        const nearestDayBlock = $('#listDays .day').filter(function (index, element) {
+            return moment().isSameOrBefore(moment(element.dataset.date, 'DD.MM.YYYY'), 'day')
+        }).get(0)
+        nearestDayBlock.classList.add('nearest')
+        scrollToDate($("#listDays"), nearestDayBlock.dataset.date)
+    })
     $('#timeRangeCheckbox').on('change', function () {
         $('.lesson-name').each(function (index, element) {
             toggleLessonName(element)
         })
-        //return false;
     })
 </script>
 </html>
