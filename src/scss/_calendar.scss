@@ -121,7 +121,6 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
             border-right-width: 0;
             border-style: dashed;
             word-break: break-all;
-            height: 100%;
             line-height: .9rem;
 
             &.empty:before {
@@ -130,6 +129,11 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
 
             &:first-of-type {
               border-top: none;
+            }
+
+            &.session-part:before {
+              background-color: #24ab3f;
+              /*fc6d6d*/
             }
 
             &[data-lesson-index="6"] {

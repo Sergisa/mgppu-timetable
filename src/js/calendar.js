@@ -2,6 +2,12 @@ const dayLinePattern = $(`<div class="dayLine"></div>`);
 const dayPattern = $(`<div class="day list-group"></div>`)
 const headerPattern = $(`<div class="header"></div>`);
 
+function isString(value) {
+    return typeof value === 'string';
+}
+
+String.isString = isString;
+
 /**
  *
  * @param date {Date}
@@ -19,10 +25,20 @@ function generateDay(date, lessons, isMagistracy = false) {
         "title": date.toLocaleDateString()
     })
     if (lessons !== undefined) {
+        const sessionLessons = lessons.filter(lesson => lesson.isSession)
+        for (const sessionLesson of sessionLessons) {
+            console.log(sessionLesson)
+            $lessonPattern.clone().addClass('session-part')
+                .html(`<span>${sessionLesson.Coords.room.index}</span>`)
+                .attr('title', sessionLesson.Type)
+                .appendTo(dayView)
+        }
         for (let i = 1; i <= (isMagistracy ? 7 : 5); i++) {
             const lesson = lessons.find((lesson) => lesson.Number === `${i} пара`);
             if (lesson) {
-                if (lesson.Coords.room.index.toLowerCase() === "спортивный зал") lesson.Coords.room.index = 'спорт. зал'
+                if (isString(lesson.Coords.room.index)) {
+                    if (lesson.Coords.room.index.toLowerCase() === "спортивный зал") lesson.Coords.room.index = 'спорт. зал'
+                }
                 $lessonPattern.clone().html(`<span>${lesson.Coords.room.index}</span>`).attr("data-lesson-index", i).appendTo(dayView)
             } else {
                 dayView.append($lessonPattern.clone().attr("data-lesson-index", i).addClass('empty'))

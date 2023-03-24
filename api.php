@@ -6,13 +6,13 @@ $route = explode('/', $_SERVER['PATH_INFO']);
 $response = null;
 try {
     if (end($route) === 'getProfessors') {
-        echo getProfessors()->toJson(JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_INVALID_UTF8_IGNORE);
+        echo getProfessors()->toJson(JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_INVALID_UTF8_IGNORE | JSON_NUMERIC_CHECK);
     } else if (end($route) === 'getBuildings') {
-        echo getBuildings()->toJson(JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_INVALID_UTF8_IGNORE);
+        echo getBuildings()->toJson(JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_INVALID_UTF8_IGNORE | JSON_NUMERIC_CHECK);
     } else if (end($route) === 'getGroups') {
-        echo getGroups()->toJson(JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_INVALID_UTF8_IGNORE);
+        echo getGroups()->toJson(JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_INVALID_UTF8_IGNORE | JSON_NUMERIC_CHECK);
     } else if (end($route) === 'getTimetable') {
-        echo getPreparedTimetable()->values()->toJson(JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_INVALID_UTF8_IGNORE);
+        echo getPreparedTimetable()->values()->toJson(JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_INVALID_UTF8_IGNORE | JSON_NUMERIC_CHECK);
     } else if (end($route) === 'getRoomDistribute') {
         echo getPreparedTimetable()
             ->values()

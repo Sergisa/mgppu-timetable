@@ -1,4 +1,4 @@
-<div class="menu row justify-content-around">
+<div class="menu row justify-content-around px-4">
     @if($timeShow)
         <div class="form-check col-auto">
             <input class="form-check-input" type="checkbox" value="" id="timeRangeCheckbox">
