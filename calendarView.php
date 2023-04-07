@@ -61,7 +61,11 @@ try {
         );
         $('#monthGrid .day').on('click', function () {
             console.log(this.dataset.date)
-            scrollToDate($("#listDays"), this.dataset.date)
+            scrollToElement(
+                $("#listDays"),
+                findDayBlock(this.dataset.date, $("#listDays")),
+                true
+            )
         })
     }).fail(function (data) {
         console.info(data.responseText)
@@ -80,11 +84,25 @@ try {
         toggleLessonName(this)
     })
     $('#mark_nearest').on('click', function () {
-        const nearestDayBlock = $('#listDays .day').filter(function (index, element) {
-            return moment().isSameOrBefore(moment(element.dataset.date, 'DD.MM.YYYY'), 'day')
-        }).get(0)
+        const days = lessonsTimetable.map((lesson) => lesson.dayDate).unique()
+        const {day, diff} = getNearestDate(days);
+        const nearestDayBlock = findDayBlock(day.format('DD.MM.YYYY'), $("#listDays")).get(0)
         nearestDayBlock.classList.add('nearest')
-        scrollToDate($("#listDays"), nearestDayBlock.dataset.date)
+        nearestDayBlock.previousElementSibling.classList.add('marked')
+        if (diff === 0) {
+            nearestDayBlock.previousElementSibling.dataset.interval = `Сегодня`
+        } else {
+            nearestDayBlock.previousElementSibling.dataset.interval = (
+                diff === 1
+                ? `Через ${diff} день.`
+                : ((diff < 5) ? `Через ${diff} дня.` : `Через ${diff} дней.`)
+            )
+        }
+        scrollToElement(
+            $("#listDays"),
+            findDayBlock(day.format('DD.MM.YYYY'), $("#listDays")),
+            true
+        )
     })
     $('#timeRangeCheckbox').on('change', function () {
         $('.lesson-name').each(function (index, element) {

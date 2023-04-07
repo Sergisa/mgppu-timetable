@@ -81,11 +81,16 @@ try {
     })
 
     $('#mark_nearest').on('click', function () {
-        const nearestDayBlock = $('#roomsGrid .day').filter(function (index, element) {
-            return moment().isSameOrBefore(moment(element.dataset.date, 'DD.MM.YYYY'), 'day')
-        }).get(0)
-        nearestDayBlock.classList.add('nearest')
-        scrollToDate($("#roomsGrid"), nearestDayBlock.dataset.date, false)
+        const days = lessonsTimetable.map((lesson) => lesson.dayDate).unique()
+        const {day} = getNearestDate(days);
+        const nearestDayBlock = findDayBlock(day.format('DD.MM.YYYY'), $("#roomsGrid"))
+        nearestDayBlock.addClass('nearest')
+        console.log("NEAREST", getNearestDate(days), days)
+        scrollToElement(
+            $("#roomsGrid"),
+            nearestDayBlock,
+            false
+        )
     })
 </script>
 </html>

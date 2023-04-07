@@ -13,6 +13,14 @@
     border-radius: 5px;
     display: block;
     word-spacing: map-get($spacers, 2);
+
+    &.marked:after {
+      content: attr(data-interval);
+      //float: right;
+      word-spacing: initial;
+      margin-left: 2rem;
+      color: blanchedalmond;
+    }
   }
 
   .day {

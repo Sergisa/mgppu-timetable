@@ -6,38 +6,69 @@ $.fn.hasInside = function (selector) {
     return this.find(selector).exists()
 }
 
+function onlyUnique(value, index, array) {
+    return array.indexOf(value) === index;
+}
+
+Array.prototype.unique = function () {
+    return this.filter(onlyUnique)
+};
+
+function getNearestDate(days, day = moment()) {
+    if ((typeof day) == "string") {
+        day = moment(day, 'DD.MM.YYYY')
+    }
+    for (let iteratedDayOfList of days) {
+        let iteratedMomentObjectOfList = moment(iteratedDayOfList, 'DD.MM.YYYY');
+        if (day.isSame(iteratedMomentObjectOfList, 'day')) {
+            return {
+                day: iteratedMomentObjectOfList,
+                diff: 0
+            }
+        }
+        if (day.isBefore(iteratedMomentObjectOfList, 'day')) {
+            return {
+                day: iteratedMomentObjectOfList,
+                diff: iteratedMomentObjectOfList.diff(day.startOf('day'), 'days')
+            }
+        }
+    }
+    return {};
+}
+
+function findDayBlock(day, container) {
+    return container.find(`div.day[data-date='${day}']`)
+}
+
 /**
  *
- * @param daysList
- * @param accentDate {string|Date}
+ * @param parentElement
+ * @param element
  * @param adaptive
  */
-function scrollToDate(daysList, accentDate = new Date().toLocaleDateString(), adaptive = true) {
-    if (accentDate instanceof Date) {
-        accentDate = accentDate.toLocaleDateString();
-    }
-    console.log("I'm scrolling up to ", accentDate)
-    const firstDayBlockInList = daysList.find('div.day:first')
+function scrollToElement(parentElement, element, adaptive = true) {
+    const firstDayBlockInList = parentElement.find('div.day:first')
     const dateHeaderHeight = 24;
-    let anchorDayElement = daysList.find(`div.day[data-date='${accentDate}']`)
-    const listAnchorElement = (anchorDayElement.prev().is(dateHeaderSelector)) ? anchorDayElement.prev(dateHeaderSelector) : anchorDayElement
+    const listAnchorElement = (element.prev().is(dateHeaderSelector)) ? element.prev(dateHeaderSelector) : element
     const animateFn = 'linear';
     const animateTime = 1000;
-    if (anchorDayElement.exists()) {
+    if (element.exists()) {
         if (breakPointEnabledUp(breakpointsUp.md) && adaptive) {
+            console.log("SCROLL BODY")
             $('html,body').animate({
                 scrollTop: listAnchorElement.position().top - $('.menu').outerHeight()
             }, animateTime, animateFn);
         } else {
-            daysList.animate({
+            console.log("SCROLL LIST")
+            parentElement.animate({
                 scrollTop:
                     listAnchorElement.position().top -
                     firstDayBlockInList.position().top +
-                    ((daysList.hasInside('.menu')) ? $('.menu').outerHeight() : 0) -
+                    ((parentElement.hasInside('.menu')) ? $('.menu').outerHeight() : 0) -
                     (($(dateHeaderSelector).exists()) ? dateHeaderHeight : 0)
             }, animateTime, animateFn);
         }
-        daysList.find('.active').removeClass('active')
-        anchorDayElement.addClass('active')
+        parentElement.find('.active').removeClass('active')
+        element.addClass('active')
     }
 }

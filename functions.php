@@ -42,7 +42,7 @@ function getMonths(): array
 
 function getPDO(): PDO
 {
-    $pdo = new PDO('mysql:dbname=timetable;host=sergisa.ru', 'user15912_sergey', 'isakovs');
+    $pdo = new PDO('mysql:dbname=timetable;host=timetable.smrtp.ru', 'user15912_sergey', 'isakovs');
     $pdo->exec('SET CHARACTER SET UTF8');
     return $pdo;
 }

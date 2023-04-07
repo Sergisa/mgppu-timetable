@@ -66,14 +66,20 @@
     $.getJSON('api.php/getProfessors', function (data) {
         professorSelector.fillData(data)
         professorSelector.setEnabled()
+    }).fail(function (error) {
+        console.warn(error.responseText)
     })
     $.getJSON('api.php/getBuildings', function (data) {
         buildingSelector.fillData(data)
         buildingSelector.setEnabled()
+    }).fail(function (error) {
+        console.warn(error.responseText)
     })
     $.getJSON('api.php/getGroups', function (data) {
         groupSelector.fillData(data)
         groupSelector.setEnabled()
+    }).fail(function (error) {
+        console.warn(error.responseText)
     })
 </script>
 </html>

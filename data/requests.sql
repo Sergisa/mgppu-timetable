@@ -135,13 +135,13 @@ WHERE РегистрДисциплины._Fld7246RRef = 0x80EC000C295831C111ECF7
   --AND РегистрДисциплины._Fld7251RRef = :studentGroupId /* Учебная группа*/
   --AND CONVERT(VARCHAR(10), ДниПроведенияЗанятий._Fld7241, 104) = '29.03.2022'
 
-  --AND Семестры._IDRRef = 0x80C4000C299AE95511E6FFDE22A08A7D
+  AND Семестры._IDRRef = :semesterID
+    /* Осенний (0x80C4000C299AE95511E6FFDE22A08A7E), Весенний(0x80C4000C299AE95511E6FFDE22A08A7D)*/
   --AND CONVERT(VARCHAR(10), ДниПроведенияЗанятий._Fld7241, 104) LIKE '%.01.2023%'
   --AND Институты._Description = :departmentCode
   --AND Институты._Fld152 = :departmentCode
   --AND ВидыЗанятий._Fld7440 IS NULL
   --AND _Fld7250RRef NOT IN (SELECT _IDRRef FROM _Reference4684)
-    /* Осенний (0x80C4000C299AE95511E6FFDE22A08A7E), Весенний(0x80C4000C299AE95511E6FFDE22A08A7D)*/
 
   --AND CONVERT(VARCHAR(10), ДниПроведенияЗанятий._Fld7241, 104) LIKE '%.01.2023%'
   --AND Преподаватели._Description = 'Исаков Сергей Сергеевич'
