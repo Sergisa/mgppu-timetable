@@ -70,13 +70,16 @@
   height: 100%;
 
   &:before {
-    content: attr(data-day-number);
+    content: attr(data-day-number) ' ' attr(data-interval);
     height: 100%;
     display: flex;
     font-weight: 800;
     color: $day-number-text-color;
     font-size: x-large;
     margin-left: map-get($spacers, 1);
+  }
+  &[data-interval]:before {
+    color: blanchedalmond;
   }
   &.nearest {
     background-color: #ff000026 !important;

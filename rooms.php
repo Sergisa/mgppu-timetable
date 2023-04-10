@@ -82,13 +82,22 @@ try {
 
     $('#mark_nearest').on('click', function () {
         const days = lessonsTimetable.map((lesson) => lesson.dayDate).unique()
-        const {day} = getNearestDate(days);
-        const nearestDayBlock = findDayBlock(day.format('DD.MM.YYYY'), $("#roomsGrid"))
-        nearestDayBlock.addClass('nearest')
+        const {day, diff} = getNearestDate(days);
+        const nearestDayBlock = findDayBlock(day.format('DD.MM.YYYY'), $("#roomsGrid")).get(0)
+        if (diff === 0) {
+            nearestDayBlock.dataset.interval = `Сегодня`
+        } else {
+            nearestDayBlock.dataset.interval = (
+                diff === 1
+                    ? `Через ${diff} день.`
+                    : ((diff < 5) ? `Через ${diff} дня.` : `Через ${diff} дней.`)
+            )
+        }
+        nearestDayBlock.classList.add('nearest')
         console.log("NEAREST", getNearestDate(days), days)
         scrollToElement(
             $("#roomsGrid"),
-            nearestDayBlock,
+            findDayBlock(day.format('DD.MM.YYYY'), $("#roomsGrid")),
             false
         )
     })
