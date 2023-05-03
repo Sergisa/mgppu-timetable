@@ -29,6 +29,7 @@ function generateDay(date, lessons, isMagistracy = false) {
         for (const sessionLesson of sessionLessons) {
             console.log(sessionLesson)
             $lessonPattern.clone().addClass('session-part')
+                .attr("data-lesson-index", "")
                 .html(`<span>${sessionLesson.Coords.room.index}</span>`)
                 .attr('title', sessionLesson.Type)
                 .appendTo(dayView)
@@ -41,7 +42,7 @@ function generateDay(date, lessons, isMagistracy = false) {
                 }
                 $lessonPattern.clone().html(`<span>${lesson.Coords.room.index}</span>`).attr("data-lesson-index", i).appendTo(dayView)
             } else {
-                dayView.append($lessonPattern.clone().attr("data-lesson-index", i).addClass('empty'))
+                dayView.append($lessonPattern.clone().addClass('empty'))
             }
         }
     }

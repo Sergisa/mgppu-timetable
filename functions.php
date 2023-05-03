@@ -112,6 +112,7 @@ function getLessonType($typeID): object
 {
     $types = [
         '0x80C9000C295831B711E8A95D5CD1DE1A' => ['full' => 'Семинар', 'shorthand' => 'Сем.'],
+        '0xBB29005056AF9F6411EDDA12014C6F3E' => ['full' => 'Семинар', 'shorthand' => 'Сем.'],
         '0xAD88005056B76B4C11E6B2C498121654' => ['full' => 'Лекции', 'shorthand' => 'Лек.'],
         '0xAD88005056B76B4C11E6B2C49FAB9534' => ['full' => 'Лабораторные работы', 'shorthand' => 'Лаб.'],
         '0xAD88005056B76B4C11E6B2C4A65DCFFA' => ['full' => 'Практические занятия', 'shorthand' => 'Пр.'],

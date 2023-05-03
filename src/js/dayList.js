@@ -6,14 +6,6 @@ $.fn.hasInside = function (selector) {
     return this.find(selector).exists()
 }
 
-function onlyUnique(value, index, array) {
-    return array.indexOf(value) === index;
-}
-
-Array.prototype.unique = function () {
-    return this.filter(onlyUnique)
-};
-
 function getNearestDate(days, day = moment()) {
     if ((typeof day) == "string") {
         day = moment(day, 'DD.MM.YYYY')

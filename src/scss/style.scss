@@ -36,12 +36,34 @@ a {
 
     .bi {
       color: var(--bs-accent);
-      cursor: pointer;
-      border-radius: 3px;
-      display: inline-flex;
+    }
+
+    &.left-arrow, &.right-arrow {
+      height: 27px;
+      width: 46px;
+      background-size: 100%;
+      background-position-x: right;
+      background-position-y: center;
+      background-repeat: no-repeat;
+      margin-top: auto;
+      margin-bottom: auto;
 
       &:hover {
-        filter: brightness(90%);
+
+      }
+    }
+
+    &.left-arrow {
+      background-image: url('/arrow-clean.svg');
+
+
+    }
+
+    &.right-arrow {
+      background-image: url('/arrow-clean.svg');
+      transform: rotate(180deg);
+      @include media-breakpoint-up(sm) {
+        margin-left: 1rem;
       }
     }
 
@@ -59,3 +81,4 @@ a {
   top: 0;
   @include padding(map-get($spacers, 2));
 }
+

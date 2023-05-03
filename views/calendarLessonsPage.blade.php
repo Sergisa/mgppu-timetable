@@ -5,6 +5,7 @@
     </div>
     <div id="listDays" class="col-12 col-md-4">
         @include('menu',[
+            'toggle'=>false,
             'timeShow'=>true,
             'current' => true
         ])

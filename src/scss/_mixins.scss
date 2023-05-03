@@ -110,7 +110,15 @@
   &:first-of-type {
     border-top: none;
   }
-
+  &[data-lesson-index]:before {
+    color: $lesson-number-text-color;
+    content: attr(data-lesson-index);
+    background: $lesson-number-background-color;
+    @include padding-left(map-get($spacers, 2));
+    @include padding-right(map-get($spacers, 2));
+    display: flex;
+    align-items: center;
+  }
   &.session-part:before {
     background-color: #24ab3f;
     /*fc6d6dad*/
@@ -122,15 +130,7 @@
     border-top-width: 2px;
   }
 
-  &:before {
-    color: $lesson-number-text-color;
-    content: attr(data-lesson-index);
-    background: $lesson-number-background-color;
-    @include padding-left(map-get($spacers, 2));
-    @include padding-right(map-get($spacers, 2));
-    display: flex;
-    align-items: center;
-  }
+
 }
 
 @mixin header {
