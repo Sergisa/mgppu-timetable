@@ -51,11 +51,11 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
             position: relative;
 
             &.error {
-              border: 1px solid red;
+              color: var(--bs-body-bg);
+              background-color: var(--bs-primary);
 
               &:before {
                 content: '!';
-                color: red;
                 font-weight: bold;
                 margin-right: 0.25rem;
               }
@@ -65,6 +65,7 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
               background-color: #3e3849;
 
               div.info {
+                color: var(--bs-primary);
                 @include info-popup;
               }
             }

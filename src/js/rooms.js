@@ -20,12 +20,12 @@ function generateLesson(lessons, index, mode) {
                 .sortBy('Room')
                 .value()
                 .map(function (lessonLookElement, index, lessons) {
-                    lessonLookElement.error = (lessons.filter(lessonElement => lessonLookElement.Room === lessonElement.Room).length > 1);
+                    lessonLookElement.error = (lessons.filter(lessonElement => {
+                        return lessonLookElement.Room === lessonElement.Room;
+                    }).length > 1);
                     return lessonLookElement
                 })
         }
-
-        console.log("CURRENTLESSONS", currentLessons)
         for (const lesson of currentLessons) {
             let sign = "";
             if (lesson.Coords.room.index.toLowerCase() === "спортивный зал") lesson.Coords.room.index = 'спорт. зал'
