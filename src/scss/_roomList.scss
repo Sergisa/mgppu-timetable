@@ -50,6 +50,17 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
             line-height: 1.2rem;
             position: relative;
 
+            &.error {
+              border: 1px solid red;
+
+              &:before {
+                content: '!';
+                color: red;
+                font-weight: bold;
+                margin-right: 0.25rem;
+              }
+            }
+
             &.hovered {
               background-color: #3e3849;
 

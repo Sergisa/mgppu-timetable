@@ -4,30 +4,42 @@ const headerPattern = $(`<div class="header"></div>`);
 const $lessonPattern = $(`<div class="lesson list-group-item"></div>`)
 const $lessonRoomsWrapper = $(`<div class="lesson-rooms-wrapper"></div>`)
 
-function generateLesson(lessons, index, mode, splitLessons = true) {
+function generateLesson(lessons, index, mode) {
     const lessonView = $lessonPattern.clone().attr("data-lesson-index", index)
     lessonView.append($lessonRoomsWrapper.clone())
     if (lessons.length > 0) {
-        for (const lesson of lessons) {
-            let sign = lesson.Coords.room.index;
-            if (lesson.Coords.room.index.toLowerCase() === "спортивный зал") lesson.Coords.room.index = 'спорт. зал'
 
-            if (mode === "professors") {
-                sign = lesson.Teacher.name;
-            } else if (mode === 'groups') {
-                if (!lesson.Group) console.warn("UNDEFINED", lesson)
-                sign = lesson.Group.name;
-            } else {
-                sign = lesson.Coords.room.index;
-            }
+        let currentLessons = lessons
+        if (mode === "professors") {
+            currentLessons = _(currentLessons).uniqBy('Teacher.name').sortBy('Teacher.name').value()
+        } else if (mode === 'groups') {
+            currentLessons = _(currentLessons.extrude('Group')).uniqBy('Group.name').sortBy('Group.name').value()
+        } else {
+            currentLessons = _(currentLessons)
+                .uniqWith([ 'Teacher.name', 'Group.name' ])
+                .sortBy('Room')
+                .value()
+                .map(function (lessonLookElement, index, lessons) {
+                    lessonLookElement.error = (lessons.filter(lessonElement => lessonLookElement.Room === lessonElement.Room).length > 1);
+                    return lessonLookElement
+                })
+        }
+
+        console.log("CURRENTLESSONS", currentLessons)
+        for (const lesson of currentLessons) {
+            let sign = "";
+            if (lesson.Coords.room.index.toLowerCase() === "спортивный зал") lesson.Coords.room.index = 'спорт. зал'
+            if (mode === "professors") sign = lesson.Teacher.name;
+            else if (mode === 'groups') sign = lesson.Group.name;
+            else sign = lesson.Coords.room.index;
             lessonView.find('.lesson-rooms-wrapper')
-                .append(`<span class="room">${sign}
+                .append(`<span class="room ${lesson.error ? "error" : ""}">${sign}
                 <div class="info">
                     <p class="teacher-name">${lesson.Teacher.name}</p>
                     <p class="department-name"><b>Факультет:</b> ${lesson.Department.name}</p>
                     <p class="discipline-name lead">${lesson.Discipline}</p>
                 </div>
-                </span>`);
+                </span>`)
         }
     } else {
         lessonView.attr("data-lesson-index", index).addClass('empty')
@@ -59,32 +71,10 @@ function generateDayRooms(date, lessons, isMagistracy = false, mode, splitLesson
                     const disciplinesForCurrentLessonNum = lessons
                         .filter((lesson) => lesson.Number === `${i} пара`)
                         .extrude('Group')
-                        .sort(function (lesson1, lesson2) {
-                            return (lesson1.Coords.room.index > lesson2.Coords.room.index) ? 1 : -1
-                        })
                     dayView.append(generateLesson(disciplinesForCurrentLessonNum, i, mode, splitLessons));
                 }
             } else {
-                let disciplinesForCurrentLessonNum = lessons
-                if (mode === "professors") {
-                    disciplinesForCurrentLessonNum = _(disciplinesForCurrentLessonNum)
-                        .uniqBy('Teacher.name')
-                        .sortBy('Teacher.name')
-                        .value()
-                }
-                else if (mode === 'rooms') {
-                    disciplinesForCurrentLessonNum = _(disciplinesForCurrentLessonNum)
-                        .uniqBy('Room')
-                        .sortBy('Room')
-                        .value()
-                }
-                else {
-                    disciplinesForCurrentLessonNum = _(disciplinesForCurrentLessonNum.extrude('Group'))
-                        .uniqBy('Group.name')
-                        .sortBy('Group.name')
-                        .value()
-                }
-                dayView.append(generateLesson(disciplinesForCurrentLessonNum, null, mode, splitLessons));
+                dayView.append(generateLesson(lessons, null, mode, splitLessons));
             }
         }
     }

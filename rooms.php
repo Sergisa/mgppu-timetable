@@ -37,15 +37,6 @@ try {
         window.viewType = document.querySelector("[name=view-selector]:checked").id
     })
 
-    function getUrlParamsObject() {
-        const rqObject = {};
-        let URLParams = new URLSearchParams(window.location.search);
-        URLParams.forEach((value, key) => {
-            rqObject[key] = value;
-        })
-        return rqObject;
-    }
-
     function lessonItemMouseLeaved() {
         $(this).removeClass('hovered');
     }
@@ -67,10 +58,6 @@ try {
             }
         }
         $(currentRoom).find('.info').css(css)
-    }
-
-    function responseFail(data) {
-        console.info(data.responseText)
     }
 
     function processTimetable(data, viewMode = "rooms", splitLessons = true) {
@@ -99,28 +86,6 @@ try {
         $('#roomsGrid').empty()
         console.log(this.id, this.checked)
         processTimetable(lessonsTimetable, this.id, $('.split-toggle').get(0).checked)
-    })
-
-    $('#mark_nearest').on('click', function () {
-        const days = lessonsTimetable.map((lesson) => lesson.dayDate).unique()
-        const {day, diff} = getNearestDate(days);
-        const nearestDayBlock = findDayBlock(day.format('DD.MM.YYYY'), $("#roomsGrid")).get(0)
-        if (diff === 0) {
-            nearestDayBlock.dataset.interval = `Сегодня`
-        } else {
-            nearestDayBlock.dataset.interval = (
-                diff === 1
-                    ? `Через ${diff} день.`
-                    : ((diff < 5) ? `Через ${diff} дня.` : `Через ${diff} дней.`)
-            )
-        }
-        nearestDayBlock.classList.add('nearest')
-        console.log("NEAREST", getNearestDate(days), days)
-        scrollToElement(
-            $("#roomsGrid"),
-            findDayBlock(day.format('DD.MM.YYYY'), $("#roomsGrid")),
-            false
-        )
     })
 </script>
 </html>

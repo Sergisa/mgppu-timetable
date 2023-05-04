@@ -40,24 +40,14 @@ try {
     $(document).on('ready', function () {
         //scrollToCurrentDate();
     })
-
-    function getUrlParamsObject() {
-        const rqObject = {};
-        let URLParams = new URLSearchParams(window.location.search);
-        URLParams.forEach((value, key) => {
-            rqObject[key] = value;
-        })
-        return rqObject;
-    }
-
     const urlParams = getUrlParamsObject();
-    $.getJSON('api.php/getTimetable', urlParams).done(function (data) {
-        console.log("Расписание", data)
+
+    function processTimetable(data) {
         window.lessonsTimetable = data
         generateGrid(
             $('#monthGrid').removeClass('loading'),
             (urlParams.month !== undefined) ? parseInt(urlParams.month) - 1 : new Date().getMonth(),
-            urlParams.year
+            (urlParams.year !== undefined) ? parseInt(urlParams.year) : new Date().getFullYear(),
         );
         $('#monthGrid .day').on('click', function () {
             console.log(this.dataset.date)
@@ -67,9 +57,9 @@ try {
                 true
             )
         })
-    }).fail(function (data) {
-        console.info(data.responseText)
-    })
+    }
+
+    $.getJSON('api.php/getTimetable', urlParams).done(processTimetable).fail(responseFail)
 
     function toggleLessonName(nameTag) {
         const indexTag = $(nameTag).find('b');
@@ -82,27 +72,6 @@ try {
 
     $('.lesson-name').on('click', function () {
         toggleLessonName(this)
-    })
-    $('#mark_nearest').on('click', function () {
-        const days = lessonsTimetable.map((lesson) => lesson.dayDate).unique()
-        const {day, diff} = getNearestDate(days);
-        const nearestDayBlock = findDayBlock(day.format('DD.MM.YYYY'), $("#listDays")).get(0)
-        nearestDayBlock.classList.add('nearest')
-        nearestDayBlock.previousElementSibling.classList.add('marked')
-        if (diff === 0) {
-            nearestDayBlock.previousElementSibling.dataset.interval = `Сегодня`
-        } else {
-            nearestDayBlock.previousElementSibling.dataset.interval = (
-                diff === 1
-                ? `Через ${diff} день.`
-                : ((diff < 5) ? `Через ${diff} дня.` : `Через ${diff} дней.`)
-            )
-        }
-        scrollToElement(
-            $("#listDays"),
-            findDayBlock(day.format('DD.MM.YYYY'), $("#listDays")),
-            true
-        )
     })
     $('#timeRangeCheckbox').on('change', function () {
         $('.lesson-name').each(function (index, element) {

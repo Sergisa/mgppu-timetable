@@ -1,7 +1,4 @@
 const dateHeaderSelector = '.date-header'
-$.fn.exists = function () {
-    return this.length > 0;
-}
 $.fn.hasInside = function (selector) {
     return this.find(selector).exists()
 }

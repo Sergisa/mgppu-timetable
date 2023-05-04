@@ -18,8 +18,6 @@
                 'toggle'=>true,
                 'current' => true
             ])
-        <div class="room-list p-1 loading" id="roomsGrid">
-
-        </div>
+        <div class="room-list p-1 loading" id="roomsGrid"></div>
     </div>
 </div>
