@@ -8,7 +8,7 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
   @include main-block;
 
   @include media-breakpoint-up(xl) {
-    max-height: calc(100vh - 4.7rem);
+    max-height: calc(100vh - 5.3rem);
   }
 
   .header {

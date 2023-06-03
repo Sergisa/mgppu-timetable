@@ -7,6 +7,7 @@ $('#mark_nearest').on('click', function () {
     const {day, diff} = getNearestDate(days);
     const nearestDayBlock = findDayBlock(day.format('DD.MM.YYYY'), mainContainer).get(0)
     const markingBlock = $("#listDays").exists() ? nearestDayBlock.previousElementSibling : nearestDayBlock;
+
     if (diff === 0) {
         markingBlock.dataset.interval = `Сегодня`
     } else {

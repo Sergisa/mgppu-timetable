@@ -8,7 +8,7 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
   @include main-block;
   height: calc(100vh - 57px - 1.5rem);
   @include media-breakpoint-up(xl) {
-    max-height: calc(100vh - 7.6rem);
+    max-height: calc(100vh - 8.4rem);
   }
 
   .day-lines-container {
@@ -63,6 +63,7 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
 
             &.hovered {
               background-color: #3e3849;
+              color: var(--bs-primary);
 
               div.info {
                 color: var(--bs-primary);

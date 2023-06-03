@@ -15,6 +15,13 @@
     word-spacing: map-get($spacers, 2);
   }
 
+  .date-header:after {
+    content: attr(data-interval);
+    word-spacing: initial;
+    margin-left: 2rem;
+    color: blanchedalmond;
+  }
+
   .day {
     --bs-list-group-border-width: 0;
     --bs-list-group-item-padding-y: 0rem;
@@ -30,13 +37,6 @@
     @include media-breakpoint-up(sm) {
       overflow-x: unset;
       overflow-y: unset;
-    }
-
-    & + .date-header:after {
-      content: attr(data-interval);
-      word-spacing: initial;
-      margin-left: 2rem;
-      color: blanchedalmond;
     }
 
     .labels {

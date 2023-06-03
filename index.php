@@ -12,9 +12,9 @@
     <link rel="stylesheet" href="dist/css/style.css">
     <title>Главная</title>
 </head>
-<body class="container">
-<div class="row">
-    <form action="calendarView.php" class="col-md-4 col-xs-12 mx-auto">
+<body class="container p-3">
+<div class="row align-content-between">
+    <form action="calendarView.php" class="mb-5 col-12 col-md-4 col-sm-6 col-xs-12 mx-auto" id="timetableForm">
         <h4 class="text-primary">Выберите что-нибудь</h4>
         <div class="mb-3 col-12">
             <label for="group-select" class="text-light">Либо группу</label>
@@ -29,15 +29,14 @@
             <button class="btn btn-primary">Перейти к расписанию</button>
         </div>
     </form>
-</div>
-<div class="row mt-5">
-    <form action="rooms.php" class="col-md-4 col-xs-12 mx-auto">
+
+    <form action="rooms.php" class="col-12 col-md-4 col-sm-6 col-xs-12 mx-auto">
         <h4 class="text-primary">Выберите строение</h4>
         <div class="mb-3 col-12">
             <label for="building-select" class="text-light">Строение</label>
-            <select name="building" id="building-select" class="d-none"></select>
+            <select name="building" id="building-select" class="d-none" required></select>
         </div>
-        <div class="d-flex justify-content-between align-items-center">
+        <div class="d-flex justify-content-end align-items-center">
             <button class="btn btn-primary">Перейти к списку комнат</button>
         </div>
     </form>
@@ -80,6 +79,11 @@
         groupSelector.setEnabled()
     }).fail(function (error) {
         console.warn(error.responseText)
+    })
+    $('#timetableForm').submit(function (event) {
+        if (document.getElementById('group-select').value === "" && document.getElementById('professor-select').value === "") {
+            event.preventDefault();
+        }
     })
 </script>
 </html>

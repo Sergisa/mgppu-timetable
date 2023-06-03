@@ -40,7 +40,11 @@ a {
 
     &.left-arrow, &.right-arrow {
       height: 27px;
-      width: 46px;
+
+      width: 49px;
+      @include media-breakpoint-up(sm) {
+        width: 51px;
+      }
       background-size: 100%;
       background-position-x: right;
       background-position-y: center;
@@ -62,7 +66,7 @@ a {
     &.right-arrow {
       background-image: url('/arrow-clean.svg');
       transform: rotate(180deg);
-      @include media-breakpoint-up(sm) {
+      @include media-breakpoint-up(xs) {
         margin-left: 1rem;
       }
     }

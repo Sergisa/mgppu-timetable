@@ -11,6 +11,7 @@ SELECT Дисциплины._Description                                        
        CONVERT(VARCHAR(10), ДниПроведенияЗанятий._Fld5104, 104)                                            AS dayDate,
        DATENAME(weekday, ДниПроведенияЗанятий._Fld5104)                                                    AS dayOfWeekName,
        ВидыЗанятий._Fld5205                                                                                AS TypeShort,
+       ВидыЗанятий._Description                                                                            AS TypeFull,
        IIF(ИтоговыйКонтроль._Description IS NULL, ВидыЗанятий._IDRRef, ИтоговыйКонтроль._IDRRef)           AS TypeID,
        IIF(ИтоговыйКонтроль._Description IS NULL, ВидыЗанятий._Description, ИтоговыйКонтроль._Description) AS Type,
        IIF(ИтоговыйКонтроль._Description IS NOT NULL, CONVERT(VARCHAR, РегистрДисциплины._Fld5212, 108),
@@ -59,20 +60,20 @@ FROM _InfoRg5108 AS РегистрДисциплины
 
 WHERE РегистрДисциплины._Fld5111RRef = 0x80EC000C295831C111ECF777467EF0FF
     /*0x80EC000C295831C111ECF777467EF0FF 2022/2023*/
-  --AND РегистрДисциплины._Fld7251RRef = :studentGroupId /* Учебная группа*/
-  --AND CONVERT(VARCHAR(10), ДниПроведенияЗанятий._Fld7241, 104) = '29.03.2022'
+      --AND РегистрДисциплины._Fld7251RRef = :studentGroupId /* Учебная группа*/
+      --AND CONVERT(VARCHAR(10), ДниПроведенияЗанятий._Fld7241, 104) = '29.03.2022'
 
-  --AND Семестры._IDRRef = 0x80C4000C299AE95511E6FFDE22A08A7D
-  --AND CONVERT(VARCHAR(10), ДниПроведенияЗанятий._Fld7241, 104) LIKE '%.01.2023%'
-  --AND Институты._Description = :departmentName
-  --AND Институты._Fld152 = :departmentCode
-  --AND ВидыЗанятий._Fld7440 IS NULL
-  --AND _Fld7250RRef NOT IN (SELECT _IDRRef FROM _Reference4684)
+      --AND Семестры._IDRRef = 0x80C4000C299AE95511E6FFDE22A08A7D
+      --AND CONVERT(VARCHAR(10), ДниПроведенияЗанятий._Fld7241, 104) LIKE '%.01.2023%'
+      --AND Институты._Description = :departmentName
+      --AND Институты._Fld152 = :departmentCode
+      --AND ВидыЗанятий._Fld7440 IS NULL
+      --AND _Fld7250RRef NOT IN (SELECT _IDRRef FROM _Reference4684)
     /* Осенний (0x80C4000C299AE95511E6FFDE22A08A7E), Весенний(0x80C4000C299AE95511E6FFDE22A08A7D)*/
 
-  --AND CONVERT(VARCHAR(10), ДниПроведенияЗанятий._Fld7241, 104) LIKE '%.01.2023%'
-  --AND Преподаватели._Description = 'Исаков Сергей Сергеевич'
-  --AND Дисциплины._Description LIKE '%Общая псих%'
-  --AND ВидыЗанятий._IDRRef IS NULL
-  --AND ИтоговыйКонтроль._Description IS NOT NULL
+      --AND CONVERT(VARCHAR(10), ДниПроведенияЗанятий._Fld7241, 104) LIKE '%.01.2023%'
+      --AND Преподаватели._Description = 'Исаков Сергей Сергеевич'
+      --AND Дисциплины._Description LIKE '%Общая псих%'
+      --AND ВидыЗанятий._IDRRef IS NULL
+      --AND ИтоговыйКонтроль._Description IS NOT NULL
 ORDER BY ДниПроведенияЗанятий._Fld5104;

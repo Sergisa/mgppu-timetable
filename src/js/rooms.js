@@ -4,7 +4,7 @@ const headerPattern = $(`<div class="header"></div>`);
 const $lessonPattern = $(`<div class="lesson list-group-item"></div>`)
 const $lessonRoomsWrapper = $(`<div class="lesson-rooms-wrapper"></div>`)
 
-function generateLesson(lessons, index, mode) {
+function generateLesson(lessons, index, mode, splitLesson) {
     const lessonView = $lessonPattern.clone().attr("data-lesson-index", index)
     lessonView.append($lessonRoomsWrapper.clone())
     if (lessons.length > 0) {
@@ -33,7 +33,7 @@ function generateLesson(lessons, index, mode) {
             else if (mode === 'groups') sign = lesson.Group.name;
             else sign = lesson.Coords.room.index;
             lessonView.find('.lesson-rooms-wrapper')
-                .append(`<span class="room ${lesson.error ? "error" : ""}">${sign}
+                .append(`<span class="room ${(lesson.error && splitLesson && (mode === "rooms")) ? "error" : ""}">${sign}
                 <div class="info">
                     <p class="teacher-name">${lesson.Teacher.name}</p>
                     <p class="department-name"><b>Факультет:</b> ${lesson.Department.name}</p>
@@ -90,12 +90,13 @@ function generateDayRooms(date, lessons, isMagistracy = false, mode, splitLesson
  */
 function generateDayLines(currentDate, mode, splitLessons = true) {
     const dayLines = $(`<div class="day-lines-container"></div>`)
+    const clonedLessons = lessonsTimetable
     while (true) {
         if (currentDate.getDayName() !== 'Воскресенье') {
             dayLines.append(generateDayRooms(
                 currentDate,
-                lessonsTimetable.filter((lesson) => lesson.dayDate === currentDate.toLocaleDateString()),
-                lessonsTimetable.some((lesson) => {
+                clonedLessons.filter((lesson) => lesson.dayDate === currentDate.toLocaleDateString()),
+                clonedLessons.some((lesson) => {
                     return (lesson.Number === "6 пара") || (lesson.Number === "7 пара")
                 }),
                 mode,
