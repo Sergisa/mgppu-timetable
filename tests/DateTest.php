@@ -16,7 +16,7 @@ final class DateTest extends TestCase
 
     function testActiveYear()
     {
-        $this->assertEquals(2022, getActiveYear(), 'Активный год неверен');
+        $this->assertEquals(date('Y'), getActiveYear(), 'Активный год неверен');
         $_GET['year'] = 2023;
         $this->assertEquals(2023, getActiveYear(), 'Активный год неверен');
     }
