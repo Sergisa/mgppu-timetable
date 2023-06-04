@@ -61,6 +61,7 @@ try {
     }
 
     function processTimetable(data, viewMode = "rooms", splitLessons = true) {
+        console.log(data)
         window.lessonsTimetable = data
         generateLines(
             $('#roomsGrid').removeClass('loading'),

@@ -16,7 +16,7 @@ function generateLesson(lessons, index, mode, splitLesson) {
             currentLessons = _(currentLessons.extrude('Group')).uniqBy('Group.name').sortBy('Group.name').value()
         } else {
             currentLessons = _(currentLessons)
-                .uniqWith([ 'Teacher.name', 'Group.name' ])
+                .uniqWith(['Teacher.name', 'Group.name'])
                 .sortBy('Room')
                 .value()
                 .map(function (lessonLookElement, index, lessons) {
@@ -33,7 +33,7 @@ function generateLesson(lessons, index, mode, splitLesson) {
             else if (mode === 'groups') sign = lesson.Group.name;
             else sign = lesson.Coords.room.index;
             lessonView.find('.lesson-rooms-wrapper')
-                .append(`<span class="room ${(lesson.error && splitLesson && (mode === "rooms")) ? "error" : ""}">${sign}
+                .append(`<span class="room ${(lesson.error && splitLesson && (mode === "rooms")) ? "error" : ""} ${lesson.isSession ? "session-part" : ""}">${sign}
                 <div class="info">
                     <p class="teacher-name">${lesson.Teacher.name}</p>
                     <p class="department-name"><b>Факультет:</b> ${lesson.Department.name}</p>
@@ -71,9 +71,11 @@ function generateDayRooms(date, lessons, isMagistracy = false, mode, splitLesson
                     const disciplinesForCurrentLessonNum = lessons
                         .filter((lesson) => lesson.Number === `${i} пара`)
                         .extrude('Group')
+                    console.log(`${i} пара`, disciplinesForCurrentLessonNum)
                     dayView.append(generateLesson(disciplinesForCurrentLessonNum, i, mode, splitLessons));
                 }
             } else {
+                console.log(lessons)
                 dayView.append(generateLesson(lessons, null, mode, splitLessons));
             }
         }
