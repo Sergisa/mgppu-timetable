@@ -16,7 +16,7 @@ try {
     } else if (end($route) === 'getRoomDistribute') {
         echo getPreparedTimetable()
             ->values()
-            ->toJson(JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_INVALID_UTF8_IGNORE);
+            ->toJson(JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_INVALID_UTF8_IGNORE | JSON_NUMERIC_CHECK);
     }
 } catch (PDOException $e) {
     die($e->getMessage());
