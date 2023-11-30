@@ -72,5 +72,6 @@ final class ParseTextTest extends TestCase
         $this->assertEquals('4 курс', getCourseNumber('19ИТ-ПИ(б/о)ПИП-1', 03, 23), "Неверное определение курса группы");
         $this->assertEquals('3 курс', getCourseNumber('20ПО-ППО(м/з)ППСО-2', 03, 23), "Неверное определение курса группы");
         $this->assertEquals('6 курс', getCourseNumber('17ЮП-КП(с/о)Э-1'), "Неверное определение курса группы");
+        $this->assertEquals('1 курс', getCourseNumber('23ИТ-ПИ(б/о)ПИП-1'), "Неверное определение курса группы");
     }
 }
