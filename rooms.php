@@ -60,7 +60,9 @@ try {
         $(currentRoom).find('.info').css(css)
     }
 
-    function processTimetable(data, viewMode = "rooms", splitLessons = true) {
+    function processTimetable(data, viewMode, splitLessons) {
+        viewMode = (viewMode === "success") ? $('.view-type-selector:checked').attr('id') : viewMode
+        splitLessons = (splitLessons === undefined) ? $('.split-toggle').get(0).checked : splitLessons
         console.log(data)
         window.lessonsTimetable = data
         generateLines(

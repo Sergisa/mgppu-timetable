@@ -16,7 +16,8 @@ function generateLesson(lessons, index, mode, splitLesson) {
             currentLessons = _(currentLessons.extrude('Group')).uniqBy('Group.name').sortBy('Group.name').value()
         } else {
             currentLessons = _(currentLessons)
-                .uniqWith(['Teacher.name', 'Group.name'])
+                .uniqWith([ 'Teacher.name', 'Group.name' ])
+                .uniqBy(splitLesson ? null : "Room")
                 .sortBy('Room')
                 .value()
                 .map(function (lessonLookElement, index, lessons) {
@@ -28,7 +29,7 @@ function generateLesson(lessons, index, mode, splitLesson) {
         }
         for (const lesson of currentLessons) {
             let sign = "";
-            if (lesson.Coords.room.index.toLowerCase() === "спортивный зал") lesson.Coords.room.index = 'спорт. зал'
+            if (lesson.Coords.room.index.toString().toLowerCase() === "спортивный зал") lesson.Coords.room.index = 'спорт. зал'
             if (mode === "professors") sign = lesson.Teacher.name;
             else if (mode === 'groups') sign = lesson.Group.name;
             else sign = lesson.Coords.room.index;
