@@ -20,7 +20,7 @@
 }
 
 html {
-  scroll-behavior: auto;
+  scroll-behavior: auto !important;
 }
 
 $form-check-input-width: $line-height-base;
