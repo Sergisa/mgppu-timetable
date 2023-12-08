@@ -12,3 +12,4 @@ data/Result*
 cache
 debug.php
 /data/2023_spring.xlsx
+.env

@@ -42,7 +42,9 @@ function getMonths(): array
 
 function getPDO(): PDO
 {
-    $pdo = new PDO('mysql:dbname=timetable;host=timetable.smrtp.ru', 'user15912_sergey', 'isakovs');
+    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+    $dotenv->load();
+    $pdo = new PDO("mysql:dbname=timetable;host={$_ENV['DB_HOST']}", "{$_ENV['DB_USER']}", "{$_ENV['DB_PASSWORD']}");
     $pdo->exec('SET CHARACTER SET UTF8');
     return $pdo;
 }
