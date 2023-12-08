@@ -25,15 +25,15 @@ function getDays(): array
 function getMonths(): array
 {
     return [
-        1 => "Январь",
-        2 => "Февраль",
-        3 => "Март",
-        4 => "Апрель",
-        5 => "Май",
-        6 => "Июнь",
-        7 => "Июль",
-        8 => "Август",
-        9 => "Сентябрь",
+        1  => "Январь",
+        2  => "Февраль",
+        3  => "Март",
+        4  => "Апрель",
+        5  => "Май",
+        6  => "Июнь",
+        7  => "Июль",
+        8  => "Август",
+        9  => "Сентябрь",
         10 => "Октябрь",
         11 => "Ноябрь",
         12 => "Декабрь"
@@ -99,6 +99,7 @@ function getTeacherById($id)
     if ($id == "null") $id = null;
     return getProfessors()->where('id', '=', $id)->values()[0]['name'];
 }
+
 function getBuildingById($id)
 {
     if ($id == "null") $id = null;
@@ -275,25 +276,25 @@ function collapseDataHierarchically(Collection $timetable): Collection
     return $timetable->map(function ($item) use ($timetable) {
         $newObj = collect($item)->prepend([
             'building' => [
-                "id" => convertUID($item['BuildingID']),
+                "id"   => convertUID($item['BuildingID']),
                 "name" => $item['Building']
             ],
-            'floor' => [
-                "id" => convertUID($item['FloorID']),
+            'floor'    => [
+                "id"   => convertUID($item['FloorID']),
                 "name" => $item['Floor']
             ],
-            'room' => [
+            'room'     => [
                 "index" => $item['Room'],
-                "id" => convertUID($item['RoomID'])
+                "id"    => convertUID($item['RoomID'])
             ]
         ], "Coords")->prepend([
-            'id' => convertUID($item['TeacherID']),
+            'id'   => convertUID($item['TeacherID']),
             'name' => $item['TeacherFIO'],
         ], "Teacher")->prepend([
-            'id' => convertUID($item['GroupID']),
+            'id'   => convertUID($item['GroupID']),
             'name' => $item['GroupCode'],
         ], "Group")->prepend([
-            'id' => convertUID($item['DepartmentID']),
+            'id'   => convertUID($item['DepartmentID']),
             'name' => $item['DepartmentName'],
             'code' => $item['DepartmentCode'],
         ], "Department")->map(function ($element, $key) {
