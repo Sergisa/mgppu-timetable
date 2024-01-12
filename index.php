@@ -12,32 +12,31 @@
     <link rel="stylesheet" href="dist/css/style.css">
     <title>Главная</title>
 </head>
-<body class="container p-3">
+<body class="container p-4">
 <div class="row align-content-between">
-    <form action="calendarView.php" class="mb-5 col-12 col-md-4 col-sm-6 col-xs-12 mx-auto" id="timetableForm">
-        <h4 class="text-primary">Выберите что-нибудь</h4>
-        <div class="mb-3 col-12">
-            <label for="group-select" class="text-light">Либо группу</label>
+    <form action="calendarView.php" class="mb-3 col-12 col-md-5 col-sm-6 col-xs-12 mx-auto d-inline">
+        <label for="group-select" class="text-light fs-4">Расписание группы</label>
+        <div class="mb-3 col-12 d-flex align-items-center justify-content-between">
             <select name="group" id="group-select" class="d-none"></select>
-        </div>
-        <div class="mb-3 col-12">
-            <label for="professor-select" class="text-light">Либо преподавателя</label>
-            <select name="professor" id="professor-select" class="d-none"></select>
-        </div>
-        <div class="d-flex justify-content-between align-items-center">
-            <span class="text-primary fs-5">Или и то и другое</span>
-            <button class="btn btn-primary">Перейти к расписанию</button>
+            <button class="btn btn-primary">Перейти</button>
         </div>
     </form>
-
-    <form action="rooms.php" class="col-12 col-md-4 col-sm-6 col-xs-12 mx-auto">
-        <h4 class="text-primary">Выберите строение</h4>
-        <div class="mb-3 col-12">
-            <label for="building-select" class="text-light">Строение</label>
-            <select name="building" id="building-select" class="d-none" required></select>
+</div>
+<div class="row align-content-between">
+    <form action="calendarView.php" class="mb-3 col-12 col-md-5 col-sm-6 col-xs-12 mx-auto">
+        <label for="professor-select" class="text-light fs-4">Расписание преподавателя</label>
+        <div class="mb-3 col-12 d-flex align-items-center justify-content-between">
+            <select name="professor" id="professor-select" class="d-none"></select>
+            <button class="btn btn-primary">Перейти</button>
         </div>
-        <div class="d-flex justify-content-end align-items-center">
-            <button class="btn btn-primary">Перейти к списку комнат</button>
+    </form>
+</div>
+<div class="row align-content-between">
+    <form action="rooms.php" class="col-12 col-md-5 col-sm-6 col-xs-12 mx-auto">
+        <label for="building-select" class="text-light fs-4">Расписание кабинетов</label>
+        <div class="mb-3 col-12 d-flex align-items-center justify-content-between">
+            <select name="building" id="building-select" class="d-none"></select>
+            <button class="btn btn-primary">Перейти</button>
         </div>
     </form>
 </div>
@@ -48,20 +47,21 @@
 <script>
     let config = {
         synchronizeSelectors: true,
-        initialDisabled: true
+        initialDisabled: true,
+        classList: "flex-grow-1 me-2"
     }
-    const groupSelector = Selector.generate(document.getElementById('group-select'), config)
-    const professorSelector = Selector.generate(document.getElementById('professor-select'), config)
-    const buildingSelector = Selector.generate(document.getElementById('building-select'), config)
-    groupSelector.setOnItemClicked(function (data, object) {
-        console.log("GROUP ON ITEM CLICKED", data, groupSelector.getSelection(), object)
-        return false;
-    });
-    professorSelector.setOnItemClicked(function (data, object) {
-        console.log("PROFESSOR ON ITEM CLICKED", data, professorSelector.getSelection(), object)
-        return false;
+    const groupSelector = Selector.generate(document.getElementById('group-select'), {
+        ...config,
+        placeholder: "Выберите группу"
     })
-
+    const professorSelector = Selector.generate(document.getElementById('professor-select'), {
+        ...config,
+        placeholder: "Выберите преподавателя"
+    })
+    const buildingSelector = Selector.generate(document.getElementById('building-select'), {
+        ...config,
+        placeholder: "Выберите адрес"
+    })
     $.getJSON('api.php/getProfessors', function (data) {
         professorSelector.fillData(data)
         professorSelector.setEnabled()
@@ -80,8 +80,8 @@
     }).fail(function (error) {
         console.warn(error.responseText)
     })
-    $('#timetableForm').submit(function (event) {
-        if (document.getElementById('group-select').value === "" && document.getElementById('professor-select').value === "") {
+    $('form').submit(function (event) {
+        if ($(this).find('select').val() === null) {
             event.preventDefault();
         }
     })

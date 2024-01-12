@@ -1,15 +1,6 @@
 const $arrow = `<i class="bi bi-chevron-down"></i>`;
 const clear = `<i class="bi bi-x-lg"></i>`;
 const loaderSpinner = `<div class="lds-dual-ring active"></div>`;
-const $selectPattern = $(`<div class="select" id="groupSelect">
-    <div class="selection">
-        <div class="leftSide">
-            <input type="text" class="search d-none" placeholder="Найти">
-        </div>
-        <div class="rightSide"></div>
-    </div>
-    <div class="variant-list"></div>
-</div>`)
 const $variantPattern = $(`<div class="variant"></div>`)
 const changeSelectedByContent = (element, value) => {
     changeSelected(element, value, 'text')
@@ -19,6 +10,17 @@ const changeSelected = (element, value, prop) => {
     const optionToSelect = $options.find(item => item[prop] === value);
     element.value = optionToSelect.value;
 };
+const generateSelectionContainer = (placeholder) => {
+    return $(`<div class="select">
+    <div class="selection">
+        <div class="leftSide">
+            <input type="text" class="search d-none" placeholder="${placeholder}">
+        </div>
+        <div class="rightSide"></div>
+    </div>
+    <div class="variant-list"></div>
+</div>`)
+}
 
 class Selector {
     constructor($rootElement, config) {
@@ -203,7 +205,9 @@ class Selector {
         if (config) {
             if (config.hideAssociatedLabel) document.querySelector(`label[for='${selectTag.id}']`).style.display = 'none';
         }
-        const $selectTag = $selectPattern.clone()
+        const $selectTag = generateSelectionContainer(config.placeholder ?? "Найти")
+            .clone()
+            .addClass(config.classList)
         config.relatedSelectTag = selectTag
         const selectorObject = new this($selectTag.insertAfter(selectTag), config);
         $selectTag.data("selector", selectorObject)
