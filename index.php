@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<?php
+include 'vendor/autoload.php';
+include 'functions.php';
+?>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -12,34 +16,15 @@
     <link rel="stylesheet" href="dist/css/style.css">
     <title>Главная</title>
 </head>
-<body class="container p-4">
-<div class="row align-content-between">
-    <form action="calendarView.php" class="mb-3 col-12 col-md-5 col-sm-6 col-xs-12 mx-auto d-inline">
-        <label for="group-select" class="text-light fs-4">Расписание группы</label>
-        <div class="mb-3 col-12 d-flex align-items-center justify-content-between">
-            <select name="group" id="group-select" class="d-none"></select>
-            <button class="btn btn-primary">Перейти</button>
-        </div>
-    </form>
-</div>
-<div class="row align-content-between">
-    <form action="calendarView.php" class="mb-3 col-12 col-md-5 col-sm-6 col-xs-12 mx-auto">
-        <label for="professor-select" class="text-light fs-4">Расписание преподавателя</label>
-        <div class="mb-3 col-12 d-flex align-items-center justify-content-between">
-            <select name="professor" id="professor-select" class="d-none"></select>
-            <button class="btn btn-primary">Перейти</button>
-        </div>
-    </form>
-</div>
-<div class="row align-content-between">
-    <form action="rooms.php" class="col-12 col-md-5 col-sm-6 col-xs-12 mx-auto">
-        <label for="building-select" class="text-light fs-4">Расписание кабинетов</label>
-        <div class="mb-3 col-12 d-flex align-items-center justify-content-between">
-            <select name="building" id="building-select" class="d-none"></select>
-            <button class="btn btn-primary">Перейти</button>
-        </div>
-    </form>
-</div>
+<body class="container py-4">
+<?php
+try {
+    echo getBlade()->run("indexPage", [
+        "timetable" => getPreparedTimetable()->groupBy('dayDate')
+    ]);
+} catch (Exception $e) {
+}
+?>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -48,7 +33,7 @@
     let config = {
         synchronizeSelectors: true,
         initialDisabled: true,
-        classList: "flex-grow-1 me-2"
+        classList: "flex-grow-1 me-md-2 w-100"
     }
     const groupSelector = Selector.generate(document.getElementById('group-select'), {
         ...config,
