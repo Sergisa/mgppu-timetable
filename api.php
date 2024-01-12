@@ -4,19 +4,20 @@ include 'vendor/autoload.php';
 include 'functions.php';
 $route = explode('/', $_SERVER['PATH_INFO']);
 $response = null;
+$optionalJSONArguments = JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_INVALID_UTF8_IGNORE | JSON_NUMERIC_CHECK;
 try {
     if (end($route) === 'getProfessors') {
-        echo getProfessors()->toJson(JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_INVALID_UTF8_IGNORE | JSON_NUMERIC_CHECK);
+        echo getProfessors()->toJson($optionalJSONArguments);
     } else if (end($route) === 'getBuildings') {
-        echo getBuildings()->toJson(JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_INVALID_UTF8_IGNORE | JSON_NUMERIC_CHECK);
+        echo getBuildings()->toJson($optionalJSONArguments);
     } else if (end($route) === 'getGroups') {
-        echo getGroups()->toJson(JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_INVALID_UTF8_IGNORE | JSON_NUMERIC_CHECK);
+        echo getGroups()->toJson($optionalJSONArguments);
     } else if (end($route) === 'getTimetable') {
-        echo getPreparedTimetable()->values()->toJson(JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_INVALID_UTF8_IGNORE | JSON_NUMERIC_CHECK);
+        echo getPreparedTimetable()->values()->toJson($optionalJSONArguments);
     } else if (end($route) === 'getRoomDistribute') {
         echo getPreparedTimetable()
             ->values()
-            ->toJson(JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_INVALID_UTF8_IGNORE | JSON_NUMERIC_CHECK);
+            ->toJson($optionalJSONArguments);
     }
 } catch (PDOException $e) {
     die($e->getMessage());
