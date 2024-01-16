@@ -7,15 +7,23 @@
             <div class="w-100">
                 <h1 class="fw-bolder d-inline m-0 ms-2">{{getMonths()[(int)getActiveMonth()]}}</h1>
                 <div class="d-inline-flex d-lg-none float-end">
-                    <a href="?{{getPreviousMonthLink()}}" class="d-inline left-arrow"></a>
-                    <a href="?{{getNextMonthLink()}}" class="d-inline right-arrow"></a>
+                    <a href="?{{getPreviousMonthLink()}}" class="d-inline left-arrow">
+                        @include('arrow')
+                    </a>
+                    <a href="?{{getNextMonthLink()}}" class="d-inline right-arrow">
+                        @include('arrow')
+                    </a>
                 </div>
                 <p class="lead d-md-inline m-0 subtitle ms-2">
                     {{getBuildingById($_GET['building'])}}
                 </p>
             </div>
-            <a href="?{{getPreviousMonthLink()}}" class="d-md-inline d-none ms-auto left-arrow"></a>
-            <a href="?{{getNextMonthLink()}}" class="d-md-inline d-none right-arrow"></a>
+            <a href="?{{getPreviousMonthLink()}}" class="d-md-inline d-none ms-auto left-arrow">
+                @include('arrow')
+            </a>
+            <a href="?{{getNextMonthLink()}}" class="d-md-inline d-none right-arrow">
+                @include('arrow')
+            </a>
         </div>
         @include('menu',[
                 'timeShow'=>false,
