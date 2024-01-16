@@ -3,7 +3,7 @@ const dayPattern = $(`<div class="day list-group"></div>`)
 const headerPattern = $(`<div class="header"></div>`);
 
 function isString(value) {
-    return typeof value === 'string';
+    return (typeof value) === 'string';
 }
 
 String.isString = isString;
@@ -43,9 +43,6 @@ function generateDay(date, lessons, isMagistracy = false) {
         for (let i = 1; i <= (isMagistracy ? 7 : 5); i++) {
             const lesson = lessons.find((lesson) => lesson.Number === `${i} пара`);
             if (lesson) {
-                if (isString(lesson.Coords.room.index)) {
-                    if (lesson.Coords.room.index.toLowerCase() === "спортивный зал") lesson.Coords.room.index = 'спорт. зал'
-                }
                 $lessonPattern.clone().html(`<span>${lesson.Coords.room.index}</span>`).attr("data-lesson-index", i).appendTo(dayView)
             } else {
                 dayView.append($lessonPattern.clone().addClass('empty'))
@@ -79,7 +76,15 @@ function generateDaysLine(currentDate) {
         if (currentDate.getDayName() !== 'Воскресенье') {
             monthLineView.append(generateDay(
                 currentDate,
-                lessonsTimetable.filter((lesson) => lesson.dayDate === currentDate.toLocaleDateString()),
+                lessonsTimetable.filter((lesson) => lesson.dayDate === currentDate.toLocaleDateString()).map(function (lesson) {
+                    if (isString(lesson.Coords.room.index)) {
+                        if (lesson.Coords.room.index.toLowerCase() === "спортивный зал") {
+                            console.log("СПОРТ ЗАЛ2")
+                            lesson.Coords.room.index = 'спорт. зал'
+                        }
+                    }
+                    return lesson;
+                }),
                 lessonsTimetable.filter((lesson) => {
                     return (lesson.Number === "6 пара") || (lesson.Number === "7 пара")
                 }).length > 0,
