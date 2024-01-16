@@ -25,7 +25,13 @@ function generateDay(date, lessons, isMagistracy = false) {
         "title": date.toLocaleDateString()
     })
     if (lessons !== undefined) {
-        const sessionLessons = lessons.filter(lesson => lesson.isSession)
+        const sessionLessons = lessons.filter(lesson => lesson.isSession).sort(function (lesson1, lesson2) {
+            var time1 = new Date();
+            var time2 = new Date();
+            time1.setHours(lesson1.TimeStart.split(":")[0], lesson1.TimeStart.split(":")[1], 0);
+            time2.setHours(lesson2.TimeStart.split(":")[0], lesson2.TimeStart.split(":")[1], 0);
+            return time1 > time2;
+        })
         for (const sessionLesson of sessionLessons) {
             console.log(sessionLesson)
             $lessonPattern.clone().addClass('session-part')
