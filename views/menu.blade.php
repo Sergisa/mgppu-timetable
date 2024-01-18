@@ -31,7 +31,7 @@
     @endif
     @if($current)
         <div class="col-auto ms-auto">
-            <button class="btn btn-sm btn-outline-primary" id="mark_nearest">Актуальное</button>
+            <button class="btn btn-sm interface-button" id="mark_nearest">Актуальное</button>
         </div>
-    @endif
+        @endif
 </div>

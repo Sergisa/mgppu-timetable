@@ -8,18 +8,26 @@
 
   span.date-header {
     font-weight: bold;
-    background-color: $lesson-list-date-background-color;
+    background-color: darken($body-bg, 5%);
     padding: 0 0.8em;
     border-radius: 5px;
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     word-spacing: map-get($spacers, 2);
+    margin-bottom: $lesson-list__day-margin-bottom;
+
+    .interval {
+      word-spacing: initial;
+      margin-left: 2rem;
+    }
   }
 
-  .date-header:after {
-    content: attr(data-interval);
-    word-spacing: initial;
-    margin-left: 2rem;
-    color: blanchedalmond;
+  svg {
+    height: 20px;
+    float: right;
+    fill: var(--bs-accent);
+    cursor: pointer;
   }
 
   .day {
@@ -44,15 +52,20 @@
     }
 
     .lesson {
-      padding-bottom: $lesson-list-lesson-padding-y;
-      padding-top: $lesson-list-lesson-padding-y;
-      border: $lesson-delimiter-border-color;
+      padding-bottom: $lesson-list__lesson-padding-y;
+      padding-top: $lesson-list__lesson-padding-y;
+      border: #a9a9a94d;
       border-left: none;
       border-right: none;
       border-top: none;
 
+      &:first-of-type {
+        padding-top: $lesson-list__lesson-outside-padding-y;
+      }
+
       &:last-of-type {
         border-bottom: none;
+        padding-bottom: $lesson-list__lesson-outside-padding-y;
       }
 
       &.session {
@@ -65,34 +78,34 @@
     }
 
     .lesson-name {
-      line-height: $lesson-list-line-threshold;
-      margin-bottom: $lesson-list-lesson-inside-threshold;
+      line-height: $lesson-list__title-line-height;
+      margin-bottom: $lesson-list__title-bottom-margin;
       cursor: help;
+      display: flex;
+      align-items: start;
     }
 
     .room {
-      /*font-weight: bold;
-      color: $lesson-list-type-text-color;
-      border: $lesson-list-type-border;
-      padding: .125rem;
-      border-radius: 5px;
-      text-transform: uppercase;
-      white-space: nowrap;
-      font-size: .8rem;*/
+      font-weight: 500;
+      padding: 0 .4em;
+      margin-left: auto;
+      color: var(--bs-dark);
+      margin-top: auto;
+      text-align: right;
     }
 
     .lesson-index {
       font-weight: bold;
-      color: var(--bs-light);
+      color: var(--bs-accent);
+      margin-right: .2rem;
     }
 
     .lesson-description {
-      line-height: $lesson-list-line-threshold;
+      line-height: $lesson-list__title-line-height;
       font-weight: $lesson-description-text-weight;
-      color: var(--bs-light);
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      align-items: start;
 
       span.type-label {
         cursor: help;
@@ -103,6 +116,7 @@
         padding: .25em 0.5em;
         border-radius: 5px;
         text-transform: uppercase;
+        margin-left: .5rem;
 
         &.session {
           border: $lesson-list-session-type-border;

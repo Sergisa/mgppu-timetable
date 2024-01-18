@@ -60,9 +60,6 @@
   margin-bottom: map-get($spacers, 2);
   position: relative;
   cursor: pointer;
-  //padding: 0 $day-horizontal-margin;
-
-
   border-radius: 3px;
   border: $day-border;
   background-color: $day-background;
@@ -75,6 +72,7 @@
     display: flex;
     font-weight: 800;
     color: $day-number-text-color;
+    opacity: .6;
     font-size: x-large;
     margin-left: map-get($spacers, 1);
   }
@@ -118,10 +116,20 @@
     @include padding-right(map-get($spacers, 2));
     display: flex;
     align-items: center;
+    font-weight: bold;
+  }
+  &.session-part span {
+    background-color: transparent;
+    font-weight: bold;
   }
   &.session-part:before {
-    background-color: #24ab3f;
-    /*fc6d6dad*/
+    --mark-radius: #{$mark-radius};
+    border-radius: var(--mark-radius);
+    height: calc(var(--mark-radius) * 2);
+    padding-left: var(--mark-radius);
+    padding-right: var(--mark-radius);
+    background-color: var(--bs-orange);
+    margin-left: 0.5rem;
   }
 
   &[data-lesson-index="6"] {
@@ -177,7 +185,8 @@
   }
 
   .department-name {
-    color: var(--bs-light);
+    color: var(--bs-orange);
+
   }
 
   .teacher-name, .department-name, .discipline-name {

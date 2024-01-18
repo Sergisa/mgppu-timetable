@@ -11,12 +11,18 @@
 :root {
   --bs-body-bg: #{$body-bg};
   --bs-body-color: #{$primary};
+  --bs-body-color-rgb: #{to-rgb($primary)};
   --bs-primary: #{$primary};
   --bs-secondary: #{$secondary};
   --bs-accent: #{$accent};
   --bs-dark: #1C477F;
   --bs-light: #DFEBFA;
-  --bs-font-sans-serif: 'Nunito'
+  --bs-font-sans-serif: 'Nunito';
+  --lesson-list__lesson-padding-y: 1.1rem;
+  --lesson-list__lesson-outside-padding-y: 0.8rem;
+  --lesson-list__title-line-height: 1.1rem;
+  --lesson-list__title-bottom-margin: 0.3rem;
+  --lesson-list__day-margin-bottom: .3rem
 }
 
 html {
@@ -75,6 +81,7 @@ a {
 
   .subtitle {
     white-space: nowrap;
+    color: var(--bs-body-color);
   }
 }
 
@@ -86,3 +93,19 @@ a {
   @include padding(map-get($spacers, 2));
 }
 
+.interface-button {
+  --bs-btn-color: #5531FF;
+  --bs-btn-border-color: #5531FF;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #5531FF;
+  --bs-btn-hover-border-color: #5531FF;
+  --bs-btn-focus-shadow-rgb: 85, 49, 255;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #5531FF;
+  --bs-btn-active-border-color: #5531FF;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #5531FF;
+  --bs-btn-disabled-bg: transparent;
+  --bs-btn-disabled-border-color: #5531FF;
+  --bs-gradient: none;
+}

@@ -1,4 +1,11 @@
-<span class='date-header'>{{ convertDate('d.m', $date) }} {{ getDayName($date) }}</span>
+<span class='date-header'>
+    <div class="date-text">
+        {{ convertDate('d.m', $date) }}
+        {{ getDayName($date) }}
+    </div>
+    <span class="interval"></span>
+    @include('dots')
+</span>
 <div class="bg-opacity-100 day" data-date='{{$date}}'>
     @foreach ($lessons as $lesson)
         @include('lesson',[
