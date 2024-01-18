@@ -38,6 +38,7 @@ function generateLesson(lessons, index, mode, splitLesson) {
                 <div class="info">
                     <p class="teacher-name">${lesson.Teacher.name}</p>
                     <p class="department-name"><b>Факультет:</b> ${lesson.Department.name}</p>
+                    <p class="group-name"><b>Группа:</b> ${lesson.Group.name}</p>
                     <p class="discipline-name lead">${lesson.Discipline}</p>
                 </div>
                 </span>`)
