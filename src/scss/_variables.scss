@@ -12,13 +12,13 @@ $primary: saturate(#6A453B, 30%);
 $secondary: darken(#7399BD, 10%);
 $body-color: #1C477F;
  */
+//TODO: bs-body-font-size 0.9rem when less than MD screen
 
 $dropdown-bg: var(--bs-body-bg);
 $dropdown-border-color: $accent;
 $dropdown-link-color: $primary;
 $dropdown-link-hover-bg: darken($body-bg, 5%);
 $dropdown-link-active-bg: darken($body-bg, 5%);
-//$dropdown-link-hover-color:
 $list-group-bg: transparent;
 $list-group-color: unset;
 $list-group-border-color: var(--bs-primary);
@@ -72,11 +72,12 @@ $mark-radius: 0.3rem;
 
 /* RIGHT LESSON LIST */
 $lesson-delimiter-border-color: 2px solid transparentize(lighten($body-bg, 20%), .7);
-$lesson-list__title-line-height: var(--lesson-list__title-line-height);
-$lesson-list__title-bottom-margin: var(--lesson-list__title-bottom-margin);
-$lesson-list__lesson-padding-y: var(--lesson-list__lesson-padding-y);
-$lesson-list__lesson-outside-padding-y: var(--lesson-list__lesson-outside-padding-y);
-$lesson-list__day-margin-bottom: var(--lesson-list__day-margin-bottom);
+$lesson-list__lesson-title-height: var(--lesson-list__title-line-height);
+$lesson-list__description-line-height: var(--lesson-list__description-line-height);
+$lesson-list__lesson-spacing: var(--lesson-list__lesson-spacing);
+$lesson-list__post-header-spacing: var(--lesson-list__post-header-spacing);
+$lesson-list__pre-header-spacing: var(--lesson-list__pre-header-spacing);
+$lesson-list__lesson-title-bottom-margin: var(--lesson-list__lesson-title-bottom-margin);
 
 $lesson-list-date-text-color: var(--bs-primary);
 $lesson-list-date-background-color: var(--bs-secondary);
@@ -84,7 +85,7 @@ $lesson-list-type-text-color: var(--bs-body-color);
 $lesson-list-type-background-color: none;
 $lesson-list-type-border: 2px solid var(--bs-primary);
 
-$lesson-list-session-type-border: 1px solid #79ad23;
+$lesson-list-session-type-border: 2px solid var(--bs-orange);
 $lesson-list-session-type-text-color: var(--bs-orange);
 $lesson-list-session-type-background-color: transparent;
 $lesson-description-text-color: var(--bs-light);

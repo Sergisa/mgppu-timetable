@@ -76,12 +76,6 @@
     font-size: x-large;
     margin-left: map-get($spacers, 1);
   }
-  &[data-interval]:before {
-    color: blanchedalmond;
-  }
-  &.nearest {
-    background-color: #ff000026 !important;
-  }
 }
 
 @mixin lesson {
@@ -137,8 +131,6 @@
     border-top-color: $lesson-calendar-delimiter-color;
     border-top-width: 2px;
   }
-
-
 }
 
 @mixin header {
@@ -158,6 +150,7 @@
   }
 
   span {
+    font-size: .9rem;
     text-align: center;
     justify-content: center;
     display: flex;
@@ -208,4 +201,3 @@
     transform: rotate(360deg);
   }
 }
-

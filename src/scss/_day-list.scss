@@ -1,12 +1,12 @@
 #listDays {
-  @include media-breakpoint-up(md) {
+  @include media-breakpoint-up(lg) {
     overflow-y: scroll;
     overflow-x: hidden;
     height: calc(100vh - map-get($spacers, 2) * 2);
     @include scroll-bar();
   }
 
-  span.date-header {
+  .date-header {
     font-weight: bold;
     background-color: darken($body-bg, 5%);
     padding: 0 0.8em;
@@ -15,7 +15,6 @@
     align-items: center;
     justify-content: space-between;
     word-spacing: map-get($spacers, 2);
-    margin-bottom: $lesson-list__day-margin-bottom;
 
     .interval {
       word-spacing: initial;
@@ -28,6 +27,10 @@
     float: right;
     fill: var(--bs-accent);
     cursor: pointer;
+    background: inherit;
+    padding: 0 0.2rem;
+    border-radius: 4px;
+    backdrop-filter: brightness(105%);
   }
 
   .day {
@@ -52,20 +55,20 @@
     }
 
     .lesson {
-      padding-bottom: $lesson-list__lesson-padding-y;
-      padding-top: $lesson-list__lesson-padding-y;
+      padding-bottom: $lesson-list__lesson-spacing;
+      padding-top: $lesson-list__lesson-spacing;
       border: #a9a9a94d;
       border-left: none;
       border-right: none;
       border-top: none;
 
       &:first-of-type {
-        padding-top: $lesson-list__lesson-outside-padding-y;
+        padding-top: $lesson-list__post-header-spacing;
       }
 
       &:last-of-type {
         border-bottom: none;
-        padding-bottom: $lesson-list__lesson-outside-padding-y;
+        padding-bottom: $lesson-list__pre-header-spacing;
       }
 
       &.session {
@@ -78,8 +81,8 @@
     }
 
     .lesson-name {
-      line-height: $lesson-list__title-line-height;
-      margin-bottom: $lesson-list__title-bottom-margin;
+      line-height: $lesson-list__lesson-title-height;
+      margin-bottom: $lesson-list__lesson-title-bottom-margin;
       cursor: help;
       display: flex;
       align-items: start;
@@ -101,7 +104,7 @@
     }
 
     .lesson-description {
-      line-height: $lesson-list__title-line-height;
+      line-height: $lesson-list__description-line-height;
       font-weight: $lesson-description-text-weight;
       display: flex;
       justify-content: space-between;
