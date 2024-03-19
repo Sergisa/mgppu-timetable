@@ -1,8 +1,17 @@
-<!DOCTYPE html>
 <?php
-include 'vendor/autoload.php';
-include 'functions.php';
+    include 'vendor/autoload.php';
+
+    use eftec\bladeone\BladeOne;
+
+    function getBlade(): BladeOne
+    {
+        $views = __DIR__ . '/views';
+        $cache = __DIR__ . '/cache';
+        return new BladeOne($views, $cache, BladeOne::MODE_DEBUG);
+    }
+
 ?>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -17,14 +26,12 @@ include 'functions.php';
     <title>Главная</title>
 </head>
 <body class="container py-4">
-<?php
-try {
-    echo getBlade()->run("indexPage", [
-        "timetable" => getPreparedTimetable()->groupBy('dayDate')
-    ]);
-} catch (Exception $e) {
-}
-?>
+    <?php
+        try {
+            echo getBlade()->run("indexPage");
+        } catch (Exception $e) {
+        }
+    ?>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
