@@ -4,7 +4,7 @@ $accent: #EF436B;
 $body-bg: #E8E8E8;
 $body-color: $primary;
 $success: #C6FC6D;
-
+$light: darken($body-bg, 5%);
 $enable-smooth-scroll: false;
 /*
 $body-bg: lighten(#C6CBD1, 15%);
@@ -13,12 +13,14 @@ $secondary: darken(#7399BD, 10%);
 $body-color: #1C477F;
  */
 //TODO: bs-body-font-size 0.9rem when less than MD screen
-
+$badge-color: $primary;
 $dropdown-bg: var(--bs-body-bg);
 $dropdown-border-color: $accent;
 $dropdown-link-color: $primary;
 $dropdown-link-hover-bg: darken($body-bg, 5%);
 $dropdown-link-active-bg: darken($body-bg, 5%);
+$dropdown-link-active-color: unset;
+$dropdown-link-active-bg: none;
 $list-group-bg: transparent;
 $list-group-color: unset;
 $list-group-border-color: var(--bs-primary);
