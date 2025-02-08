@@ -20,6 +20,12 @@ include 'functions.php';
             background-color: #ff000026 !important;
         }
     </style>
+    <?php
+        try {
+            echo getBlade()->run("metrika");
+        } catch (Exception $e) {
+        }
+    ?>
     <title>Календарь</title>
 </head>
 <body class="container py-2">

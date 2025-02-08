@@ -1,6 +1,9 @@
 {
   "compact": true,
   "comments": false,
+  "plugins": [
+    "lodash"
+  ],
   "presets": [
     [
       "@babel/preset-env",

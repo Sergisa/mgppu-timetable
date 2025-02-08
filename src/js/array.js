@@ -12,6 +12,10 @@ Array.prototype.unique = function () {
         }
     )
 };
+/**
+ * @description Функция которая разворачивает массив группы, взяв первый элемент
+ * @returns {*[]}
+ */
 Array.prototype.extrude = function () {
     return this.map((element, key, array) => {
         if (element.Group.length > 1) {
@@ -26,4 +30,7 @@ Array.prototype.extrude = function () {
         if (Array.isArray(element.Group)) element.Group = element.Group[0]
         return element;
     })
+}
+Array.prototype.last = function () {
+    return this[this.length - 1]
 }

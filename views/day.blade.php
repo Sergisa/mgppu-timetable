@@ -4,14 +4,14 @@
         {{ getDayName($date) }}
     </div>
     <span class="interval"></span>
-    <div class="date-header__menu-icon" data-bs-toggle="dropdown" aria-expanded="false">
+    {{--<div class="date-header__menu-icon" data-bs-toggle="dropdown" aria-expanded="false">
         @include('dots')
     </div>
     <ul class="dropdown-menu">
         <li><a class="dropdown-item" href="#">Сводка на этот момент</a></li>
         <li><a class="dropdown-item" href="#">Редактировать запись</a></li>
         <li><a class="dropdown-item" href="#">Супер секретная функция</a></li>
-    </ul>
+    </ul>--}}
 </div>
 <div class="bg-opacity-100 day" data-date='{{$date}}'>
     @foreach ($lessons as $lesson)

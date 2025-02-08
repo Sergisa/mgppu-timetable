@@ -13,10 +13,10 @@ function generateLesson(lessons, index, mode, splitLesson) {
         if (mode === "professors") {
             currentLessons = _(currentLessons).uniqBy('Teacher.name').sortBy('Teacher.name').value()
         } else if (mode === 'groups') {
-            currentLessons = _(currentLessons.extrude('Group')).uniqBy('Group.name').sortBy('Group.name').value()
+            currentLessons = _(currentLessons).uniqBy('Group.name').sortBy('Group.name').value()
         } else {
             currentLessons = _(currentLessons)
-                .uniqWith([ 'Teacher.name', 'Group.name' ])
+                .uniqWith(['Teacher.name', 'Group.name'])
                 .uniqBy(splitLesson ? null : "Room")
                 .sortBy('Room')
                 .value()
@@ -38,7 +38,7 @@ function generateLesson(lessons, index, mode, splitLesson) {
                 <div class="info">
                     <p class="teacher-name">${lesson.Teacher.name}</p>
                     <p class="department-name"><b>Факультет:</b> ${lesson.Department.name}</p>
-                    <p class="group-name"><b>Группа:</b> ${lesson.Group.name}</p>
+                    <p class="group-name"><b>Группа:</b> ${lesson.Group.map((group) => group.name).join('<br>')}</p>
                     <p class="discipline-name lead">${lesson.Discipline}</p>
                 </div>
                 </span>`)
@@ -72,12 +72,11 @@ function generateDayRooms(date, lessons, isMagistracy = false, mode, splitLesson
                 for (let i = 1; i <= (isMagistracy ? 7 : 5); i++) {
                     const disciplinesForCurrentLessonNum = lessons
                         .filter((lesson) => lesson.Number === `${i} пара`)
-                        .extrude('Group')
-                    console.log(`${i} пара`, disciplinesForCurrentLessonNum)
+                    //console.log(`${i} пара`, disciplinesForCurrentLessonNum)
                     dayView.append(generateLesson(disciplinesForCurrentLessonNum, i, mode, splitLessons));
                 }
             } else {
-                console.log(lessons)
+                //console.log(lessons)
                 dayView.append(generateLesson(lessons, null, mode, splitLessons));
             }
         }

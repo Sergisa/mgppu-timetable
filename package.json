@@ -12,20 +12,21 @@
     "@babel/cli": "^7.18.10",
     "@babel/core": "^7.19.1",
     "@babel/preset-env": "^7.19.1",
+    "@jest/globals": "^29.0.3",
+    "babel-plugin-lodash": "^3.3.4",
+    "jest": "^28.1.0",
     "node-sass": "^7.0.1",
     "sass": "^1.51.0",
     "stylelint": "^14.8.1",
-    "stylelint-config-twbs-bootstrap": "^3.0.1",
-    "@jest/globals": "^29.0.3",
-    "jest": "^28.1.0"
+    "stylelint-config-twbs-bootstrap": "^3.0.1"
   },
   "scripts": {
     "watch": "npm run css-watch && npm run js-compile-bundle-watch",
     "compile": "npm run css-compile && npm run js-compile-bundle",
     "css-compile": "sass src/scss/style.scss:dist/css/style.css",
     "css-watch": "sass src/scss/style.scss:dist/css/style.css --watch",
-    "js-compile-bundle": "babel src/js/common.js src/js/array.js src/js/jquery.easing.js src/js/dateDriver.js src/js/bsBreakPointDriver.js src/js/dayList.js src/js/selection.js src/js/dayList.js src/js/calendar.js src/js/rooms.js src/js/bsDropdownExtension.js -o dist/js/bundle.js --minified",
-    "js-compile-bundle-watch": "babel src/js/common.js src/js/array.js src/js/jquery.easing.js src/js/dateDriver.js src/js/bsBreakPointDriver.js src/js/dayList.js src/js/selection.js src/js/dayList.js src/js/calendar.js src/js/rooms.js src/js/bsDropdownExtension.js -o dist/js/bundle.js --watch",
+    "js-compile-bundle": "babel src/js/common.js src/js/storageDriver.js src/js/common.js src/js/array.js src/js/jquery.easing.js src/js/dateDriver.js src/js/bsBreakPointDriver.js src/js/dayList.js src/js/selection.js src/js/dayList.js src/js/calendar.js src/js/rooms.js src/js/bsDropdownExtension.js -o dist/js/bundle.js --minified",
+    "js-compile-bundle-watch": "babel src/js/common.js src/js/storageDriver.js src/js/common.js src/js/array.js src/js/jquery.easing.js src/js/dateDriver.js src/js/bsBreakPointDriver.js src/js/dayList.js src/js/selection.js src/js/dayList.js src/js/calendar.js src/js/rooms.js src/js/bsDropdownExtension.js -o dist/js/bundle.js --watch",
     "sass-help": "sass --help",
     "test-js": "jest"
   },

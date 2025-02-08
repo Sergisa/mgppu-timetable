@@ -2,7 +2,10 @@ const daysListSelector = $("#listDays");
 $.fn.exists = function () {
     return this.length > 0;
 }
-$('#mark_nearest').on('click', function () {
+
+function markNearest() {
+    //console.log(actualAccentButton)
+    localStorage.setItem('nearest_marking', true.toString());
     let mainContainer = daysListSelector.exists() ? daysListSelector : $("#roomsGrid")
     const days = lessonsTimetable.map((lesson) => lesson.dayDate).unique()
     const {day, diff} = getNearestDate(days);
@@ -24,7 +27,17 @@ $('#mark_nearest').on('click', function () {
         findDayBlock(day.format('DD.MM.YYYY'), mainContainer),
         daysListSelector.exists()
     )
+}
+
+$(document).on('click', '#mark_nearest', function () {
+    markNearest();
 })
+$(document).ready(function () {
+    //const actualAccentButton = new bootstrap.Button('#mark_nearest')
+    //console.log(actualAccentButton)
+
+})
+
 
 function responseFail(data) {
     console.info(data.responseText)
