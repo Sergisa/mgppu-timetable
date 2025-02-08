@@ -4,10 +4,7 @@
      data-range='{{substr($lesson['TimeStart'],0,-3)}} - {{substr($lesson['TimeEnd'],0,-3)}}'>
     <div class='lesson-name'>
         <b class='lesson-index'>{{$lessonIndex}}.</b> {{$lessonSign}}
-        <span class="room">({{$lesson['Coords']['room']['index']}} каб.)</span>
-        @if (isSessionPart($lesson))
-            ({{ $type }})
-        @endif
+        <span class="room" title="Кабинет">{{$lesson['Coords']['room']['index']}}</span>
     </div>
     <div class='lesson-description'>
         @if (isTeacherDefined())

@@ -78,6 +78,10 @@ try {
             toggleLessonName(element)
         })
     })
+
+    $('.date-header__menu').on('click', function () {
+        //alert('menu')
+    })
 </script>
 </html>
 

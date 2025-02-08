@@ -1,10 +1,10 @@
-$primary: #FCBB6D;
+$primary: #33539E;
 $secondary: #685D79;
-$accent: #D8737F;
-$body-bg: #475C7A;
+$accent: #EF436B;
+$body-bg: #E8E8E8;
 $body-color: $primary;
 $success: #C6FC6D;
-
+$light: darken($body-bg, 5%);
 $enable-smooth-scroll: false;
 /*
 $body-bg: lighten(#C6CBD1, 15%);
@@ -12,25 +12,27 @@ $primary: saturate(#6A453B, 30%);
 $secondary: darken(#7399BD, 10%);
 $body-color: #1C477F;
  */
-
+//TODO: bs-body-font-size 0.9rem when less than MD screen
+$badge-color: $primary;
 $dropdown-bg: var(--bs-body-bg);
 $dropdown-border-color: $accent;
 $dropdown-link-color: $primary;
 $dropdown-link-hover-bg: darken($body-bg, 5%);
 $dropdown-link-active-bg: darken($body-bg, 5%);
-//$dropdown-link-hover-color:
+$dropdown-link-active-color: unset;
+$dropdown-link-active-bg: none;
 $list-group-bg: transparent;
 $list-group-color: unset;
 $list-group-border-color: var(--bs-primary);
 $list-group-item-padding-y: 0.125rem;
 $list-group-active-color: var(--bs-primary);
-$list-group-active-bg: darken($body-bg, 5%); //TODO: transform to var usage
-$list-group-active-border-color: darken($body-bg, 10%); //TODO: transform to var usage
+$list-group-active-bg: darken($body-bg, 5%);
+$list-group-active-border-color: darken($body-bg, 10%);
 
 $scrollbar-thumb-color: var(--bs-secondary);
 $scrollbar-background-color: var(--bs-body-bg);
 
-$form-check-input-bg: shade($body-bg, 10%); //TODO: transform to var usage
+$form-check-input-bg: shade($body-bg, 10%);
 $form-check-input-border: 2px solid rgba(var(--bs-accent-rgba), .5);
 
 $form-check-input-width: 1.3em;
@@ -62,27 +64,31 @@ $header-color: var(--bs-primary);
 $day-border: 1px solid var(--bs-accent);
 $day-background: transparent;
 $day-text-color: var(--bs-accent);
-$day-number-text-color: rgba(var(--bs-primary-rgb), .6);
+$day-number-text-color: var(--bs-body-color);
 
 $lesson-calendar-delimiter-color: var(--bs-primary);
-$lesson-number-text-color: var(--bs-primary);
-$lesson-number-background-color: tint($secondary, 10%); //TODO: transform to var usage
-$lesson-background-color: rgba(var(--bs-secondary-rgb), .4);
+$lesson-number-text-color: var(--bs-accent);
+$lesson-number-background-color: transparent;
+$lesson-background-color: rgba(var(--bs-secondary-rgb), .2);
+$mark-radius: 0.3rem;
 
 /* RIGHT LESSON LIST */
-$lesson-delimiter-border-color: 2px solid transparentize(lighten($body-bg, 20%), .7); //TODO: transform to var usage
-$lesson-list-line-threshold: 1.1rem;
-$lesson-list-lesson-inside-threshold: 1rem;
-$lesson-list-lesson-padding-y: .8rem;
+$lesson-delimiter-border-color: 2px solid transparentize(lighten($body-bg, 20%), .7);
+$lesson-list__lesson-title-height: var(--lesson-list__title-line-height);
+$lesson-list__description-line-height: var(--lesson-list__description-line-height);
+$lesson-list__lesson-spacing: var(--lesson-list__lesson-spacing);
+$lesson-list__post-header-spacing: var(--lesson-list__post-header-spacing);
+$lesson-list__pre-header-spacing: var(--lesson-list__pre-header-spacing);
+$lesson-list__lesson-title-bottom-margin: var(--lesson-list__lesson-title-bottom-margin);
 
 $lesson-list-date-text-color: var(--bs-primary);
 $lesson-list-date-background-color: var(--bs-secondary);
-$lesson-list-type-text-color: var(--bs-light);
+$lesson-list-type-text-color: var(--bs-body-color);
 $lesson-list-type-background-color: none;
-$lesson-list-type-border: 2px solid #416FC8;
+$lesson-list-type-border: 2px solid var(--bs-primary);
 
-$lesson-list-session-type-border: 1px solid #79ad23;
-$lesson-list-session-type-text-color: #C6FC6D;
+$lesson-list-session-type-border: 2px solid var(--bs-orange);
+$lesson-list-session-type-text-color: var(--bs-orange);
 $lesson-list-session-type-background-color: transparent;
 $lesson-description-text-color: var(--bs-light);
 $lesson-description-text-weight: 300;
@@ -92,11 +98,11 @@ $lesson-name-text-weight: bold;
 $select-border: 2px solid var(--bs-accent);
 $select-text-color: var(--bs-accent);
 $select-background-color: var(--bs-body-bg);
-$select-hover-background-color: darken($body-bg, 3%); //TODO: transform to var usage
+$select-hover-background-color: darken($body-bg, 3%);
 $select-search-border: 1px solid var(--bs-accent);
 $select-search-text-color: var(--bs-primary);
 $select-list-border: 2px solid var(--bs-accent);
 $select-list-text-color: var(--bs-primary);
 $select-list-background-color: var(--bs-body-bg);
-$select-list-item-hover-background-color: darken($body-bg, 7%); //TODO: transform to var usage
+$select-list-item-hover-background-color: darken($body-bg, 7%);
 $select-list-loader-stroke-color: var(--bs-accent) transparent var(--bs-accent) transparent;

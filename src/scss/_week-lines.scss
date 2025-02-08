@@ -61,7 +61,7 @@
     border-radius: 3px;
     content: "";
     position: absolute;
-    background: $secondary;
+    background: var(--bs-secondary);
     width: 100%;
     z-index: -1;
     top: 0;

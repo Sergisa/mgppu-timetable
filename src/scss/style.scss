@@ -11,12 +11,20 @@
 :root {
   --bs-body-bg: #{$body-bg};
   --bs-body-color: #{$primary};
+  --bs-body-color-rgb: #{to-rgb($primary)};
   --bs-primary: #{$primary};
   --bs-secondary: #{$secondary};
   --bs-accent: #{$accent};
   --bs-dark: #1C477F;
-  --bs-light: #DFEBFA;
-  --bs-font-sans-serif: 'Nunito'
+  //--bs-light: #DFEBFA;
+  --bs-light: #bcc7d4;
+  --bs-font-sans-serif: 'Nunito';
+  --lesson-list__title-line-height: 1.1rem;
+  --lesson-list__description-line-height: 1.3rem;
+  --lesson-list__lesson-title-bottom-margin: 0.5rem;
+  --lesson-list__lesson-spacing: 0.6rem;
+  --lesson-list__post-header-spacing: 0.7rem;
+  --lesson-list__pre-header-spacing: 1.5rem;
 }
 
 html {
@@ -75,6 +83,7 @@ a {
 
   .subtitle {
     white-space: nowrap;
+    color: var(--bs-body-color);
   }
 }
 
@@ -86,3 +95,29 @@ a {
   @include padding(map-get($spacers, 2));
 }
 
+#mark_nearest {
+  display: flex;
+  align-items: center;
+}
+
+.dropdown-item.active::before {
+  margin-right: .5rem;
+}
+
+.btn.active::after {
+  margin-left: .5rem;
+}
+
+.bi {
+  color: var(--bs-accent);
+}
+
+.dropdown-item.active::before,
+.btn.active::after {
+  content: '\f633';
+  font-family: bootstrap-icons !important;
+  color: var(--bs-accent);
+  font-size: 18px;
+  line-height: 1;
+  font-weight: 900;
+}
