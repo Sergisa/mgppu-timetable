@@ -1,0 +1,7 @@
+<component name="ProjectRunConfigurationManager">
+    <configuration default="false" name="CSS &amp; JS" type="CompoundRunConfigurationType">
+        <toRun name="css-compile" type="js.build_tools.npm"/>
+        <toRun name="js-compile-bundle" type="js.build_tools.npm"/>
+        <method v="2"/>
+    </configuration>
+</component>
