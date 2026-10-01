@@ -20,4 +20,7 @@
             <span class='type-label' title="{{$type}}">{{getLessonTypeSignature($lesson["TypeID"])}}</span>
         @endif
     </div>
+    @if(hasLink($lesson))
+        <a class="lesson-link" href="{{$link}}">{{$link}}</a>
+    @endif
 </div>

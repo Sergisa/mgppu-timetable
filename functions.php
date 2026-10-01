@@ -210,6 +210,10 @@ function isSessionPart($lesson): string
     return !is_null($lesson["finalCheckType"]);
 }
 
+function hasLink($lesson): string {
+    return !is_null($lesson["Link"]);
+}
+
 function getGroupsSignature($lesson): string
 {
     $groupCodeList = collect($lesson['Group'])->pluck('name')->map(function ($group) {

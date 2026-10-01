@@ -24,6 +24,7 @@
         'courseSign' => getCourseNumber($lesson['Group'][0]['name']),
         'teacherSign' => getTeacherSignature($lesson),
         'lessonIndex' => getLessonIndex($lesson),
+        'link' => $lesson['Link'],
         'lessonClassList' => isSessionPart($lesson) ? ' session' : ''
         ])
     @endforeach
