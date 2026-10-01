@@ -44,6 +44,7 @@ $line-width-lg: calc(100% * ($days-count / $col-per-screen-lg));
 
           span.room {
             @include lesson-label;
+            border: 1px solid transparent;
             margin: auto 0.3rem;
             padding: 0 .3rem;
             white-space: nowrap;

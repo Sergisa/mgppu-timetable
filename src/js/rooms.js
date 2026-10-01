@@ -1,3 +1,5 @@
+//import _ from "lodash";
+
 const dayLinePattern = $(`<div class="dayLine"></div>`);
 const dayPattern = $(`<div class="day list-group"></div>`)
 const headerPattern = $(`<div class="header"></div>`);
@@ -7,13 +9,16 @@ const $lessonRoomsWrapper = $(`<div class="lesson-rooms-wrapper"></div>`)
 function generateLesson(lessons, index, mode, splitLesson) {
     const lessonView = $lessonPattern.clone().attr("data-lesson-index", index)
     lessonView.append($lessonRoomsWrapper.clone())
+    console.log("generateLesson")
     if (lessons.length > 0) {
 
         let currentLessons = lessons
         if (mode === "professors") {
             currentLessons = _(currentLessons).uniqBy('Teacher.name').sortBy('Teacher.name').value()
         } else if (mode === 'groups') {
-            currentLessons = _(currentLessons).uniqBy('Group.name').sortBy('Group.name').value()
+
+            console.log("EXTRUDED", _(currentLessons.extrude('Group')).value());
+            currentLessons = _(currentLessons.extrude('Group')).uniqBy('Group.name').sortBy('Group.name').value()
         } else {
             currentLessons = _(currentLessons)
                 .uniqWith(['Teacher.name', 'Group.name'])
@@ -33,12 +38,13 @@ function generateLesson(lessons, index, mode, splitLesson) {
             if (mode === "professors") sign = lesson.Teacher.name;
             else if (mode === 'groups') sign = lesson.Group.name;
             else sign = lesson.Coords.room.index;
+            let groupPopupSign = Array.isArray(lesson.Group) ? lesson.Group.map((group) => group.name).join('<br>') : lesson.Group.name
             lessonView.find('.lesson-rooms-wrapper')
                 .append(`<span class="room ${(lesson.error && splitLesson && (mode === "rooms")) ? "error" : ""} ${lesson.isSession ? "session-part" : ""}">${sign}
                 <div class="info">
                     <p class="teacher-name">${lesson.Teacher.name}</p>
                     <p class="department-name"><b>Факультет:</b> ${lesson.Department.name}</p>
-                    <p class="group-name"><b>Группа:</b> ${lesson.Group.map((group) => group.name).join('<br>')}</p>
+                    <p class="group-name"><b>Группа:</b> ${groupPopupSign}</p>
                     <p class="discipline-name lead">${lesson.Discipline}</p>
                 </div>
                 </span>`)
