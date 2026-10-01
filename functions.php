@@ -253,7 +253,8 @@ function joinParallelLessonsByGroup(Collection $timetable): Collection
                 && $tmt['Group']['id'] != $lesson['Group']['id']
                 && $tmt['DisciplineID'] == $lesson['DisciplineID']
                 && $tmt['Coords']['room']['id'] == $lesson['Coords']['room']['id']
-                && $tmt['Number'] == $lesson['Number'];
+                && $tmt['Number'] == $lesson['Number']
+                && $tmt['isSession'] != 1 && $lesson['isSession'] != 1;
         });
         if ($similarities->count() > 0) {
             $lesson['Group'] = array_merge([$lesson['Group']], $similarities->pluck('Group')->unique()->toArray());
@@ -268,26 +269,26 @@ function joinParallelLessonsByGroup(Collection $timetable): Collection
 
 /**
  * Иерархия следующая: <br>
- *      Coords
- *           ----building
- *               ----id
- *               ----name
- *           ----floor
- *               ----id
- *               ----name
- *           ----room
- *               ----id
- *               ----index
- *      Teacher
- *           ----id
- *           ----name
- *      Group
- *           ----id
- *           ----name
- *      Department
- *           ----id
- *           ----name
- *           ----code
+ *      Coords<br>
+ *           ----building<br>
+ *               ----id<br>
+ *               ----name<br>
+ *           ----floor<br>
+ *               ----id<br>
+ *               ----name<br>
+ *           ----room<br>
+ *               ----id<br>
+ *               ----index<br>
+ *      Teacher<br>
+ *           ----id<br>
+ *           ----name<br>
+ *      Group<br>
+ *           ----id<br>
+ *           ----name<br>
+ *      Department<br>
+ *           ----id<br>
+ *           ----name<br>
+ *           ----code<br>
  *
  * @param $timetable Collection Чистые данные расписания
  * @return Collection Возвращает иерархическую свертку расписания
