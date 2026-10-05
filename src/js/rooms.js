@@ -6,6 +6,14 @@ const headerPattern = $(`<div class="header"></div>`);
 const $lessonPattern = $(`<div class="lesson list-group-item"></div>`)
 const $lessonRoomsWrapper = $(`<div class="lesson-rooms-wrapper"></div>`)
 
+/**
+ *
+ * @param {Date} date
+ */
+function dateToISOString(date) {
+    return (new Intl.DateTimeFormat('en-CA')).format(date)
+}
+
 function generateLesson(lessons, index, mode, splitLesson) {
     const lessonView = $lessonPattern.clone().attr("data-lesson-index", index)
     lessonView.append($lessonRoomsWrapper.clone())
@@ -69,8 +77,8 @@ function generateDayRooms(date, lessons, isMagistracy = false, mode, splitLesson
     dayView.attr({
         "data-day": date.getDayName(),
         "data-day-number": date.getDate(),
-        "data-date": date.toLocaleDateString(),
-        "title": date.toLocaleDateString()
+        "data-date": dateToISOString(date),
+        "title": dateToISOString(date)
     })
     if (lessons !== undefined) {
         if (lessons.length > 0) {
@@ -104,7 +112,7 @@ function generateDayLines(currentDate, mode, splitLessons = true) {
         if (currentDate.getDayName() !== 'Воскресенье') {
             dayLines.append(generateDayRooms(
                 currentDate,
-                clonedLessons.filter((lesson) => lesson.dayDate === currentDate.toLocaleDateString()),
+                clonedLessons.filter((lesson) => lesson.dayDate === dateToISOString(currentDate)),
                 clonedLessons.some((lesson) => {
                     return (lesson.Number === "6 пара") || (lesson.Number === "7 пара")
                 }),

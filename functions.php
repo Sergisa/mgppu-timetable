@@ -25,15 +25,15 @@ function getDays(): array
 function getMonths(): array
 {
     return [
-        1  => "Январь",
-        2  => "Февраль",
-        3  => "Март",
-        4  => "Апрель",
-        5  => "Май",
-        6  => "Июнь",
-        7  => "Июль",
-        8  => "Август",
-        9  => "Сентябрь",
+        1 => "Январь",
+        2 => "Февраль",
+        3 => "Март",
+        4 => "Апрель",
+        5 => "Май",
+        6 => "Июнь",
+        7 => "Июль",
+        8 => "Август",
+        9 => "Сентябрь",
         10 => "Октябрь",
         11 => "Ноябрь",
         12 => "Декабрь"
@@ -51,9 +51,13 @@ function getPDO(): PDO
 
 function getDatabaseData($forMonth = false): Collection
 {
-    $monthYear = "." . getActiveMonth() . "." . getActiveYear();
+    $month = getActiveMonth();
+    $year = getActiveYear();
     if ($forMonth) {
-        return collect(getPDO()->query("SELECT * FROM timetable WHERE dayDate LIKE '%$monthYear%'")->fetchAll(PDO::FETCH_ASSOC));
+        return collect(getPDO()
+            ->query("SELECT * FROM timetable WHERE MONTH(dayDate)=$month AND YEAR(dayDate)=$year")
+            ->fetchAll(PDO::FETCH_ASSOC)
+        );
     } else {
         return collect(getPDO()->query("SELECT * FROM timetable")->fetchAll(PDO::FETCH_ASSOC));
     }
@@ -210,7 +214,8 @@ function isSessionPart($lesson): string
     return !is_null($lesson["finalCheckType"]);
 }
 
-function hasLink($lesson): string {
+function hasLink($lesson): string
+{
     return !is_null($lesson["Link"]);
 }
 
@@ -298,25 +303,25 @@ function collapseDataHierarchically(Collection $timetable): Collection
     return $timetable->map(function ($item) use ($timetable) {
         $newObj = collect($item)->prepend([
             'building' => [
-                "id"   => convertUID($item['BuildingID']),
+                "id" => convertUID($item['BuildingID']),
                 "name" => $item['Building']
             ],
-            'floor'    => [
-                "id"   => convertUID($item['FloorID']),
+            'floor' => [
+                "id" => convertUID($item['FloorID']),
                 "name" => $item['Floor']
             ],
-            'room'     => [
+            'room' => [
                 "index" => $item['Room'],
-                "id"    => convertUID($item['RoomID'])
+                "id" => convertUID($item['RoomID'])
             ]
         ], "Coords")->prepend([
-            'id'   => convertUID($item['TeacherID']),
+            'id' => convertUID($item['TeacherID']),
             'name' => $item['TeacherFIO'],
         ], "Teacher")->prepend([
-            'id'   => convertUID($item['GroupID']),
+            'id' => convertUID($item['GroupID']),
             'name' => $item['GroupCode'],
         ], "Group")->prepend([
-            'id'   => convertUID($item['DepartmentID']),
+            'id' => convertUID($item['DepartmentID']),
             'name' => $item['DepartmentName'],
             'code' => $item['DepartmentCode'],
         ], "Department")->map(function ($element, $key) {
@@ -371,7 +376,8 @@ function getPreparedTimetable(): Collection
             } else {
                 return true;
             }
-        }))->sortBy(['Number'])
+        }))
+        ->sortBy(['Number'])
         ->sortByDate('dayDate');
 }
 

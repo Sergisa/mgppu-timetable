@@ -6,6 +6,14 @@ function isString(value) {
     return (typeof value) === 'string';
 }
 
+/**
+ *
+ * @param {Date} date
+ */
+function dateToISOString(date) {
+    return (new Intl.DateTimeFormat('en-CA')).format(date)
+}
+
 String.isString = isString;
 
 /**
@@ -21,8 +29,8 @@ function generateDay(date, lessons, isMagistracy = false) {
     dayView.attr({
         "data-day": date.getDayName(),
         "data-day-number": date.getDate(),
-        "data-date": date.toLocaleDateString(),
-        "title": date.toLocaleDateString()
+        "data-date": dateToISOString(date),
+        "title": dateToISOString(date)
     })
     if (lessons !== undefined) {
         const sessionLessons = lessons.filter(lesson => lesson.isSession).sort(function (lesson1, lesson2) {
@@ -76,10 +84,9 @@ function generateDaysLine(currentDate) {
         if (currentDate.getDayName() !== 'Воскресенье') {
             monthLineView.append(generateDay(
                 currentDate,
-                lessonsTimetable.filter((lesson) => lesson.dayDate === currentDate.toLocaleDateString()).map(function (lesson) {
+                lessonsTimetable.filter((lesson) => lesson.dayDate === dateToISOString(currentDate)).map(function (lesson) {
                     if (isString(lesson.Coords.room.index)) {
                         if (lesson.Coords.room.index.toLowerCase() === "спортивный зал") {
-                            console.log("СПОРТ ЗАЛ2")
                             lesson.Coords.room.index = 'спорт. зал'
                         }
                     }

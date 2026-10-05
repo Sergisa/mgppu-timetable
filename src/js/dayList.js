@@ -5,10 +5,10 @@ $.fn.hasInside = function (selector) {
 
 function getNearestDate(days, day = moment()) {
     if ((typeof day) == "string") {
-        day = moment(day, 'DD.MM.YYYY')
+        day = moment(day, 'YYYY-MM-DD')
     }
     for (let iteratedDayOfList of days) {
-        let iteratedMomentObjectOfList = moment(iteratedDayOfList, 'DD.MM.YYYY');
+        let iteratedMomentObjectOfList = moment(iteratedDayOfList, 'YYYY-MM-DD');
         if (day.isSame(iteratedMomentObjectOfList, 'day')) {
             return {
                 day: iteratedMomentObjectOfList,

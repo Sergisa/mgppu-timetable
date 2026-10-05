@@ -9,7 +9,7 @@ function markNearest() {
     let mainContainer = daysListSelector.exists() ? daysListSelector : $("#roomsGrid")
     const days = lessonsTimetable.map((lesson) => lesson.dayDate).unique()
     const {day, diff} = getNearestDate(days);
-    const nearestDayBlock = findDayBlock(day.format('DD.MM.YYYY'), mainContainer).get(0)
+    const nearestDayBlock = findDayBlock(day.format('YYYY-MM-DD'), mainContainer).get(0)
     const markingBlock = daysListSelector.exists() ? nearestDayBlock.previousElementSibling : nearestDayBlock;
 
     if (diff === 0) {
@@ -24,7 +24,7 @@ function markNearest() {
     nearestDayBlock.classList.add('nearest')
     scrollToElement(
         mainContainer,
-        findDayBlock(day.format('DD.MM.YYYY'), mainContainer),
+        findDayBlock(day.format('YYYY-MM-DD'), mainContainer),
         daysListSelector.exists()
     )
 }
