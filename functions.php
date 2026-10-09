@@ -240,10 +240,8 @@ function getLessonIndex($lesson): string
 {
     if (is_null($lesson['Number'])) {
         return mb_substr($lesson['TimeStart'], 0, 5);
-    } else {
-        preg_match_all('/(\d) *пара/ui', $lesson['Number'], $index);
-        return $index[1][0];
     }
+    return $lesson['Number'];
 }
 
 /**

@@ -85,7 +85,7 @@ function generateDayRooms(date, lessons, isMagistracy = false, mode, splitLesson
             if (splitLessons) {
                 for (let i = 1; i <= (isMagistracy ? 7 : 5); i++) {
                     const disciplinesForCurrentLessonNum = lessons
-                        .filter((lesson) => lesson.Number === `${i} пара`)
+                        .filter((lesson) => lesson.Number === i)
                     //console.log(`${i} пара`, disciplinesForCurrentLessonNum)
                     dayView.append(generateLesson(disciplinesForCurrentLessonNum, i, mode, splitLessons));
                 }
@@ -114,7 +114,7 @@ function generateDayLines(currentDate, mode, splitLessons = true) {
                 currentDate,
                 clonedLessons.filter((lesson) => lesson.dayDate === dateToISOString(currentDate)),
                 clonedLessons.some((lesson) => {
-                    return (lesson.Number === "6 пара") || (lesson.Number === "7 пара")
+                    return (lesson.Number > 5)
                 }),
                 mode,
                 splitLessons

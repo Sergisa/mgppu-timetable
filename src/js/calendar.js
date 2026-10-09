@@ -49,7 +49,7 @@ function generateDay(date, lessons, isMagistracy = false) {
                 .appendTo(dayView)
         }
         for (let i = 1; i <= (isMagistracy ? 7 : 5); i++) {
-            const lesson = lessons.find((lesson) => lesson.Number === `${i} пара`);
+            const lesson = lessons.find((lesson) => lesson.Number === i);
             if (lesson) {
                 $lessonPattern.clone().html(`<span>${lesson.Coords.room.index}</span>`).attr("data-lesson-index", i).appendTo(dayView)
             } else {
@@ -93,7 +93,7 @@ function generateDaysLine(currentDate) {
                     return lesson;
                 }),
                 lessonsTimetable.filter((lesson) => {
-                    return (lesson.Number === "6 пара") || (lesson.Number === "7 пара")
+                    return (lesson.Number > 5)
                 }).length > 0,
             ))
         }
